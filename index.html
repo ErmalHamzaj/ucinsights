@@ -25,10 +25,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f8f9ff;--card:#fff;--border:#e8eaf2;--text:#1a1d2e;--text2:#5f6480;--text3:#9ca3b8;--accent:#2563eb;--red:#e84040;--orange:#f59e0b;--green:#10b981;--purple:#7c3aed;--teal:#0891b2;--r:16px}
 html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
-.nav{background:var(--card);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.nav{background:var(--card);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .nav-logo{height:40px;cursor:pointer;display:flex;align-items:center;flex-shrink:0}
 .nav-logo img{height:40px;width:auto;object-fit:contain}
-.nav-links{display:flex;gap:2px;margin-left:6px}
+.nav-links{display:flex;gap:2px;position:absolute;left:50%;transform:translateX(-50%)}
 .nlink{padding:6px 11px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;font-family:inherit}
 .nlink:hover{background:var(--bg);color:var(--text)}
 .nlink.active{background:var(--accent);color:#fff}
