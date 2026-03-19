@@ -490,7 +490,7 @@ async function initTracker(){
   if(TRK.inited)return;
   TRK.inited=true;
   document.getElementById('trk-date-lbl').textContent=trkFmt(trkToday());
-  try{var r=await window.storage.get('uc-tracker-v1');if(r)TRK.entries=JSON.parse(r.value)||{};}catch(e){TRK.entries={};}
+  try{var r=localStorage.getItem('uc-tracker-v1');if(r)TRK.entries=JSON.parse(r)||{};}catch(e){TRK.entries={};}
   var te=TRK.entries[trkToday()];
   if(te){TRK.overall=te.overall||0;TRK.bm=te.bm||0;TRK.symptoms=te.symptoms||{};TRK.foods=te.foods||[];TRK.meds=te.meds||[];TRK.stress=te.stress||0;TRK.notes=te.notes||'';}
   buildTrkFeel();buildTrkSymGrid();buildTrkFoodGrid();buildTrkMedGrid();renderTrkBM();renderTrkStress();
@@ -597,7 +597,7 @@ async function trkSave(){
     stress:TRK.stress,notes:TRK.notes,date:trkToday()
   };
   TRK.entries[trkToday()]=entry;
-  try{await window.storage.set('uc-tracker-v1',JSON.stringify(TRK.entries));}catch(e){}
+  try{localStorage.setItem('uc-tracker-v1',JSON.stringify(TRK.entries));}catch(e){}
   document.getElementById('trk-saved-badge').style.display='block';
   btn.style.background='#10b981';btn.textContent="Save Today's Log";btn.disabled=false;
   setTimeout(function(){document.getElementById('trk-saved-badge').style.display='none';btn.style.background='';},2500);
