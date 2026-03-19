@@ -195,6 +195,48 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
   .stats3{grid-template-columns:repeat(2,1fr)}
   .home-logo-img{height:70px}
 }
+
+.tracker-wrap{max-width:700px;margin:0 auto;padding:18px 14px 40px}
+.trk-hdr{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;margin-bottom:16px}
+.trk-tabs{display:flex;gap:3px;background:var(--bg);border-radius:10px;padding:3px;border:1px solid var(--border)}
+.trk-tab{flex:1;padding:6px 4px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;font-size:12px;font-weight:500;background:transparent;color:var(--text2);transition:all .15s;text-align:center}
+.trk-tab.active{background:var(--accent);color:#fff}
+.trk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.trk-sec{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.trk-feel-row{display:flex;gap:8px;margin-top:4px}
+.trk-feel-btn{flex:1;padding:10px 4px;border-radius:10px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
+.trk-bm-row{display:flex;align-items:center;gap:14px}
+.trk-bm-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:20px;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.trk-bm-center{flex:1;text-align:center}
+.trk-bm-num{font-size:44px;font-weight:700;line-height:1;transition:color .2s}
+.trk-bm-lbl{font-size:11px;color:var(--text3);margin-top:4px}
+.sym-grid-trk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.sym-btn-trk{padding:10px 4px;border-radius:10px;border:2px solid var(--border);background:var(--bg);cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
+.sym-dots-trk{display:flex;gap:2px;justify-content:center;margin-top:4px}
+.sym-dot-trk{width:4px;height:4px;border-radius:50%}
+.stress-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.stress-val{font-size:24px;font-weight:700;transition:color .2s}
+.food-grid-trk{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.food-btn-trk{padding:5px 11px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:500;color:var(--text2);transition:all .15s;display:flex;align-items:center;gap:5px}
+.med-btn-trk{padding:5px 11px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-family:inherit;font-size:12px;font-weight:500;color:var(--text2);margin:3px;transition:all .15s}
+.med-btn-trk.sel-med{border-color:var(--accent);background:rgba(37,99,235,.08);color:var(--accent)}
+.notes-trk{width:100%;min-height:75px;border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);outline:none;resize:vertical;line-height:1.6}
+.notes-trk:focus{border-color:var(--accent)}
+.save-btn-trk{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;transition:all .2s;box-shadow:0 4px 14px rgba(37,99,235,.22)}
+.hist-entry{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.hist-entry.today{border-color:var(--accent)}
+.hist-sym-tag{display:inline-flex;align-items:center;gap:4px;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:500;margin:2px}
+.hist-food-tag{font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:2px 7px;margin:2px;display:inline-block}
+.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.ins-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;text-align:center}
+.ins-val{font-size:30px;font-weight:700;line-height:1}
+.ins-lbl{font-size:11px;color:var(--text2);margin-top:5px}
+.ins-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden;flex:1}
+.ins-bar-fill{height:100%;border-radius:3px;transition:width .6s}
+.ins-risk-card{background:var(--card);border:1.5px solid rgba(232,64,64,.2);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ins-tip{background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.14);border-radius:var(--r);padding:16px}
+.trk-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.saved-badge-trk{background:rgba(16,185,129,.12);color:var(--green);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;display:none}
 </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
@@ -207,12 +249,13 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
     <img id="nav-logo-img" src="" alt="UCInsights">
   </div>
   <div class="nav-links">
-    <button class="nlink active" id="nl-home" onclick="navTo('home',this)">Home</button>
-    <button class="nlink" id="nl-symptoms" onclick="navTo('symptoms',this)">Symptoms</button>
-    <button class="nlink" id="nl-chat" onclick="navTo('chat',this);initChat()">Chat</button>
-    <button class="nlink" id="nl-foods" onclick="navTo('foods',this);initFoods()">Foods</button>
-    <button class="nlink" id="nl-meds" onclick="navTo('meds',this);renderMeds()">Medications</button>
-    <button class="nlink" id="nl-patterns" onclick="navTo('patterns',this);renderPat()">Patterns</button>
+    <button class="nlink active" id="nl-home" onclick="navTo('home',this)">&#x1F3E0; Home</button>
+    <button class="nlink" id="nl-symptoms" onclick="navTo('symptoms',this)">&#x1FAC0; Symptoms</button>
+    <button class="nlink" id="nl-chat" onclick="navTo('chat',this);initChat()">&#x1F4AC; Chat</button>
+    <button class="nlink" id="nl-foods" onclick="navTo('foods',this);initFoods()">&#x1F957; Foods</button>
+    <button class="nlink" id="nl-meds" onclick="navTo('meds',this);renderMeds()">&#x1F48A; Medications</button>
+    <button class="nlink" id="nl-patterns" onclick="navTo('patterns',this);renderPat()">&#x1F517; Patterns</button>
+    <button class="nlink" id="nl-tracker" onclick="navTo('tracker',this);initTracker()">&#x1FA7A; Tracker</button>
   </div>
   <div class="nav-right">
     <button class="lang-btn active" id="le" onclick="setL('en')">EN</button>
@@ -221,12 +264,13 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
   </div>
 </nav>
 <div class="mob-menu" id="mob-menu">
-  <button class="mob-link active" id="ml-home" onclick="navTo('home',null);closeMob()">Home</button>
-  <button class="mob-link" id="ml-symptoms" onclick="navTo('symptoms',null);closeMob()">Symptoms</button>
-  <button class="mob-link" id="ml-chat" onclick="navTo('chat',null);initChat();closeMob()">Chat</button>
-  <button class="mob-link" id="ml-foods" onclick="navTo('foods',null);initFoods();closeMob()">Foods</button>
-  <button class="mob-link" id="ml-meds" onclick="navTo('meds',null);renderMeds();closeMob()">Medications</button>
-  <button class="mob-link" id="ml-patterns" onclick="navTo('patterns',null);renderPat();closeMob()">Patterns</button>
+  <button class="mob-link active" id="ml-home" onclick="navTo('home',null);closeMob()">&#x1F3E0; Home</button>
+  <button class="mob-link" id="ml-symptoms" onclick="navTo('symptoms',null);closeMob()">&#x1FAC0; Symptoms</button>
+  <button class="mob-link" id="ml-chat" onclick="navTo('chat',null);initChat();closeMob()">&#x1F4AC; Chat</button>
+  <button class="mob-link" id="ml-foods" onclick="navTo('foods',null);initFoods();closeMob()">&#x1F957; Foods</button>
+  <button class="mob-link" id="ml-meds" onclick="navTo('meds',null);renderMeds();closeMob()">&#x1F48A; Medications</button>
+  <button class="mob-link" id="ml-patterns" onclick="navTo('patterns',null);renderPat();closeMob()">&#x1F517; Patterns</button>
+  <button class="mob-link" id="ml-tracker" onclick="navTo('tracker',null);initTracker();closeMob()">&#x1FA7A; Tracker</button>
 </div>
 <!-- HOME -->
 <div class="view active" id="view-home">
@@ -247,6 +291,16 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
       <div class="stats3" id="stats3"></div>
       <div class="posts-title" id="posts-lbl">RELATED DISCUSSIONS</div>
       <div id="posts-list"></div>
+    </div>
+
+    <div style="width:100%;max-width:680px;margin-top:16px">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-1326858927521321"
+           data-ad-slot="1088798188"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
   </div>
 </div>
@@ -393,21 +447,356 @@ function ckd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}
 function sendChatMsg(text){document.getElementById('chat-in').value=text;sendChat();}
 async function sendChat(){var inp=document.getElementById('chat-in'),text=inp.value.trim();if(!text||chatBusy)return;chatBusy=true;document.getElementById('chat-send').disabled=true;inp.value='';inp.style.height='auto';if(!chatInited)initChat();addUserMsg(text);chatHistory.push({role:'user',content:text});showTyping();var sys=CHAT_SYS+(LANG==='tr'?'\n\nIMPORTANT: Respond entirely in Turkish.':'\n\nRespond in English.');try{var data=await callAPI({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:chatHistory});rmTyping();var reply=(data.content[0]&&data.content[0].text)||'Sorry, no response.';chatHistory.push({role:'assistant',content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addAIMsg(fmt(reply).replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a class="doc-chip" href="$2" target="_blank" rel="noopener">\ud83e\ude7a $1</a>'));}catch(e){rmTyping();addAIMsg('Connection error. Please try again.');}chatBusy=false;document.getElementById('chat-send').disabled=false;}
 buildPills();buildStats();renderSymGrid();
+
+/* ======= TRACKER ======= */
+var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],stress:0,notes:'',entries:{},inited:false};
+var TSYMS=[
+  {key:'diarrhea', label:'Diarrhea', icon:'&#x1F30A;'},
+  {key:'urgency',  label:'Urgency',  icon:'&#x26A1;'},
+  {key:'pain',     label:'Pain',     icon:'&#x1F623;'},
+  {key:'bleeding', label:'Bleeding', icon:'&#x1FA78;'},
+  {key:'fatigue',  label:'Fatigue',  icon:'&#x1F634;'},
+  {key:'mucus',    label:'Mucus',    icon:'&#x1F534;'},
+  {key:'bloating', label:'Bloating', icon:'&#x1FAE7;'},
+  {key:'nausea',   label:'Nausea',   icon:'&#x1F922;'}
+];
+var TFOODS=[
+  {key:'coffee',   label:'Coffee',      icon:'&#x2615;',       risk:'high'},
+  {key:'dairy',    label:'Dairy',       icon:'&#x1F95B;',      risk:'high'},
+  {key:'spicy',    label:'Spicy',       icon:'&#x1F336;&#xFE0F;', risk:'high'},
+  {key:'alcohol',  label:'Alcohol',     icon:'&#x1F37A;',      risk:'high'},
+  {key:'rice',     label:'White Rice',  icon:'&#x1F35A;',      risk:'safe'},
+  {key:'banana',   label:'Banana',      icon:'&#x1F34C;',      risk:'safe'},
+  {key:'chicken',  label:'Chicken',     icon:'&#x1F357;',      risk:'safe'},
+  {key:'broth',    label:'Bone Broth',  icon:'&#x1F372;',      risk:'safe'},
+  {key:'oats',     label:'Oatmeal',     icon:'&#x1F963;',      risk:'safe'},
+  {key:'eggs',     label:'Eggs',        icon:'&#x1F95A;',      risk:'safe'},
+  {key:'rawveg',   label:'Raw Veg',     icon:'&#x1F957;',      risk:'medium'},
+  {key:'redmeat',  label:'Red Meat',    icon:'&#x1F969;',      risk:'medium'}
+];
+var TMEDS=['Mesalamine','Entyvio','Humira','Remicade','Prednisone','Azathioprine','Stelara','Rinvoq'];
+
+function trkToday(){return new Date().toISOString().split('T')[0];}
+function trkFmt(d){return new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+function trkSevColor(s){return s>=4?'#e84040':s>=3?'#f59e0b':s>=1?'#10b981':'#e8eaf2';}
+function trkSevLabel(s){return ['','Mild','Mild','Moderate','Severe','Severe'][s]||'';}
+function trkBmColor(n){return n>=8?'#e84040':n>=5?'#f59e0b':n>=1?'#2563eb':'#9ca3b8';}
+function trkStressColor(n){return n>=8?'#e84040':n>=5?'#f59e0b':n>=1?'#10b981':'#9ca3b8';}
+
+async function initTracker(){
+  if(TRK.inited)return;
+  TRK.inited=true;
+  document.getElementById('trk-date-lbl').textContent=trkFmt(trkToday());
+  try{var r=await window.storage.get('uc-tracker-v1');if(r)TRK.entries=JSON.parse(r.value)||{};}catch(e){TRK.entries={};}
+  var te=TRK.entries[trkToday()];
+  if(te){TRK.overall=te.overall||0;TRK.bm=te.bm||0;TRK.symptoms=te.symptoms||{};TRK.foods=te.foods||[];TRK.meds=te.meds||[];TRK.stress=te.stress||0;TRK.notes=te.notes||'';}
+  buildTrkFeel();buildTrkSymGrid();buildTrkFoodGrid();buildTrkMedGrid();renderTrkBM();renderTrkStress();
+  document.getElementById('trk-notes').value=TRK.notes;
+  document.getElementById('trk-notes').oninput=function(){TRK.notes=this.value;};
+}
+function buildTrkFeel(){
+  var feels=[
+    {v:1,e:'&#x1F60A;',l:'Good',c:'#10b981'},
+    {v:2,e:'&#x1F610;',l:'Okay',c:'#f59e0b'},
+    {v:3,e:'&#x1F623;',l:'Bad', c:'#e84040'}
+  ];
+  document.getElementById('trk-feel-row').innerHTML=feels.map(function(o){
+    var sel=TRK.overall===o.v;
+    return '<button class="trk-feel-btn" id="feel-btn-'+o.v+'" onclick="trkSetOverall('+o.v+')" '
+      +'style="border-color:'+(sel?o.c:'var(--border)')+';background:'+(sel?o.c+'15':'var(--bg)')+';">'
+      +'<div style="font-size:24px;margin-bottom:3px">'+o.e+'</div>'
+      +'<div style="font-size:12px;font-weight:600;color:'+(sel?o.c:'var(--text2)')+'">'+o.l+'</div>'
+      +'</button>';
+  }).join('');
+}
+function trkSetOverall(v){TRK.overall=TRK.overall===v?0:v;buildTrkFeel();}
+function adjBM(d){TRK.bm=Math.max(0,TRK.bm+d);renderTrkBM();}
+function renderTrkBM(){
+  document.getElementById('trk-bm-num').textContent=TRK.bm;
+  document.getElementById('trk-bm-num').style.color=trkBmColor(TRK.bm);
+  var lbl=TRK.bm===0?'tap + to add':TRK.bm>=8?'Severe \u2014 consider contacting your doctor':TRK.bm>=5?'Above normal':'Normal range';
+  document.getElementById('trk-bm-lbl').textContent=lbl;
+}
+function updateStress(v){TRK.stress=+v;renderTrkStress();}
+function renderTrkStress(){
+  document.getElementById('trk-stress').value=TRK.stress;
+  var sv=document.getElementById('trk-stress-val');
+  sv.textContent=TRK.stress>0?TRK.stress+'/10':'\u2014';
+  sv.style.color=trkStressColor(TRK.stress);
+  document.getElementById('trk-stress').style.accentColor=trkStressColor(TRK.stress);
+}
+function buildTrkSymGrid(){
+  document.getElementById('trk-sym-grid').innerHTML=TSYMS.map(function(s){
+    return '<button class="sym-btn-trk" id="tsb-'+s.key+'" onclick="trkToggleSym(\''+s.key+'\')">'
+      +'<div style="font-size:22px;margin-bottom:3px">'+s.icon+'</div>'
+      +'<div style="font-size:10px;font-weight:600;color:var(--text2);line-height:1.2" id="tsbl-'+s.key+'">'+s.label+'</div>'
+      +'<div style="font-size:9px;font-weight:700;margin-top:2px;min-height:12px" id="tssl-'+s.key+'"></div>'
+      +'<div class="sym-dots-trk" id="tsd-'+s.key+'"></div>'
+      +'</button>';
+  }).join('');
+  TSYMS.forEach(function(s){if(TRK.symptoms[s.key])updateSymBtn(s.key);});
+}
+function trkToggleSym(key){
+  var cur=TRK.symptoms[key]||0;
+  if(cur>=5){delete TRK.symptoms[key];}else{TRK.symptoms[key]=cur+1;}
+  updateSymBtn(key);
+}
+function updateSymBtn(key){
+  var sev=TRK.symptoms[key]||0,active=sev>0,col=trkSevColor(sev);
+  var btn=document.getElementById('tsb-'+key);if(!btn)return;
+  btn.style.borderColor=active?col:'var(--border)';
+  btn.style.background=active?col+'12':'var(--bg)';
+  var lbl=document.getElementById('tsbl-'+key);if(lbl)lbl.style.color=active?col:'var(--text2)';
+  var sl=document.getElementById('tssl-'+key);if(sl){sl.textContent=active?trkSevLabel(sev):'';sl.style.color=col;}
+  var dots=document.getElementById('tsd-'+key);
+  if(dots)dots.innerHTML=[1,2,3,4,5].map(function(i){
+    return '<div class="sym-dot-trk" style="background:'+(i<=sev?col:'var(--border)')+'"></div>';
+  }).join('');
+}
+function buildTrkFoodGrid(){
+  document.getElementById('trk-food-grid').innerHTML=TFOODS.map(function(f){
+    var sel=TRK.foods.indexOf(f.key)>-1;
+    var bc=f.risk==='high'?'#e84040':f.risk==='safe'?'#10b981':'#f59e0b';
+    return '<button class="food-btn-trk" id="tfb-'+f.key+'" onclick="trkToggleFood(\''+f.key+'\')" '
+      +'style="border-color:'+(sel?bc:'var(--border)')+';background:'+(sel?bc+'15':'var(--bg)')+';color:'+(sel?bc:'var(--text2)')+'">'
+      +'<span>'+f.icon+'</span>'+f.label+'</button>';
+  }).join('');
+}
+function trkToggleFood(key){
+  var idx=TRK.foods.indexOf(key);
+  if(idx>-1)TRK.foods.splice(idx,1);else TRK.foods.push(key);
+  var f=TFOODS.find(function(x){return x.key===key;}),sel=TRK.foods.indexOf(key)>-1;
+  var bc=f.risk==='high'?'#e84040':f.risk==='safe'?'#10b981':'#f59e0b';
+  var btn=document.getElementById('tfb-'+key);
+  if(btn){btn.style.borderColor=sel?bc:'var(--border)';btn.style.background=sel?bc+'15':'var(--bg)';btn.style.color=sel?bc:'var(--text2)';}
+}
+function buildTrkMedGrid(){
+  document.getElementById('trk-med-grid').innerHTML=TMEDS.map(function(m){
+    var sel=TRK.meds.indexOf(m)>-1,id='tmb-'+m.replace(/ /g,'_');
+    return '<button class="med-btn-trk'+(sel?' sel-med':'')+'" id="'+id+'" onclick="trkToggleMed(\''+m+'\')">'+(sel?'&#x2713; ':'')+m+'</button>';
+  }).join('');
+}
+function trkToggleMed(med){
+  var idx=TRK.meds.indexOf(med);
+  if(idx>-1)TRK.meds.splice(idx,1);else TRK.meds.push(med);
+  var id='tmb-'+med.replace(/ /g,'_'),btn=document.getElementById(id);if(!btn)return;
+  var sel=TRK.meds.indexOf(med)>-1;
+  btn.className='med-btn-trk'+(sel?' sel-med':'');
+  btn.innerHTML=(sel?'&#x2713; ':'')+med;
+}
+async function trkSave(){
+  var btn=document.getElementById('trk-save-btn');
+  btn.textContent='Saving...';btn.disabled=true;
+  var entry={
+    overall:TRK.overall,bm:TRK.bm,
+    symptoms:JSON.parse(JSON.stringify(TRK.symptoms)),
+    foods:TRK.foods.slice(),meds:TRK.meds.slice(),
+    stress:TRK.stress,notes:TRK.notes,date:trkToday()
+  };
+  TRK.entries[trkToday()]=entry;
+  try{await window.storage.set('uc-tracker-v1',JSON.stringify(TRK.entries));}catch(e){}
+  document.getElementById('trk-saved-badge').style.display='block';
+  btn.style.background='#10b981';btn.textContent="Save Today's Log";btn.disabled=false;
+  setTimeout(function(){document.getElementById('trk-saved-badge').style.display='none';btn.style.background='';},2500);
+}
+function trkTab(t,el){
+  document.querySelectorAll('.trk-tab').forEach(function(b){b.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('trk-panel-log').style.display=t==='log'?'block':'none';
+  document.getElementById('trk-panel-history').style.display=t==='history'?'block':'none';
+  document.getElementById('trk-panel-insights').style.display=t==='insights'?'block':'none';
+  if(t==='history')renderTrkHistory();
+  if(t==='insights')renderTrkInsights();
+}
+function renderTrkHistory(){
+  var dates=Object.keys(TRK.entries).sort().reverse().slice(0,14);
+  if(dates.length===0){
+    document.getElementById('trk-hist-list').innerHTML='<div class="trk-empty">'
+      +'<div style="font-size:44px;margin-bottom:12px">&#x1F4CB;</div>'
+      +'<div style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px">No entries yet</div>'
+      +'<div style="font-size:13px">Start logging in the Log tab</div></div>';
+    return;
+  }
+  var out='',emojiMap={1:'&#x1F60A;',2:'&#x1F610;',3:'&#x1F623;'};
+  dates.forEach(function(d){
+    var e=TRK.entries[d],isToday=d===trkToday();
+    out+='<div class="hist-entry'+(isToday?' today':'')+'">';
+    out+='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
+    out+='<div><div style="font-size:14px;font-weight:600">'+(isToday?'Today &mdash; ':'')+trkFmt(d)+'</div>'
+        +(isToday?'<div style="font-size:10px;color:var(--accent);font-weight:600;margin-top:2px">Latest entry</div>':'')+'</div>';
+    out+='<div style="display:flex;align-items:center;gap:8px">';
+    if(e.bm>0)out+='<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 8px;color:var(--text2)">&#x1F4A9; '+e.bm+'x</span>';
+    if(e.stress>0)out+='<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 8px;color:var(--text2)">&#x1F630; '+e.stress+'/10</span>';
+    if(e.overall>0)out+='<span style="font-size:20px">'+(emojiMap[e.overall]||'')+'</span>';
+    out+='</div></div>';
+    var syms=Object.entries(e.symptoms||{});
+    if(syms.length>0){
+      out+='<div style="margin-bottom:8px">';
+      syms.forEach(function(kv){
+        var sym=TSYMS.find(function(s){return s.key===kv[0];});if(!sym)return;
+        var col=trkSevColor(kv[1]);
+        out+='<span class="hist-sym-tag" style="background:'+col+'12;border:1px solid '+col+'40;color:'+col+'">'+sym.icon+' '+sym.label+'</span>';
+      });
+      out+='</div>';
+    }
+    if((e.foods||[]).length>0){
+      out+='<div style="margin-bottom:8px">';
+      (e.foods||[]).forEach(function(fk){var fd=TFOODS.find(function(f){return f.key===fk;});if(fd)out+='<span class="hist-food-tag">'+fd.icon+' '+fd.label+'</span>';});
+      out+='</div>';
+    }
+    if((e.meds||[]).length>0)out+='<div style="font-size:11px;color:var(--text2);margin-bottom:6px">&#x1F48A; '+e.meds.join(', ')+'</div>';
+    if(e.notes)out+='<div style="font-size:12px;color:var(--text2);font-style:italic;background:var(--bg);border-radius:8px;padding:7px 10px">&ldquo;'+e.notes+'&rdquo;</div>';
+    out+='</div>';
+  });
+  document.getElementById('trk-hist-list').innerHTML=out;
+}
+function renderTrkInsights(){
+  var dates=Object.keys(TRK.entries).sort().slice(-30);
+  var el=document.getElementById('trk-ins-content');
+  if(dates.length<3){
+    el.innerHTML='<div class="trk-empty">'
+      +'<div style="font-size:44px;margin-bottom:12px">&#x1F50D;</div>'
+      +'<div style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px">Not enough data yet</div>'
+      +'<div style="font-size:13px;margin-bottom:16px">Log at least 3 days to see your personal patterns</div>'
+      +'<button onclick="document.getElementById(\'tt-log\').click()" style="padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px">Start Logging &#x2192;</button>'
+      +'</div>';
+    return;
+  }
+  var symCount={},foodFlare={},totalStress=0,stressCount=0,badDays=0;
+  dates.forEach(function(d){
+    var e=TRK.entries[d];if(!e)return;
+    Object.entries(e.symptoms||{}).forEach(function(kv){
+      if(!symCount[kv[0]])symCount[kv[0]]={t:0,c:0};
+      symCount[kv[0]].t+=kv[1];symCount[kv[0]].c++;
+    });
+    if(e.stress){totalStress+=e.stress;stressCount++;}
+    if(e.overall===3)badDays++;
+    var wasBad=e.overall===3||Object.values(e.symptoms||{}).some(function(v){return v>=4;});
+    (e.foods||[]).forEach(function(f){if(!foodFlare[f])foodFlare[f]={bad:0,t:0};foodFlare[f].t++;if(wasBad)foodFlare[f].bad++;});
+  });
+  var topSym=Object.entries(symCount)
+    .map(function(kv){return{key:kv[0],avg:(kv[1].t/kv[1].c).toFixed(1),freq:Math.round((kv[1].c/dates.length)*100)};})
+    .sort(function(a,b){return b.avg-a.avg;}).slice(0,3);
+  var riskFoods=Object.entries(foodFlare)
+    .filter(function(kv){return kv[1].t>=2;})
+    .map(function(kv){return{key:kv[0],pct:Math.round((kv[1].bad/kv[1].t)*100)};})
+    .filter(function(f){return f.pct>40;})
+    .sort(function(a,b){return b.pct-a.pct;}).slice(0,3);
+  var badPct=Math.round((badDays/dates.length)*100);
+  var avgStress=stressCount?(totalStress/stressCount).toFixed(1):null;
+  var out='<div class="ins-grid">';
+  out+='<div class="ins-stat"><div class="ins-val" style="color:var(--accent)">'+dates.length+'</div><div class="ins-lbl">Days logged</div></div>';
+  out+='<div class="ins-stat"><div class="ins-val" style="color:'+(badPct>=50?'var(--red)':'var(--green)')+'">'+badPct+'%</div><div class="ins-lbl">Bad days</div></div>';
+  out+='<div class="ins-stat"><div class="ins-val" style="color:'+(avgStress>=7?'var(--red)':avgStress>=4?'var(--orange)':'var(--green)')+'">'+(avgStress||'&mdash;')+'</div><div class="ins-lbl">Avg stress</div></div>';
+  out+='</div>';
+  if(topSym.length>0){
+    out+='<div class="trk-card"><div class="trk-sec">Your Most Frequent Symptoms</div>';
+    topSym.forEach(function(s){
+      var sym=TSYMS.find(function(x){return x.key===s.key;});if(!sym)return;
+      var col=trkSevColor(+s.avg);
+      out+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+        +'<span style="font-size:20px">'+sym.icon+'</span>'
+        +'<div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:4px">'
+        +'<span style="font-size:13px;font-weight:500">'+sym.label+'</span>'
+        +'<span style="font-size:11px;color:var(--text3)">'+s.freq+'% of days</span></div>'
+        +'<div class="ins-bar"><div class="ins-bar-fill" style="width:'+s.freq+'%;background:'+col+'"></div></div></div>'
+        +'<div style="font-size:13px;font-weight:700;color:'+col+';min-width:28px;text-align:right">'+s.avg+'</div></div>';
+    });
+    out+='</div>';
+  }
+  if(riskFoods.length>0){
+    out+='<div class="ins-risk-card">'
+      +'<div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">&#x26A0;&#xFE0F; Your Personal Risk Foods</div>'
+      +'<div style="font-size:12px;color:var(--text2);margin-bottom:12px">These foods appeared more often on your bad days:</div>';
+    riskFoods.forEach(function(f){
+      var food=TFOODS.find(function(x){return x.key===f.key;});if(!food)return;
+      out+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">'
+        +'<span style="font-size:20px">'+food.icon+'</span>'
+        +'<div style="flex:1;font-size:13px;font-weight:500">'+food.label+'</div>'
+        +'<div style="background:rgba(232,64,64,.1);color:var(--red);font-size:12px;font-weight:700;padding:3px 10px;border-radius:8px">'+f.pct+'% bad days</div></div>';
+    });
+    out+='</div>';
+  }
+  out+='<div class="ins-tip">'
+    +'<div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px">&#x1F4A1; Keep logging daily</div>'
+    +'<div style="font-size:13px;color:var(--text2);line-height:1.7">The more days you log, the more accurate your personal insights. After 2 weeks UCInsights can identify your specific UC triggers and patterns.</div>'
+    +'</div>';
+  el.innerHTML=out;
+}
+/* ======= END TRACKER ======= */
+
 </script>
 
 
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
-     crossorigin="anonymous"></script>
-<!-- Banner1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-1326858927521321"
-     data-ad-slot="1088798188"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-  
+<!-- TRACKER -->
+<div class="view" id="view-tracker">
+  <div class="tracker-wrap">
+    <div class="trk-hdr">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.4px">Today's Log</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px" id="trk-date-lbl"></div>
+        </div>
+        <div class="saved-badge-trk" id="trk-saved-badge">&#x2713; Saved!</div>
+      </div>
+      <div class="trk-tabs">
+        <button class="trk-tab active" id="tt-log"      onclick="trkTab('log',this)">&#x1F4DD; Log</button>
+        <button class="trk-tab"        id="tt-history"  onclick="trkTab('history',this)">&#x1F4C5; History</button>
+        <button class="trk-tab"        id="tt-insights" onclick="trkTab('insights',this)">&#x1F4A1; Insights</button>
+      </div>
+    </div>
+    <div id="trk-panel-log">
+      <div class="trk-card">
+        <div class="trk-sec">How are you feeling overall?</div>
+        <div class="trk-feel-row" id="trk-feel-row"></div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">Bowel Movements Today</div>
+        <div class="trk-bm-row">
+          <button class="trk-bm-btn" onclick="adjBM(-1)">&#x2212;</button>
+          <div class="trk-bm-center">
+            <div class="trk-bm-num" id="trk-bm-num">0</div>
+            <div class="trk-bm-lbl" id="trk-bm-lbl">tap + to add</div>
+          </div>
+          <button class="trk-bm-btn" onclick="adjBM(1)">+</button>
+        </div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">Symptoms</div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">Tap to add &middot; tap again to increase severity (1&ndash;5) &middot; tap at max to remove</div>
+        <div class="sym-grid-trk" id="trk-sym-grid"></div>
+      </div>
+      <div class="trk-card">
+        <div class="stress-hdr">
+          <div class="trk-sec" style="margin:0">Stress Level</div>
+          <div class="stress-val" id="trk-stress-val">&#x2014;</div>
+        </div>
+        <input type="range" min="0" max="10" value="0" id="trk-stress" oninput="updateStress(this.value)" style="width:100%;cursor:pointer;margin:8px 0">
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3)"><span>No stress</span><span>Extreme</span></div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">Foods Eaten Today</div>
+        <div class="food-grid-trk" id="trk-food-grid"></div>
+        <div style="font-size:11px;color:var(--text3)">
+          <span style="color:var(--red);font-weight:600">&#x25CF; Red</span> = high-risk &nbsp;
+          <span style="color:var(--orange);font-weight:600">&#x25CF; Orange</span> = moderate &nbsp;
+          <span style="color:var(--green);font-weight:600">&#x25CF; Green</span> = safe
+        </div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">Medications Taken Today</div>
+        <div id="trk-med-grid" style="display:flex;flex-wrap:wrap"></div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">Notes</div>
+        <textarea class="notes-trk" id="trk-notes" placeholder="How are you feeling? Any observations, triggers or things to remember..."></textarea>
+      </div>
+      <button class="save-btn-trk" id="trk-save-btn" onclick="trkSave()">Save Today's Log</button>
+    </div>
+    <div id="trk-panel-history" style="display:none"><div id="trk-hist-list"></div></div>
+    <div id="trk-panel-insights" style="display:none"><div id="trk-ins-content"></div></div>
+  </div>
+</div>
+
 </body>
 </html>
