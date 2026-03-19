@@ -237,6 +237,9 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .ins-tip{background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.14);border-radius:var(--r);padding:16px}
 .trk-empty{text-align:center;padding:60px 20px;color:var(--text3)}
 .saved-badge-trk{background:rgba(16,185,129,.12);color:var(--green);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;display:none}
+
+.nlink svg, .mob-link svg { vertical-align: -2px; margin-right: 3px; opacity: .75; }
+.nlink.active svg { opacity: 1; }
 </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
@@ -249,13 +252,13 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
     <img id="nav-logo-img" src="" alt="UCInsights">
   </div>
   <div class="nav-links">
-    <button class="nlink active" id="nl-home" onclick="navTo('home',this)">&#x1F3E0; Home</button>
-    <button class="nlink" id="nl-symptoms" onclick="navTo('symptoms',this)">&#x1FAC0; Symptoms</button>
-    <button class="nlink" id="nl-chat" onclick="navTo('chat',this);initChat()">&#x1F4AC; Chat</button>
-    <button class="nlink" id="nl-foods" onclick="navTo('foods',this);initFoods()">&#x1F957; Foods</button>
-    <button class="nlink" id="nl-meds" onclick="navTo('meds',this);renderMeds()">&#x1F48A; Medications</button>
-    <button class="nlink" id="nl-patterns" onclick="navTo('patterns',this);renderPat()">&#x1F517; Patterns</button>
-    <button class="nlink" id="nl-tracker" onclick="navTo('tracker',this);initTracker()">&#x1FA7A; Tracker</button>
+    <button class="nlink active" id="nl-home" onclick="navTo('home',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> Home</button>
+    <button class="nlink" id="nl-symptoms" onclick="navTo('symptoms',this)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Symptoms</button>
+    <button class="nlink" id="nl-chat" onclick="navTo('chat',this);initChat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Chat</button>
+    <button class="nlink" id="nl-foods" onclick="navTo('foods',this);initFoods()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Foods</button>
+    <button class="nlink" id="nl-meds" onclick="navTo('meds',this);renderMeds()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M3 17h3m0 0v3m0-3V14m-3 3h3"/></svg> Medications</button>
+    <button class="nlink" id="nl-patterns" onclick="navTo('patterns',this);renderPat()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6"  y1="20" x2="6"  y2="14"/></svg> Patterns</button>
+    <button class="nlink" id="nl-tracker" onclick="navTo('tracker',this);initTracker()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8"  y1="2" x2="8"  y2="6"/><line x1="3"  y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Tracker</button>
   </div>
   <div class="nav-right">
     <button class="lang-btn active" id="le" onclick="setL('en')">EN</button>
@@ -264,13 +267,13 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
   </div>
 </nav>
 <div class="mob-menu" id="mob-menu">
-  <button class="mob-link active" id="ml-home" onclick="navTo('home',null);closeMob()">&#x1F3E0; Home</button>
-  <button class="mob-link" id="ml-symptoms" onclick="navTo('symptoms',null);closeMob()">&#x1FAC0; Symptoms</button>
-  <button class="mob-link" id="ml-chat" onclick="navTo('chat',null);initChat();closeMob()">&#x1F4AC; Chat</button>
-  <button class="mob-link" id="ml-foods" onclick="navTo('foods',null);initFoods();closeMob()">&#x1F957; Foods</button>
-  <button class="mob-link" id="ml-meds" onclick="navTo('meds',null);renderMeds();closeMob()">&#x1F48A; Medications</button>
-  <button class="mob-link" id="ml-patterns" onclick="navTo('patterns',null);renderPat();closeMob()">&#x1F517; Patterns</button>
-  <button class="mob-link" id="ml-tracker" onclick="navTo('tracker',null);initTracker();closeMob()">&#x1FA7A; Tracker</button>
+  <button class="mob-link active" id="ml-home" onclick="navTo('home',null);closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg> Home</button>
+  <button class="mob-link" id="ml-symptoms" onclick="navTo('symptoms',null);closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Symptoms</button>
+  <button class="mob-link" id="ml-chat" onclick="navTo('chat',null);initChat();closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Chat</button>
+  <button class="mob-link" id="ml-foods" onclick="navTo('foods',null);initFoods();closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> Foods</button>
+  <button class="mob-link" id="ml-meds" onclick="navTo('meds',null);renderMeds();closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><path d="M3 17h3m0 0v3m0-3V14m-3 3h3"/></svg> Medications</button>
+  <button class="mob-link" id="ml-patterns" onclick="navTo('patterns',null);renderPat();closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6"  y1="20" x2="6"  y2="14"/></svg> Patterns</button>
+  <button class="mob-link" id="ml-tracker" onclick="navTo('tracker',null);initTracker();closeMob()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8"  y1="2" x2="8"  y2="6"/><line x1="3"  y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg> Tracker</button>
 </div>
 <!-- HOME -->
 <div class="view active" id="view-home">
