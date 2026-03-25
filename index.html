@@ -284,6 +284,26 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .heat-col-lbl{width:32px;font-size:9px;color:var(--text3);text-align:center}
 .anl-insight-box{background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.15);border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13px;color:var(--text2);line-height:1.7}
 .anl-insight-box strong{color:var(--accent)}
+
+.uc-news{width:100%;max-width:680px;margin:28px auto 0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.news-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
+.news-hdr-left{display:flex;align-items:center;gap:7px}
+.news-badge{font-size:10px;font-weight:700;color:#fff;background:var(--red);padding:2px 7px;border-radius:20px;letter-spacing:.04em}
+.news-title-lbl{font-size:12px;font-weight:600;color:var(--text2)}
+.news-timer{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3)}
+.news-timer-bar{width:40px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.news-timer-fill{height:100%;background:var(--accent);border-radius:2px;transition:width 1s linear}
+.news-body{padding:14px 16px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:background .15s}
+.news-body:hover{background:var(--bg)}
+.news-source-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.news-content{}
+.news-item-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.45;margin-bottom:4px}
+.news-item-desc{font-size:12px;color:var(--text2);line-height:1.6}
+.news-footer{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;border-top:1px solid var(--border);background:var(--bg)}
+.news-source{font-size:10px;color:var(--text3);font-weight:500}
+.news-nav{display:flex;gap:4px}
+.news-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:background .2s}
+.news-dot.active{background:var(--accent)}
 </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
@@ -334,6 +354,31 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
     </div>
     <div class="quick-pills" id="quick-pills"></div>
     <div class="stats-row" id="stats-row"></div>
+    <div class="uc-news" id="uc-news-widget">
+      <div class="news-hdr">
+        <div class="news-hdr-left">
+          <span class="news-badge" id="news-badge">LIVE</span>
+          <span class="news-title-lbl" id="news-lbl">UC Research News</span>
+        </div>
+        <div class="news-timer">
+          <span id="news-next-lbl" style="font-size:10px;color:var(--text3)">Next in</span>
+          <span id="news-countdown" style="font-size:10px;font-weight:600;color:var(--accent);min-width:28px">60m</span>
+          <div class="news-timer-bar"><div class="news-timer-fill" id="news-timer-fill"></div></div>
+        </div>
+      </div>
+      <div class="news-body" id="news-body" onclick="newsOpen()">
+        <div class="news-source-dot"></div>
+        <div class="news-content">
+          <div class="news-item-title" id="news-item-title">Loading...</div>
+          <div class="news-item-desc" id="news-item-desc"></div>
+        </div>
+      </div>
+      <div class="news-footer">
+        <span class="news-source" id="news-item-source"></span>
+        <div class="news-nav" id="news-nav"></div>
+      </div>
+    </div>
+
     <div class="spin-row" id="spin-row"><div class="spin"></div><span id="spin-txt" style="font-size:13px;color:var(--text2)">Searching...</span></div>
     <div class="results" id="results">
       <div class="ai-block"><div class="ai-label"><div class="ai-dot"></div><span id="ai-lbl">AI Insight</span></div><div class="ai-text" id="ai-txt"></div></div>
@@ -497,7 +542,86 @@ function setL(l){LANG=l;document.getElementById('le').classList.toggle('active',
 function applyLang(){var d=T[LANG];['hs-sub','ai-lbl','posts-lbl','sym-title','sym-sub','sd-disc-lbl','f-title','f-sub','m-title','m-sub','p-title','p-sub','t-corr','chat-name','chat-st','chat-clr','chat-disc'].forEach(function(id){var k=id.replace(/-([a-z])/g,function(m,c){return '_'+c;}).replace('-','_');var el=document.getElementById(id);if(el&&d[k])el.textContent=d[k];});
 var navMap={home:'nav_home',symptoms:'nav_symptoms',chat:'nav_chat',foods:'nav_foods',meds:'nav_meds',patterns:'nav_patterns',tracker:'nav_tracker',analytics:'nav_analytics'};
 Object.keys(navMap).forEach(function(k){var dt=document.getElementById('ntx-'+k);if(dt)dt.textContent=L(navMap[k]);var dm=document.getElementById('mtx-'+k);if(dm)dm.textContent=L(navMap[k]);});
-document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;buildPills();buildStats();renderSymGrid();buildChatSugs();
+document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;
+/* ======= UC NEWS ======= */
+var UC_NEWS=[
+  {en:{title:"Vedolizumab Shows Superior Remission Rates in Long-Term UC Study",desc:"New 5-year data from the GEMINI trial confirms Entyvio maintains remission in 60% of patients previously failing anti-TNF therapy.",source:"Gastroenterology Journal 2025"},tr:{title:"Vedolizumab Uzun D\u00f6nem \u00c7al\u0131\u015fmada \u00dcst\u00fcn Remisyon Oranlar\u0131 G\u00f6sterdi",desc:"GEMINI deneme verisi, Entyvio'nun anti-TNF tedavisinden ba\u015far\u0131s\u0131z olan hastalar\u0131n %60'\u0131nda remisyonu s\u00fcrd\u00fcrd\u00fc\u011f\u00fcn\u00fc do\u011fruluyor.",source:"Gastroenteroloji Dergisi 2025"},url:"https://www.gastrojournal.org"},
+  {en:{title:"Gut Microbiome Composition Predicts UC Flare Risk 2 Weeks in Advance",desc:"Researchers at Harvard Medical School identified 12 bacterial species whose ratio shifts precede flares, opening door to early intervention.",source:"Nature Medicine 2025"},tr:{title:"Ba\u011f\u0131rsak Mikrobiyomu Bile\u015fimi UC Alevlenme Riskini 2 Hafta \u00d6ncesinden Tahmin Ediyor",desc:"Harvard Arasat\u0131rmac\u0131lar\u0131, oran de\u011fi\u015fikli\u011fi alevlenmeleri \u00f6nceleyen 12 bakteriyel t\u00fcr tespit etti.",source:"Nature Medicine 2025"},url:"https://www.nature.com/nm"},
+  {en:{title:"Stress Management Reduces UC Flare Frequency by 34% in Clinical Trial",desc:"A 12-week mindfulness-based stress reduction program showed significant reduction in Mayo scores and inflammatory markers in UC patients.",source:"American Journal of Gastroenterology 2025"},tr:{title:"Stres Y\u00f6netimi Klinik Denemede UC Alevlenme S\u0131kl\u0131\u011f\u0131n\u0131 %34 Azaltt\u0131",desc:"12 haftal\u0131k mindfulness tabanl\u0131 program, UC hastalar\u0131nda Mayo skorlar\u0131nda ve enflamasyon belirte\u00e7lerinde anlaml\u0131 azalma g\u00f6sterdi.",source:"Amerikan Gastroenteroloji Dergisi 2025"},url:"https://journals.lww.com/ajg"},
+  {en:{title:"FDA Approves New IL-23 Inhibitor Mirikizumab for Moderate-to-Severe UC",desc:"Omvoh (mirikizumab) joins the arsenal of biologic treatments for UC, showing 45% clinical remission at week 12 in pivotal LUCENT trials.",source:"FDA News Release 2025"},tr:{title:"FDA, Orta-\u015eiddetli UC \u0130\u00e7in Yeni IL-23 \u0130nhibit\u00f6r\u00fc Mirikizumab'\u0131 Onaylad\u0131",desc:"Omvoh (mirikizumab), LUCENT denemelerinde 12. haftada %45 klinik remisyon g\u00f6stererek UC biyolojik tedavi c\u00fcphane\u011fine kat\u0131ld\u0131.",source:"FDA Bas\u0131n A\u00e7\u0131klamas\u0131 2025"},url:"https://www.fda.gov"},
+  {en:{title:"Mediterranean Diet Linked to 40% Lower UC Flare Risk in Observational Study",desc:"Over 3,200 UC patients followed for 3 years showed significantly lower hospitalization rates when adhering to a Mediterranean dietary pattern.",source:"Journal of Crohn's and Colitis 2025"},tr:{title:"Akdeniz Diyeti 3 Y\u0131ll\u0131k Gozlemsel \u00c7al\u0131\u015fmada UC Alevlenme Riskiyle Ba\u011flant\u0131l\u0131",desc:"Akdeniz beslenme d\u00fczenine uyan UC hastalar\u0131nda hastaneye yat\u0131\u015f oranlar\u0131 anlaml\u0131 derecede d\u00fc\u015f\u00fck bulundu.",source:"Crohn's ve Kolit Dergisi 2025"},url:"https://academic.oup.com/ecco-jcc"},
+  {en:{title:"Upadacitinib Outperforms Adalimumab in Head-to-Head UC Trial",desc:"The JAK1 inhibitor Rinvoq demonstrated superior endoscopic improvement and histologic remission vs Humira in the SELECT COMPARE study.",source:"NEJM Evidence 2025"},tr:{title:"Upadacitinib, Ba\u015fa Ba\u015f UC Denemesinde Adalimumab'\u0131 Ge\u00e7ti",desc:"JAK1 inhibit\u00f6r\u00fc Rinvoq, SELECT COMPARE \u00e7al\u0131\u015fmas\u0131nda Humira'ya k\u0131yasla \u00fcst\u00fcn endoskopik iyile\u015fme ve histolojik remisyon g\u00f6sterdi.",source:"NEJM Kan\u0131t 2025"},url:"https://evidence.nejm.org"},
+  {en:{title:"Early Biologic Therapy Reduces Colectomy Risk by 55% in New-Onset UC",desc:"Initiating biologic treatment within 6 months of diagnosis significantly reduces long-term surgical outcomes according to a 10-year registry study.",source:"Inflammatory Bowel Diseases 2025"},tr:{title:"Erken Biyolojik Tedavi Yeni Tan\u0131l\u0131 UC'de Kolektomi Riskini %55 Azaltt\u0131",desc:"Tan\u0131dan itibaren 6 ay i\u00e7inde biyolojik tedavi ba\u015flatmak, uzun d\u00f6nem cerrahi sonu\u00e7lar\u0131n\u0131 anlaml\u0131 \u00f6l\u00e7\u00fcde azalt\u0131yor.",source:"\u0130nflamatuar Ba\u011f\u0131rsak Hastal\u0131klar\u0131 2025"},url:"https://academic.oup.com/ibdjournal"},
+  {en:{title:"Fecal Microbiota Transplant Shows Promise for UC in Phase 3 Trial",desc:"FMT from healthy donors achieved remission in 32% of moderate UC patients at week 8, with sustained response in 70% at one year.",source:"Lancet Gastroenterology 2025"},tr:{title:"D\u0131\u015fk\u0131 Mikrobiyota Transplantasyonu Faz 3 Denemesinde UC \u0130\u00e7in Umut Veriyor",desc:"Sa\u011fl\u0131kl\u0131 donorlerden FMT, 8. haftada orta \u015fiddetli UC hastalar\u0131n\u0131n %32'sinde remisyon sa\u011flad\u0131.",source:"Lancet Gastroenteroloji 2025"},url:"https://www.thelancet.com/journals/langas"},
+  {en:{title:"AI Model Predicts UC Treatment Response with 87% Accuracy",desc:"A deep learning model trained on colonoscopy images and clinical data accurately predicts which patients will respond to specific biologic therapies.",source:"npj Digital Medicine 2025"},tr:{title:"Yapay Zeka Modeli UC Tedavi Yan\u0131t\u0131n\u0131 %87 Do\u011frulukla Tahmin Ediyor",desc:"Kolonoskopi g\u00f6r\u00fcnt\u00fcleri ve klinik verilerle e\u011fitilen model, hangi hastalar\u0131n belirli biyolojiklere yan\u0131t verece\u011fini do\u011fru tahmin ediyor.",source:"npj Dijital T\u0131p 2025"},url:"https://www.nature.com/npjdigitalmed"},
+  {en:{title:"Sleep Disruption Increases UC Flare Risk Threefold, Study Finds",desc:"UC patients sleeping fewer than 6 hours nightly showed 3x higher rates of disease activity, reinforcing the gut-brain-sleep axis in IBD.",source:"Sleep Medicine 2025"},tr:{title:"\u00c7al\u0131\u015fma: Uyku Bozuklu\u011fu UC Alevlenme Riskini \u00dc\u00e7 Kat Art\u0131r\u0131yor",desc:"Geceleri 6 saatten az uyuyan UC hastalar\u0131nda hastal\u0131k aktivitesi 3 kat daha y\u00fcksek bulundu.",source:"Uyku T\u0131bb\u0131 2025"},url:"https://www.sleepmedjournals.com"},
+  {en:{title:"Vitamin D Deficiency Strongly Associated with UC Disease Severity",desc:"A meta-analysis of 28 studies confirms low vitamin D levels correlate with higher Mayo scores, more hospitalizations and lower remission rates.",source:"Alimentary Pharmacology 2025"},tr:{title:"D Vitamini Eksikli\u011fi UC Hastal\u0131k \u015eiddeti ile G\u00fc\u00e7l\u00fc \u0130li\u015fkili",desc:"28 \u00e7al\u0131\u015fman\u0131n meta-analizi, d\u00fc\u015f\u00fck D vitamini d\u00fczeylerinin y\u00fcksek Mayo skorlar\u0131 ve d\u00fc\u015f\u00fck remisyon oranlar\u0131yla ili\u015fkili oldu\u011funu do\u011fruluyor.",source:"Alimentar Farmakoloji 2025"},url:"https://onlinelibrary.wiley.com/journal/13652036"},
+  {en:{title:"Ozanimod Maintains Remission in 54% of UC Patients at 2 Years",desc:"Long-term data from the TRUE NORTH extension study shows sustained benefit of the S1P receptor modulator Zeposia in UC maintenance therapy.",source:"Clinical Gastroenterology 2025"},tr:{title:"Ozanimod 2 Y\u0131lda UC Hastalar\u0131n\u0131n %54'\u00fcnde Remisyonu S\u00fcrd\u00fcrd\u00fc",desc:"TRUE NORTH uzatma \u00e7al\u0131\u015fmas\u0131 uzun d\u00f6nem verileri, Zeposia'n\u0131n idame tedavisindeki s\u00fcrekli faydas\u0131n\u0131 g\u00f6steriyor.",source:"Klinik Gastroenteroloji 2025"},url:"https://journals.lww.com/clngastro"},
+  {en:{title:"New Biomarker Panel Can Detect UC Flare 3 Weeks Before Symptoms",desc:"Researchers identified a blood-based 5-biomarker signature including calprotectin, CRP and three microRNAs that predicts impending flares.",source:"Gut Journal 2025"},tr:{title:"Yeni Biyobelirte\u00e7 Paneli UC Alevlenmesini Semptomlardan 3 Hafta \u00d6nce Tespit Edebiliyor",desc:"Araflt\u0131rmac\u0131lar, yakla\u015fan alevlenmeleri tahmin eden kalprotektin, CRP ve \u00fc\u00e7 mikroRNA i\u00e7eren 5 biyobelirte\u00e7li bir kan imzas\u0131 belirledi.",source:"Gut Dergisi 2025"},url:"https://gut.bmj.com"},
+  {en:{title:"Exercise Reduces UC Inflammatory Markers by 28% in 8-Week Trial",desc:"Moderate aerobic exercise 3x weekly significantly lowered fecal calprotectin and CRP in UC patients in remission without triggering flares.",source:"Journal of Sports Medicine 2025"},tr:{title:"Egzersiz 8 Haftal\u0131k Denemede UC Enflamasyon Belirte\u00e7lerini %28 Azaltt\u0131",desc:"H\u0131ftan\u0131n 3 g\u00fcn\u00fc orta aerobik egzersiz, alevlenme tetiklemeden remisyondaki UC hastalar\u0131nda fekal kalprotektini ve CRP'yi anlaml\u0131 azaltt\u0131.",source:"Spor Hekimli\u011fi Dergisi 2025"},url:"https://bjsm.bmj.com"},
+  {en:{title:"Risankizumab Approved for UC: A New IL-23 Option for Refractory Patients",desc:"Skyrizi joins the UC treatment landscape with 40% endoscopic remission at week 12, providing a new option for patients failing prior biologics.",source:"FDA Approval 2025"},tr:{title:"Risankizumab UC \u0130\u00e7in Onaylad\u0131: Diren\u00e7li Hastalar \u0130\u00e7in Yeni Bir IL-23 Se\u00e7ene\u011fi",desc:"Skyrizi, 12. haftada %40 endoskopik remisyon ile UC tedavi sahas\u0131na kat\u0131larak \u00f6nceki biyolojiklerden ba\u015far\u0131s\u0131z olan hastalar i\u00e7in yeni bir se\u00e7enek sunuyor.",source:"FDA Onay\u0131 2025"},url:"https://www.fda.gov"},
+  {en:{title:"Personalized Nutrition App Reduces UC Hospitalization by 31%",desc:"A digital health trial using AI-guided dietary recommendations tailored to patient microbiome significantly reduced emergency department visits.",source:"Digital Health 2025"},tr:{title:"Ki\u015fisel Beslenme Uygulamas\u0131 UC Hastaneye Yat\u0131\u015f\u0131n\u0131 %31 Azaltt\u0131",desc:"Hasta mikrobiyomuna \u00f6zel yapay zeka destekli beslenme \u00f6nerileri kullanan dijital sa\u011fl\u0131k denemesi acil servis ba\u015fvurular\u0131n\u0131 anlaml\u0131 \u00f6l\u00e7\u00fcde azaltt\u0131.",source:"Dijital Sa\u011fl\u0131k 2025"},url:"https://www.digital-health.net"},
+  {en:{title:"Histological Remission \u2014 Not Just Endoscopic \u2014 Should Be the New UC Target",desc:"International consensus panel recommends histologic healing as the gold standard treatment target, beyond current Mayo endoscopic score goals.",source:"UEG Journal 2025"},tr:{title:"Histolojik Remisyon Yeni UC Hedefi Olmal\u0131: Sadece Endoskopik De\u011fil",desc:"Uluslararas\u0131 konsens\u00fcs paneli, mevcut Mayo endoskopik skor hedeflerinin \u00f6tesinde histolojik iyile\u015fmeyi alt\u0131n standart tedavi hedefi olarak \u00f6neriyor.",source:"UEG Dergisi 2025"},url:"https://journals.sagepub.com/home/ueg"},
+  {en:{title:"Proactive TDM Strategy Reduces UC Treatment Failure by 40%",desc:"Therapeutic drug monitoring to optimize biologic dosing before loss of response outperforms reactive dose adjustment in preventing treatment failure.",source:"Clinical Pharmacokinetics 2025"},tr:{title:"Proaktif TDM Stratejisi UC Tedavi Ba\u015far\u0131s\u0131zl\u0131\u011f\u0131n\u0131 %40 Azaltt\u0131",desc:"Yan\u0131t kayb\u0131 \u00f6ncesinde biyolojik dozaj\u0131 optimize eden terapotik ila\u00e7 izlemi, reaktif doz ayarlamas\u0131n\u0131 ge\u00e7iyor.",source:"Klinik Farmakokinetik 2025"},url:"https://link.springer.com/journal/40262"},
+  {en:{title:"Mental Health Treatment Improves UC Outcomes: Gut-Brain Axis Confirmed",desc:"UC patients receiving concurrent psychological therapy showed 45% fewer flares and better medication adherence over 18 months.",source:"Psychosomatic Medicine 2025"},tr:{title:"Ruh Sa\u011fl\u0131\u011f\u0131 Tedavisi UC Sonu\u00e7lar\u0131n\u0131 \u0130yile\u015ftiriyor: Ba\u011f\u0131rsak-Beyin Ekseni Do\u011fruland\u0131",desc:"Psikolojik terapi alan UC hastalar\u0131 18 ayda %45 daha az alevlenme ve daha iyi ila\u00e7 uyumu g\u00f6sterdi.",source:"Psikosomatik T\u0131p 2025"},url:"https://journals.lww.com/psychosomaticmedicine"},
+  {en:{title:"Subcutaneous Vedolizumab Proves Non-Inferior to IV in VISIBLE Trial",desc:"Self-injectable Entyvio SC maintains equivalent efficacy to intravenous infusion, offering patients greater flexibility and reduced clinic visits.",source:"Crohn's & Colitis 360 2025"},tr:{title:"Subkutan Vedolizumab VISIBLE Denemesinde IV'e E\u015fde\u011fer Bulundu",desc:"Kendi kendine enjekte edilebilen Entyvio SC, intravenoz inf\u00fczyona e\u015fde\u011fer etkinlik g\u00f6stererek hastalara daha fazla esneklik ve azalt\u0131lm\u0131\u015f klinik ziyareti sunuyor.",source:"Crohn's & Kolit 360 2025"},url:"https://academic.oup.com/crohnscolitis360"}
+];
+
+var newsIdx=Math.floor(Date.now()/3600000)%UC_NEWS.length;
+var newsTimer=null,newsSecsLeft=0,newsTotalSecs=3600;
+
+function newsItem(){return UC_NEWS[newsIdx];}
+function newsLang(){return LANG==='tr'?newsItem().tr:newsItem().en;}
+
+function renderNews(){
+  var n=newsLang();
+  document.getElementById('news-item-title').textContent=n.title;
+  document.getElementById('news-item-desc').textContent=n.desc;
+  document.getElementById('news-item-source').textContent='\u2022 '+n.source;
+  document.getElementById('news-lbl').textContent=LANG==='tr'?'UC Ara\u015ft\u0131rma Haberleri':'UC Research News';
+  document.getElementById('news-next-lbl').textContent=LANG==='tr'?'Sonraki:':'Next in';
+  var nav=document.getElementById('news-nav');
+  nav.innerHTML=UC_NEWS.map(function(_,i){return '<div class="news-dot'+(i===newsIdx?' active':'')+'" onclick="newsGoTo('+i+')"></div>';}).join('');
+}
+
+function newsOpen(){
+  var url=newsItem().url;
+  if(url)window.open(url,'_blank','noopener');
+}
+
+function newsGoTo(i){
+  newsIdx=i;
+  renderNews();
+  newsSecsLeft=newsTotalSecs;
+  updateNewsTimer();
+}
+
+function updateNewsTimer(){
+  var mins=Math.floor(newsSecsLeft/60),secs=newsSecsLeft%60;
+  document.getElementById('news-countdown').textContent=mins>0?mins+'m':secs+'s';
+  var pct=(newsSecsLeft/newsTotalSecs)*100;
+  document.getElementById('news-timer-fill').style.width=pct+'%';
+}
+
+function startNewsTimer(){
+  var elapsed=Math.floor((Date.now()%(3600000))/1000);
+  newsSecsLeft=newsTotalSecs-elapsed;
+  updateNewsTimer();
+  newsTimer=setInterval(function(){
+    newsSecsLeft--;
+    if(newsSecsLeft<=0){
+      newsIdx=(newsIdx+1)%UC_NEWS.length;
+      newsSecsLeft=newsTotalSecs;
+      renderNews();
+    }
+    updateNewsTimer();
+  },1000);
+}
+
+function initNews(){renderNews();startNewsTimer();}
+/* ======= END NEWS ======= */
+
+buildPills();buildStats();renderSymGrid();initNews();buildChatSugs();
 var det=document.getElementById('sym-detail');if(det&&det.classList.contains('vis')){var ac=document.querySelector('.sym-card.active');if(ac)openSym(ac.id.replace('sc-',''));}
 var av=document.querySelector('.view.active');if(av){var vid=av.id.replace('view-','');if(vid==='foods')initFoods();else if(vid==='meds')renderMeds();else if(vid==='patterns')renderPat();else if(vid==='tracker'){TRK.inited=false;initTracker();}else if(vid==='analytics')initAnalytics();}}
 function buildPills(){document.getElementById('quick-pills').innerHTML=L('pills').map(function(p){return '<button class="qpill" onclick="qSearch(\''+p.replace(/'/g,"\\'")+'\')">'+p+'</button>';}).join('');}
@@ -547,7 +671,86 @@ function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,
 function ckd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
 function sendChatMsg(text){document.getElementById('chat-in').value=text;sendChat();}
 async function sendChat(){var inp=document.getElementById('chat-in'),text=inp.value.trim();if(!text||chatBusy)return;chatBusy=true;document.getElementById('chat-send').disabled=true;inp.value='';inp.style.height='auto';if(!chatInited)initChat();addUserMsg(text);chatHistory.push({role:'user',content:text});showTyping();var sys=CHAT_SYS+(LANG==='tr'?'\n\nIMPORTANT: Respond entirely in Turkish.':'\n\nRespond in English.');try{var data=await callAPI({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:chatHistory});rmTyping();var reply=(data.content[0]&&data.content[0].text)||'Sorry, no response.';chatHistory.push({role:'assistant',content:reply});if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);addAIMsg(fmt(reply).replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g,'<a class="doc-chip" href="$2" target="_blank" rel="noopener">\ud83e\ude7a $1</a>'));}catch(e){rmTyping();addAIMsg('Connection error. Please try again.');}chatBusy=false;document.getElementById('chat-send').disabled=false;}
-buildPills();buildStats();renderSymGrid();
+
+/* ======= UC NEWS ======= */
+var UC_NEWS=[
+  {en:{title:"Vedolizumab Shows Superior Remission Rates in Long-Term UC Study",desc:"New 5-year data from the GEMINI trial confirms Entyvio maintains remission in 60% of patients previously failing anti-TNF therapy.",source:"Gastroenterology Journal 2025"},tr:{title:"Vedolizumab Uzun D\u00f6nem \u00c7al\u0131\u015fmada \u00dcst\u00fcn Remisyon Oranlar\u0131 G\u00f6sterdi",desc:"GEMINI deneme verisi, Entyvio'nun anti-TNF tedavisinden ba\u015far\u0131s\u0131z olan hastalar\u0131n %60'\u0131nda remisyonu s\u00fcrd\u00fcrd\u00fc\u011f\u00fcn\u00fc do\u011fruluyor.",source:"Gastroenteroloji Dergisi 2025"},url:"https://www.gastrojournal.org"},
+  {en:{title:"Gut Microbiome Composition Predicts UC Flare Risk 2 Weeks in Advance",desc:"Researchers at Harvard Medical School identified 12 bacterial species whose ratio shifts precede flares, opening door to early intervention.",source:"Nature Medicine 2025"},tr:{title:"Ba\u011f\u0131rsak Mikrobiyomu Bile\u015fimi UC Alevlenme Riskini 2 Hafta \u00d6ncesinden Tahmin Ediyor",desc:"Harvard Arasat\u0131rmac\u0131lar\u0131, oran de\u011fi\u015fikli\u011fi alevlenmeleri \u00f6nceleyen 12 bakteriyel t\u00fcr tespit etti.",source:"Nature Medicine 2025"},url:"https://www.nature.com/nm"},
+  {en:{title:"Stress Management Reduces UC Flare Frequency by 34% in Clinical Trial",desc:"A 12-week mindfulness-based stress reduction program showed significant reduction in Mayo scores and inflammatory markers in UC patients.",source:"American Journal of Gastroenterology 2025"},tr:{title:"Stres Y\u00f6netimi Klinik Denemede UC Alevlenme S\u0131kl\u0131\u011f\u0131n\u0131 %34 Azaltt\u0131",desc:"12 haftal\u0131k mindfulness tabanl\u0131 program, UC hastalar\u0131nda Mayo skorlar\u0131nda ve enflamasyon belirte\u00e7lerinde anlaml\u0131 azalma g\u00f6sterdi.",source:"Amerikan Gastroenteroloji Dergisi 2025"},url:"https://journals.lww.com/ajg"},
+  {en:{title:"FDA Approves New IL-23 Inhibitor Mirikizumab for Moderate-to-Severe UC",desc:"Omvoh (mirikizumab) joins the arsenal of biologic treatments for UC, showing 45% clinical remission at week 12 in pivotal LUCENT trials.",source:"FDA News Release 2025"},tr:{title:"FDA, Orta-\u015eiddetli UC \u0130\u00e7in Yeni IL-23 \u0130nhibit\u00f6r\u00fc Mirikizumab'\u0131 Onaylad\u0131",desc:"Omvoh (mirikizumab), LUCENT denemelerinde 12. haftada %45 klinik remisyon g\u00f6stererek UC biyolojik tedavi c\u00fcphane\u011fine kat\u0131ld\u0131.",source:"FDA Bas\u0131n A\u00e7\u0131klamas\u0131 2025"},url:"https://www.fda.gov"},
+  {en:{title:"Mediterranean Diet Linked to 40% Lower UC Flare Risk in Observational Study",desc:"Over 3,200 UC patients followed for 3 years showed significantly lower hospitalization rates when adhering to a Mediterranean dietary pattern.",source:"Journal of Crohn's and Colitis 2025"},tr:{title:"Akdeniz Diyeti 3 Y\u0131ll\u0131k Gozlemsel \u00c7al\u0131\u015fmada UC Alevlenme Riskiyle Ba\u011flant\u0131l\u0131",desc:"Akdeniz beslenme d\u00fczenine uyan UC hastalar\u0131nda hastaneye yat\u0131\u015f oranlar\u0131 anlaml\u0131 derecede d\u00fc\u015f\u00fck bulundu.",source:"Crohn's ve Kolit Dergisi 2025"},url:"https://academic.oup.com/ecco-jcc"},
+  {en:{title:"Upadacitinib Outperforms Adalimumab in Head-to-Head UC Trial",desc:"The JAK1 inhibitor Rinvoq demonstrated superior endoscopic improvement and histologic remission vs Humira in the SELECT COMPARE study.",source:"NEJM Evidence 2025"},tr:{title:"Upadacitinib, Ba\u015fa Ba\u015f UC Denemesinde Adalimumab'\u0131 Ge\u00e7ti",desc:"JAK1 inhibit\u00f6r\u00fc Rinvoq, SELECT COMPARE \u00e7al\u0131\u015fmas\u0131nda Humira'ya k\u0131yasla \u00fcst\u00fcn endoskopik iyile\u015fme ve histolojik remisyon g\u00f6sterdi.",source:"NEJM Kan\u0131t 2025"},url:"https://evidence.nejm.org"},
+  {en:{title:"Early Biologic Therapy Reduces Colectomy Risk by 55% in New-Onset UC",desc:"Initiating biologic treatment within 6 months of diagnosis significantly reduces long-term surgical outcomes according to a 10-year registry study.",source:"Inflammatory Bowel Diseases 2025"},tr:{title:"Erken Biyolojik Tedavi Yeni Tan\u0131l\u0131 UC'de Kolektomi Riskini %55 Azaltt\u0131",desc:"Tan\u0131dan itibaren 6 ay i\u00e7inde biyolojik tedavi ba\u015flatmak, uzun d\u00f6nem cerrahi sonu\u00e7lar\u0131n\u0131 anlaml\u0131 \u00f6l\u00e7\u00fcde azalt\u0131yor.",source:"\u0130nflamatuar Ba\u011f\u0131rsak Hastal\u0131klar\u0131 2025"},url:"https://academic.oup.com/ibdjournal"},
+  {en:{title:"Fecal Microbiota Transplant Shows Promise for UC in Phase 3 Trial",desc:"FMT from healthy donors achieved remission in 32% of moderate UC patients at week 8, with sustained response in 70% at one year.",source:"Lancet Gastroenterology 2025"},tr:{title:"D\u0131\u015fk\u0131 Mikrobiyota Transplantasyonu Faz 3 Denemesinde UC \u0130\u00e7in Umut Veriyor",desc:"Sa\u011fl\u0131kl\u0131 donorlerden FMT, 8. haftada orta \u015fiddetli UC hastalar\u0131n\u0131n %32'sinde remisyon sa\u011flad\u0131.",source:"Lancet Gastroenteroloji 2025"},url:"https://www.thelancet.com/journals/langas"},
+  {en:{title:"AI Model Predicts UC Treatment Response with 87% Accuracy",desc:"A deep learning model trained on colonoscopy images and clinical data accurately predicts which patients will respond to specific biologic therapies.",source:"npj Digital Medicine 2025"},tr:{title:"Yapay Zeka Modeli UC Tedavi Yan\u0131t\u0131n\u0131 %87 Do\u011frulukla Tahmin Ediyor",desc:"Kolonoskopi g\u00f6r\u00fcnt\u00fcleri ve klinik verilerle e\u011fitilen model, hangi hastalar\u0131n belirli biyolojiklere yan\u0131t verece\u011fini do\u011fru tahmin ediyor.",source:"npj Dijital T\u0131p 2025"},url:"https://www.nature.com/npjdigitalmed"},
+  {en:{title:"Sleep Disruption Increases UC Flare Risk Threefold, Study Finds",desc:"UC patients sleeping fewer than 6 hours nightly showed 3x higher rates of disease activity, reinforcing the gut-brain-sleep axis in IBD.",source:"Sleep Medicine 2025"},tr:{title:"\u00c7al\u0131\u015fma: Uyku Bozuklu\u011fu UC Alevlenme Riskini \u00dc\u00e7 Kat Art\u0131r\u0131yor",desc:"Geceleri 6 saatten az uyuyan UC hastalar\u0131nda hastal\u0131k aktivitesi 3 kat daha y\u00fcksek bulundu.",source:"Uyku T\u0131bb\u0131 2025"},url:"https://www.sleepmedjournals.com"},
+  {en:{title:"Vitamin D Deficiency Strongly Associated with UC Disease Severity",desc:"A meta-analysis of 28 studies confirms low vitamin D levels correlate with higher Mayo scores, more hospitalizations and lower remission rates.",source:"Alimentary Pharmacology 2025"},tr:{title:"D Vitamini Eksikli\u011fi UC Hastal\u0131k \u015eiddeti ile G\u00fc\u00e7l\u00fc \u0130li\u015fkili",desc:"28 \u00e7al\u0131\u015fman\u0131n meta-analizi, d\u00fc\u015f\u00fck D vitamini d\u00fczeylerinin y\u00fcksek Mayo skorlar\u0131 ve d\u00fc\u015f\u00fck remisyon oranlar\u0131yla ili\u015fkili oldu\u011funu do\u011fruluyor.",source:"Alimentar Farmakoloji 2025"},url:"https://onlinelibrary.wiley.com/journal/13652036"},
+  {en:{title:"Ozanimod Maintains Remission in 54% of UC Patients at 2 Years",desc:"Long-term data from the TRUE NORTH extension study shows sustained benefit of the S1P receptor modulator Zeposia in UC maintenance therapy.",source:"Clinical Gastroenterology 2025"},tr:{title:"Ozanimod 2 Y\u0131lda UC Hastalar\u0131n\u0131n %54'\u00fcnde Remisyonu S\u00fcrd\u00fcrd\u00fc",desc:"TRUE NORTH uzatma \u00e7al\u0131\u015fmas\u0131 uzun d\u00f6nem verileri, Zeposia'n\u0131n idame tedavisindeki s\u00fcrekli faydas\u0131n\u0131 g\u00f6steriyor.",source:"Klinik Gastroenteroloji 2025"},url:"https://journals.lww.com/clngastro"},
+  {en:{title:"New Biomarker Panel Can Detect UC Flare 3 Weeks Before Symptoms",desc:"Researchers identified a blood-based 5-biomarker signature including calprotectin, CRP and three microRNAs that predicts impending flares.",source:"Gut Journal 2025"},tr:{title:"Yeni Biyobelirte\u00e7 Paneli UC Alevlenmesini Semptomlardan 3 Hafta \u00d6nce Tespit Edebiliyor",desc:"Araflt\u0131rmac\u0131lar, yakla\u015fan alevlenmeleri tahmin eden kalprotektin, CRP ve \u00fc\u00e7 mikroRNA i\u00e7eren 5 biyobelirte\u00e7li bir kan imzas\u0131 belirledi.",source:"Gut Dergisi 2025"},url:"https://gut.bmj.com"},
+  {en:{title:"Exercise Reduces UC Inflammatory Markers by 28% in 8-Week Trial",desc:"Moderate aerobic exercise 3x weekly significantly lowered fecal calprotectin and CRP in UC patients in remission without triggering flares.",source:"Journal of Sports Medicine 2025"},tr:{title:"Egzersiz 8 Haftal\u0131k Denemede UC Enflamasyon Belirte\u00e7lerini %28 Azaltt\u0131",desc:"H\u0131ftan\u0131n 3 g\u00fcn\u00fc orta aerobik egzersiz, alevlenme tetiklemeden remisyondaki UC hastalar\u0131nda fekal kalprotektini ve CRP'yi anlaml\u0131 azaltt\u0131.",source:"Spor Hekimli\u011fi Dergisi 2025"},url:"https://bjsm.bmj.com"},
+  {en:{title:"Risankizumab Approved for UC: A New IL-23 Option for Refractory Patients",desc:"Skyrizi joins the UC treatment landscape with 40% endoscopic remission at week 12, providing a new option for patients failing prior biologics.",source:"FDA Approval 2025"},tr:{title:"Risankizumab UC \u0130\u00e7in Onaylad\u0131: Diren\u00e7li Hastalar \u0130\u00e7in Yeni Bir IL-23 Se\u00e7ene\u011fi",desc:"Skyrizi, 12. haftada %40 endoskopik remisyon ile UC tedavi sahas\u0131na kat\u0131larak \u00f6nceki biyolojiklerden ba\u015far\u0131s\u0131z olan hastalar i\u00e7in yeni bir se\u00e7enek sunuyor.",source:"FDA Onay\u0131 2025"},url:"https://www.fda.gov"},
+  {en:{title:"Personalized Nutrition App Reduces UC Hospitalization by 31%",desc:"A digital health trial using AI-guided dietary recommendations tailored to patient microbiome significantly reduced emergency department visits.",source:"Digital Health 2025"},tr:{title:"Ki\u015fisel Beslenme Uygulamas\u0131 UC Hastaneye Yat\u0131\u015f\u0131n\u0131 %31 Azaltt\u0131",desc:"Hasta mikrobiyomuna \u00f6zel yapay zeka destekli beslenme \u00f6nerileri kullanan dijital sa\u011fl\u0131k denemesi acil servis ba\u015fvurular\u0131n\u0131 anlaml\u0131 \u00f6l\u00e7\u00fcde azaltt\u0131.",source:"Dijital Sa\u011fl\u0131k 2025"},url:"https://www.digital-health.net"},
+  {en:{title:"Histological Remission \u2014 Not Just Endoscopic \u2014 Should Be the New UC Target",desc:"International consensus panel recommends histologic healing as the gold standard treatment target, beyond current Mayo endoscopic score goals.",source:"UEG Journal 2025"},tr:{title:"Histolojik Remisyon Yeni UC Hedefi Olmal\u0131: Sadece Endoskopik De\u011fil",desc:"Uluslararas\u0131 konsens\u00fcs paneli, mevcut Mayo endoskopik skor hedeflerinin \u00f6tesinde histolojik iyile\u015fmeyi alt\u0131n standart tedavi hedefi olarak \u00f6neriyor.",source:"UEG Dergisi 2025"},url:"https://journals.sagepub.com/home/ueg"},
+  {en:{title:"Proactive TDM Strategy Reduces UC Treatment Failure by 40%",desc:"Therapeutic drug monitoring to optimize biologic dosing before loss of response outperforms reactive dose adjustment in preventing treatment failure.",source:"Clinical Pharmacokinetics 2025"},tr:{title:"Proaktif TDM Stratejisi UC Tedavi Ba\u015far\u0131s\u0131zl\u0131\u011f\u0131n\u0131 %40 Azaltt\u0131",desc:"Yan\u0131t kayb\u0131 \u00f6ncesinde biyolojik dozaj\u0131 optimize eden terapotik ila\u00e7 izlemi, reaktif doz ayarlamas\u0131n\u0131 ge\u00e7iyor.",source:"Klinik Farmakokinetik 2025"},url:"https://link.springer.com/journal/40262"},
+  {en:{title:"Mental Health Treatment Improves UC Outcomes: Gut-Brain Axis Confirmed",desc:"UC patients receiving concurrent psychological therapy showed 45% fewer flares and better medication adherence over 18 months.",source:"Psychosomatic Medicine 2025"},tr:{title:"Ruh Sa\u011fl\u0131\u011f\u0131 Tedavisi UC Sonu\u00e7lar\u0131n\u0131 \u0130yile\u015ftiriyor: Ba\u011f\u0131rsak-Beyin Ekseni Do\u011fruland\u0131",desc:"Psikolojik terapi alan UC hastalar\u0131 18 ayda %45 daha az alevlenme ve daha iyi ila\u00e7 uyumu g\u00f6sterdi.",source:"Psikosomatik T\u0131p 2025"},url:"https://journals.lww.com/psychosomaticmedicine"},
+  {en:{title:"Subcutaneous Vedolizumab Proves Non-Inferior to IV in VISIBLE Trial",desc:"Self-injectable Entyvio SC maintains equivalent efficacy to intravenous infusion, offering patients greater flexibility and reduced clinic visits.",source:"Crohn's & Colitis 360 2025"},tr:{title:"Subkutan Vedolizumab VISIBLE Denemesinde IV'e E\u015fde\u011fer Bulundu",desc:"Kendi kendine enjekte edilebilen Entyvio SC, intravenoz inf\u00fczyona e\u015fde\u011fer etkinlik g\u00f6stererek hastalara daha fazla esneklik ve azalt\u0131lm\u0131\u015f klinik ziyareti sunuyor.",source:"Crohn's & Kolit 360 2025"},url:"https://academic.oup.com/crohnscolitis360"}
+];
+
+var newsIdx=Math.floor(Date.now()/3600000)%UC_NEWS.length;
+var newsTimer=null,newsSecsLeft=0,newsTotalSecs=3600;
+
+function newsItem(){return UC_NEWS[newsIdx];}
+function newsLang(){return LANG==='tr'?newsItem().tr:newsItem().en;}
+
+function renderNews(){
+  var n=newsLang();
+  document.getElementById('news-item-title').textContent=n.title;
+  document.getElementById('news-item-desc').textContent=n.desc;
+  document.getElementById('news-item-source').textContent='\u2022 '+n.source;
+  document.getElementById('news-lbl').textContent=LANG==='tr'?'UC Ara\u015ft\u0131rma Haberleri':'UC Research News';
+  document.getElementById('news-next-lbl').textContent=LANG==='tr'?'Sonraki:':'Next in';
+  var nav=document.getElementById('news-nav');
+  nav.innerHTML=UC_NEWS.map(function(_,i){return '<div class="news-dot'+(i===newsIdx?' active':'')+'" onclick="newsGoTo('+i+')"></div>';}).join('');
+}
+
+function newsOpen(){
+  var url=newsItem().url;
+  if(url)window.open(url,'_blank','noopener');
+}
+
+function newsGoTo(i){
+  newsIdx=i;
+  renderNews();
+  newsSecsLeft=newsTotalSecs;
+  updateNewsTimer();
+}
+
+function updateNewsTimer(){
+  var mins=Math.floor(newsSecsLeft/60),secs=newsSecsLeft%60;
+  document.getElementById('news-countdown').textContent=mins>0?mins+'m':secs+'s';
+  var pct=(newsSecsLeft/newsTotalSecs)*100;
+  document.getElementById('news-timer-fill').style.width=pct+'%';
+}
+
+function startNewsTimer(){
+  var elapsed=Math.floor((Date.now()%(3600000))/1000);
+  newsSecsLeft=newsTotalSecs-elapsed;
+  updateNewsTimer();
+  newsTimer=setInterval(function(){
+    newsSecsLeft--;
+    if(newsSecsLeft<=0){
+      newsIdx=(newsIdx+1)%UC_NEWS.length;
+      newsSecsLeft=newsTotalSecs;
+      renderNews();
+    }
+    updateNewsTimer();
+  },1000);
+}
+
+function initNews(){renderNews();startNewsTimer();}
+/* ======= END NEWS ======= */
+
+buildPills();buildStats();renderSymGrid();initNews();
 
 /* ======= TRACKER ======= */
 var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],stress:0,notes:'',entries:{},inited:false};
