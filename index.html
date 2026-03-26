@@ -707,7 +707,7 @@ var det=document.getElementById('sym-detail');if(det&&det.classList.contains('vi
 var av=document.querySelector('.view.active');if(av){var vid=av.id.replace('view-','');if(vid==='foods')initFoods();else if(vid==='meds')renderMeds();else if(vid==='patterns')renderPat();else if(vid==='tracker'){TRK.inited=false;initTracker();}else if(vid==='analytics')initAnalytics();}}
 function buildPills(){document.getElementById('quick-pills').innerHTML=L('pills').map(function(p){return '<button class="qpill" onclick="qSearch(\''+p.replace(/'/g,"\\'")+'\')">'+p+'</button>';}).join('');}
 function buildStats(){document.getElementById('stats-row').innerHTML=L('stats').map(function(s){return '<div class="stat-chip"><div class="stat-val" style="color:'+s.color+'">'+s.val+'</div><div class="stat-lbl">'+s.lbl+'</div></div>';}).join('');}
-function qSearch(q){document.getElementById('srch-in').value=q;doSearch();}
+function qSearch(q){var el=document.getElementById('srch-in');el.value=q;el.dispatchEvent(new Event('input'));searching=false;setTimeout(doSearch,0);}
 async function doSearch(){
   var q=document.getElementById('srch-in').value.trim();if(!q||searching)return;
   searching=true;document.getElementById('srch-btn').disabled=true;
@@ -721,8 +721,7 @@ async function doSearch(){
     var m=raw.match(/```(?:json)?\s*([\s\S]*?)```/);if(m)raw=m[1].trim();
     var si=raw.indexOf('{'),ei=raw.lastIndexOf('}');if(si>-1)raw=raw.slice(si,ei+1);
     renderResults(JSON.parse(raw));
-  }catch(e){document.getElementById('ai-txt').textContent='Unable to load results. Try again.';document.getElementById('stats3').innerHTML='';document.getElementById('posts-list').innerHTML='';document.getElementById('results').classList.add('vis');}
-  document.getElementById('spin-row').classList.remove('vis');searching=false;document.getElementById('srch-btn').disabled=false;
+  }catch(e){document.getElementById('ai-txt').textContent='Unable to load results. Try again.';document.getElementById('stats3').innerHTML='';document.getElementById('posts-list').innerHTML='';document.getElementById('results').classList.add('vis');}finally{document.getElementById('spin-row').classList.remove('vis');searching=false;document.getElementById('srch-btn').disabled=false;}
 }
 function renderResults(d){
   document.getElementById('ai-txt').textContent=d.insight||'';
