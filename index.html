@@ -1099,7 +1099,13 @@ function renderHeatmap(dates){
     <div class="trk-hdr">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <div><div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.4px" id="trk-page-title">Today's Log</div><div style="font-size:12px;color:var(--text3);margin-top:2px" id="trk-date-lbl"></div></div>
-        <div class="saved-badge-trk" id="trk-saved-badge">&#x2713; Saved!</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="saved-badge-trk" id="trk-saved-badge">&#x2713; Saved!</div>
+          <button id="trk-pdf-btn" onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:6px 13px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            Share PDF
+          </button>
+        </div>
       </div>
       <div class="trk-tabs">
         <button class="trk-tab active" id="tt-log"      onclick="trkTab('log',this)">&#x1F4DD; <span id="ttx-log">Log</span></button>
@@ -1137,5 +1143,390 @@ function renderHeatmap(dates){
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ======= TRACKER PDF EXPORT ======= */
+function exportTrkPDF(){
+  var btn=document.getElementById('trk-pdf-btn');
+  if(btn){btn.disabled=true;btn.style.opacity='0.6';}
+  var origText=btn?btn.innerHTML:'';
+  if(btn)btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...';
+
+  try{
+    var entries=TRK.entries||{};
+    var dates=Object.keys(entries).sort();
+
+    var {jsPDF}=window.jspdf;
+    var doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+    var W=210,H=297,M=14,cW=W-M*2;
+    var y=M;
+
+    /* ---- helpers ---- */
+    function accent(){return[37,99,235];}
+    function red(){return[232,64,64];}
+    function green(){return[16,185,129];}
+    function orange(){return[245,158,11];}
+    function gray(){return[120,120,140];}
+    function lightGray(){return[240,241,245];}
+    function darkText(){return[20,20,30];}
+
+    function checkPage(need){
+      if(y+need>H-M){doc.addPage();y=M;drawPageFooter();}
+    }
+    function drawPageFooter(){
+      var p=doc.internal.getCurrentPageInfo().pageNumber;
+      doc.setFontSize(8);doc.setTextColor(...gray());
+      doc.text('UCInsights — Personal UC Health Report',M,H-6);
+      doc.text('Page '+p,W-M,H-6,{align:'right'});
+    }
+    function sectionHeader(title,icon){
+      checkPage(12);
+      doc.setFillColor(...lightGray());
+      doc.roundedRect(M,y,cW,9,2,2,'F');
+      doc.setFontSize(9);doc.setFont(undefined,'bold');doc.setTextColor(...accent());
+      doc.text((icon?icon+' ':'')+title.toUpperCase(),M+4,y+6);
+      y+=12;
+    }
+    function card(height,fn){
+      checkPage(height+4);
+      doc.setFillColor(255,255,255);
+      doc.setDrawColor(220,221,230);
+      doc.roundedRect(M,y,cW,height,3,3,'FD');
+      fn(M+4,y+5,cW-8);
+      y+=height+4;
+    }
+    function pill(x,py,text,r,g,b){
+      doc.setFillColor(r,g,b,0.12);
+      doc.setDrawColor(r,g,b,0.35);
+      var tw=doc.getTextWidth(text)+6;
+      doc.roundedRect(x,py-3.5,tw,5.5,2,2,'FD');
+      doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(r,g,b);
+      doc.text(text,x+3,py);
+      return tw+3;
+    }
+    function bar(x,py,width,pct,r,g,b){
+      doc.setFillColor(230,231,238);doc.roundedRect(x,py,width,3,1,1,'F');
+      if(pct>0){doc.setFillColor(r,g,b);doc.roundedRect(x,py,width*(pct/100),3,1,1,'F');}
+    }
+
+    /* ---- COVER PAGE ---- */
+    // gradient-like header block
+    doc.setFillColor(...accent());
+    doc.rect(0,0,W,50,'F');
+    // logo area
+    doc.setFontSize(24);doc.setFont(undefined,'bold');doc.setTextColor(255,255,255);
+    doc.text('UC Insights',W/2,20,{align:'center'});
+    doc.setFontSize(11);doc.setFont(undefined,'normal');doc.setTextColor(200,210,255);
+    doc.text('Personal Health Report',W/2,28,{align:'center'});
+    doc.setFontSize(9);doc.setTextColor(180,195,255);
+    var now=new Date();
+    doc.text('Generated '+now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}),W/2,35,{align:'center'});
+    y=58;
+
+    if(dates.length===0){
+      doc.setFontSize(13);doc.setFont(undefined,'bold');doc.setTextColor(...darkText());
+      doc.text('No entries logged yet.',W/2,100,{align:'center'});
+      doc.setFontSize(10);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+      doc.text('Start logging in the Tracker tab to generate your report.',W/2,110,{align:'center'});
+      doc.save('UCInsights-Report.pdf');
+      if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML=origText;}
+      return;
+    }
+
+    /* ---- SUMMARY STATS ---- */
+    sectionHeader('Summary Overview','📊');
+    var recent=dates.slice(-30);
+    var totalDays=recent.length;
+    var badDays=recent.filter(function(d){var e=entries[d];return e&&(e.overall===3||Object.values(e.symptoms||{}).some(function(v){return v>=3;}));}).length;
+    var stressVals=recent.map(function(d){return(entries[d]||{}).stress||0;}).filter(function(v){return v>0;});
+    var avgStress=stressVals.length?(stressVals.reduce(function(a,b){return a+b;},0)/stressVals.length).toFixed(1):'-';
+    var badPct=Math.round(badDays/totalDays*100);
+
+    card(20,function(cx,cy){
+      var cols=[[totalDays+' Days','Logged','accent'],[badPct+'%','Bad Days',badPct>=50?'red':'green'],[avgStress,'Avg Stress',avgStress>=7?'red':avgStress>=4?'orange':'green']];
+      var colW=cW/3;
+      cols.forEach(function(col,i){
+        var cx2=M+i*colW+colW/2;
+        var colorFn={accent:accent,red:red,green:green,orange:orange}[col[2]];
+        doc.setFontSize(18);doc.setFont(undefined,'bold');doc.setTextColor(...colorFn());
+        doc.text(col[0],cx2,cy+8,{align:'center'});
+        doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+        doc.text(col[1],cx2,cy+13,{align:'center'});
+      });
+    });
+
+    /* ---- WELLBEING CHART ---- */
+    sectionHeader('Wellbeing Over Time','😊');
+    var chartDates=recent.slice(-14);
+    if(chartDates.length>0){
+      card(38,function(cx,cy,cw){
+        // x-axis labels
+        var barW=cw/chartDates.length*0.7,spacing=cw/chartDates.length;
+        chartDates.forEach(function(d,i){
+          var e=entries[d]||{};
+          var ov=e.overall||0;
+          var colorFn=ov===1?green:ov===3?red:ov===2?orange:function(){return[180,181,195];};
+          var bh=ov>0?ov*5+4:3;
+          var bx=cx+i*spacing+(spacing-barW)/2;
+          var by=cy+26-bh;
+          doc.setFillColor(...colorFn());
+          doc.roundedRect(bx,by,barW,bh,1,1,'F');
+          // date label
+          doc.setFontSize(5.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          var dl=d.slice(5).replace('-','/');
+          doc.text(dl,bx+barW/2,cy+31,{align:'center'});
+        });
+        // legend
+        doc.setFontSize(7);
+        [[green(),'Good'],[orange(),'Okay'],[red(),'Bad']].forEach(function(item,i){
+          var lx=cx+i*24;
+          doc.setFillColor(...item[0]);doc.circle(lx+2,cy+36.5,1.5,'F');
+          doc.setTextColor(...gray());doc.text(item[1],lx+5,cy+37);
+        });
+      });
+    }
+
+    /* ---- SYMPTOMS CHART ---- */
+    var symCount={};
+    recent.forEach(function(d){
+      Object.entries((entries[d]||{}).symptoms||{}).forEach(function(kv){
+        if(!symCount[kv[0]])symCount[kv[0]]={t:0,c:0};
+        symCount[kv[0]].t+=kv[1];symCount[kv[0]].c++;
+      });
+    });
+    var topSyms=Object.entries(symCount).map(function(kv){
+      return{key:kv[0],avg:kv[1].t/kv[1].c,freq:Math.round(kv[1].c/totalDays*100)};
+    }).sort(function(a,b){return b.avg-a.avg;}).slice(0,5);
+
+    if(topSyms.length>0){
+      sectionHeader('Top Symptoms','🔍');
+      var symH=10+topSyms.length*12+6;
+      card(symH,function(cx,cy,cw){
+        doc.setFontSize(7);doc.setFont(undefined,'bold');doc.setTextColor(...gray());
+        doc.text('SYMPTOM',cx,cy+4);
+        doc.text('FREQUENCY',cx+cw*0.55,cy+4);
+        doc.text('AVG SEV',cx+cw*0.85,cy+4,{align:'right'});
+        topSyms.forEach(function(s,i){
+          var ry=cy+10+i*12;
+          var sym=TSYMS.find(function(x){return x.key===s.key;});
+          var label=sym?(LANG==='tr'?(L('sym_'+sym.key)||sym.label):sym.label):s.key;
+          var sev=s.avg;
+          var col=sev>=4?red():sev>=2?orange():green();
+          doc.setFontSize(9);doc.setFont(undefined,'normal');doc.setTextColor(...darkText());
+          doc.text(label,cx,ry);
+          bar(cx+cw*0.45,ry-3,cw*0.35,s.freq,...col);
+          doc.setFontSize(8);doc.setTextColor(...gray());
+          doc.text(s.freq+'%',cx+cw*0.82,ry);
+          doc.setFont(undefined,'bold');doc.setTextColor(...col);
+          doc.text(sev.toFixed(1),cx+cw*0.95,ry,{align:'right'});
+        });
+      });
+    }
+
+    /* ---- RISK FOODS ---- */
+    var foodFlare={};
+    recent.forEach(function(d){
+      var e=entries[d]||{};
+      var wasBad=e.overall===3||Object.values(e.symptoms||{}).some(function(v){return v>=4;});
+      (e.foods||[]).forEach(function(f){
+        if(!foodFlare[f])foodFlare[f]={bad:0,t:0};
+        foodFlare[f].t++;if(wasBad)foodFlare[f].bad++;
+      });
+    });
+    var riskFoods=Object.entries(foodFlare).filter(function(kv){return kv[1].t>=2;}).map(function(kv){
+      return{key:kv[0],pct:Math.round(kv[1].bad/kv[1].t*100),total:kv[1].t};
+    }).filter(function(f){return f.pct>40;}).sort(function(a,b){return b.pct-a.pct;}).slice(0,5);
+
+    if(riskFoods.length>0){
+      sectionHeader('Personal Risk Foods','⚠️');
+      var rfH=16+riskFoods.length*11+4;
+      card(rfH,function(cx,cy,cw){
+        doc.setFontSize(8);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+        doc.text('These foods appeared more often on your bad symptom days:',cx,cy+5);
+        riskFoods.forEach(function(f,i){
+          var ry=cy+13+i*11;
+          var food=TFOODS.find(function(x){return x.key===f.key;});
+          var label=food?(food.icon+' '+(LANG==='tr'?food.labeltr||food.label:food.label)):f.key;
+          if(food)label=(LANG==='tr'?(food.labeltr||food.label):food.label);
+          doc.setFontSize(9);doc.setFont(undefined,'normal');doc.setTextColor(...darkText());
+          doc.text(label,cx,ry);
+          bar(cx+cw*0.45,ry-3,cw*0.35,f.pct,...red());
+          doc.setFontSize(8);doc.setFont(undefined,'bold');doc.setTextColor(...red());
+          doc.text(f.pct+'% bad days',cx+cw*0.82,ry);
+        });
+      });
+    }
+
+    /* ---- STRESS TREND ---- */
+    sectionHeader('Stress Trend','😰');
+    var stressDates=recent.slice(-14);
+    var hasStress=stressDates.some(function(d){return (entries[d]||{}).stress>0;});
+    if(hasStress){
+      card(30,function(cx,cy,cw){
+        var maxS=10,rowH=20;
+        var spacing=cw/stressDates.length;
+        var barW2=spacing*0.65;
+        // baseline
+        doc.setDrawColor(220,221,230);doc.setLineWidth(0.3);
+        doc.line(cx,cy+rowH,cx+cw,cy+rowH);
+        stressDates.forEach(function(d,i){
+          var sv=(entries[d]||{}).stress||0;
+          var col=sv>=7?red():sv>=4?orange():green();
+          var bh=sv>0?(sv/maxS)*rowH:1;
+          var bx=cx+i*spacing+(spacing-barW2)/2;
+          doc.setFillColor(...col());
+          doc.roundedRect(bx,cy+rowH-bh,barW2,bh,0.5,0.5,'F');
+          doc.setFontSize(5.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          doc.text(stressDates[i].slice(5).replace('-','/'),bx+barW2/2,cy+26,{align:'center'});
+        });
+      });
+    }
+
+    /* ---- MEDICATION LOG ---- */
+    var allMeds={};
+    recent.forEach(function(d){
+      (entries[d]||{}).meds||[];
+      ((entries[d]||{}).meds||[]).forEach(function(m){allMeds[m]=(allMeds[m]||0)+1;});
+    });
+    var medList=Object.entries(allMeds).sort(function(a,b){return b[1]-a[1];});
+    if(medList.length>0){
+      sectionHeader('Medication Log','💊');
+      var medH=14+medList.length*10+4;
+      card(medH,function(cx,cy,cw){
+        doc.setFontSize(7);doc.setFont(undefined,'bold');doc.setTextColor(...gray());
+        doc.text('MEDICATION',cx,cy+5);doc.text('DAYS TAKEN',cx+cw-2,cy+5,{align:'right'});
+        medList.forEach(function(kv,i){
+          var ry=cy+12+i*10;
+          doc.setFontSize(9);doc.setFont(undefined,'normal');doc.setTextColor(...darkText());
+          doc.text('💊 '+kv[0],cx,ry);
+          bar(cx+cw*0.5,ry-3.5,cw*0.3,Math.round(kv[1]/totalDays*100),...accent());
+          doc.setFontSize(8);doc.setTextColor(...accent());doc.setFont(undefined,'bold');
+          doc.text(kv[1]+' days',cx+cw-2,ry,{align:'right'});
+        });
+      });
+    }
+
+    /* ---- DETAILED LOG HISTORY ---- */
+    doc.addPage();y=M;drawPageFooter();
+    sectionHeader('Full Log History','📅');
+
+    var histDates=dates.slice().reverse().slice(0,30);
+    var emojiMap={1:'😊',2:'😐',3:'😢'};
+    histDates.forEach(function(d){
+      var e=entries[d];if(!e)return;
+      var syms=Object.entries(e.symptoms||{});
+      var foods=(e.foods||[]);
+      var meds=(e.meds||[]);
+      var hasNotes=!!(e.notes&&e.notes.trim());
+      var entH=14+(syms.length>0?10:0)+(foods.length>0?10:0)+(meds.length>0?8:0)+(hasNotes?12:0)+2;
+      checkPage(entH+4);
+
+      card(entH,function(cx,cy,cw){
+        // date row
+        doc.setFontSize(9);doc.setFont(undefined,'bold');doc.setTextColor(...darkText());
+        var isToday=d===trkToday();
+        var dateStr=new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+        doc.text((isToday?'⭐ Today — ':'')+dateStr,cx,cy+4);
+        // feeling emoji
+        if(e.overall>0){
+          doc.setFontSize(11);
+          doc.text(emojiMap[e.overall]||'',cx+cw-2,cy+4,{align:'right'});
+        }
+        // BM + stress badges
+        var bx=cx+cw-40;
+        if(e.bm>0){
+          doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          doc.text('BM: '+e.bm+'x',bx,cy+4);bx-=16;
+        }
+        if(e.stress>0){
+          doc.setFontSize(7.5);doc.setFont(undefined,'normal');
+          var sc=e.stress>=7?red():e.stress>=4?orange():green();
+          doc.setTextColor(...sc);
+          doc.text('Stress: '+e.stress+'/10',bx-16,cy+4);
+        }
+        var iy=cy+9;
+        // symptoms
+        if(syms.length>0){
+          var px=cx;
+          syms.forEach(function(kv){
+            var sym=TSYMS.find(function(s){return s.key===kv[0];});
+            if(!sym)return;
+            var col=kv[1]>=4?red():kv[1]>=2?orange():green();
+            var label=(LANG==='tr'?(L('sym_'+sym.key)||sym.label):sym.label)+' ('+kv[1]+')';
+            var w=pill(px,iy+4,label,...col);
+            px+=w+2;if(px>cx+cw-20){px=cx;iy+=8;}
+          });
+          iy+=8;
+        }
+        // foods
+        if(foods.length>0){
+          doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          var foodLabels=foods.map(function(fk){var fd=TFOODS.find(function(f){return f.key===fk;});return fd?(LANG==='tr'?(fd.labeltr||fd.label):fd.label):fk;});
+          doc.text('🍽 '+foodLabels.join('  ·  '),cx,iy+4);
+          iy+=9;
+        }
+        // meds
+        if(meds.length>0){
+          doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          doc.text('💊 '+meds.join(', '),cx,iy+4);
+          iy+=8;
+        }
+        // notes
+        if(hasNotes){
+          doc.setFontSize(8);doc.setFont(undefined,'italic');doc.setTextColor(100,100,120);
+          var lines=doc.splitTextToSize('"'+e.notes+'"',cw-4);
+          lines.slice(0,2).forEach(function(line,li){doc.text(line,cx,iy+4+li*5);});
+        }
+      });
+    });
+
+    /* ---- INSIGHTS SUMMARY ---- */
+    doc.addPage();y=M;drawPageFooter();
+    sectionHeader('Personal Insights','💡');
+
+    // tip card
+    card(22,function(cx,cy,cw){
+      doc.setFillColor(235,240,255);
+      doc.roundedRect(M,y-22-4,cW,22,3,3,'F');
+      doc.setFontSize(9);doc.setFont(undefined,'bold');doc.setTextColor(...accent());
+      doc.text('💡 Keep Logging Daily',cx,cy+5);
+      doc.setFontSize(8.5);doc.setFont(undefined,'normal');doc.setTextColor(60,70,100);
+      var tip='The more days you log, the more accurate your personal insights. After 2 weeks UCInsights can identify your specific UC triggers and patterns.';
+      var lines=doc.splitTextToSize(tip,cw-2);
+      lines.forEach(function(l,i){doc.text(l,cx,cy+12+i*5);});
+    });
+
+    // disclaimer
+    checkPage(20);
+    doc.setFillColor(255,248,240);doc.setDrawColor(245,158,11,0.4);
+    doc.roundedRect(M,y,cW,16,3,3,'FD');
+    doc.setFontSize(8);doc.setFont(undefined,'bold');doc.setTextColor(180,100,0);
+    doc.text('⚕ Medical Disclaimer',M+4,y+6);
+    doc.setFont(undefined,'normal');doc.setTextColor(120,80,20);
+    var dis='This report is for informational purposes only and does not constitute medical advice. Always consult your gastroenterologist or healthcare provider before making changes to your treatment plan.';
+    var disLines=doc.splitTextToSize(dis,cW-8);
+    disLines.forEach(function(l,i){doc.text(l,M+4,y+11+i*4);});
+    y+=20;
+
+    // page footers on all pages
+    var totalPages=doc.internal.getNumberOfPages();
+    for(var p=1;p<=totalPages;p++){
+      doc.setPage(p);
+      doc.setFontSize(8);doc.setTextColor(...gray());
+      doc.text('UCInsights — Personal UC Health Report',M,H-6);
+      doc.text('Page '+p+' of '+totalPages,W-M,H-6,{align:'right'});
+    }
+
+    doc.save('UCInsights-Report-'+new Date().toISOString().slice(0,10)+'.pdf');
+  }catch(err){
+    console.error('PDF export error:',err);
+    alert('Could not generate PDF. Please try again.');
+  }finally{
+    var btn=document.getElementById('trk-pdf-btn');
+    if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF';}
+  }
+}
+/* ======= END PDF EXPORT ======= */
+</script>
 </body>
 </html>
