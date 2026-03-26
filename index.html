@@ -237,6 +237,15 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .ins-risk-card{background:var(--card);border:1.5px solid rgba(232,64,64,.2);border-radius:var(--r);padding:18px;margin-bottom:14px}
 .ins-tip{background:rgba(37,99,235,.04);border:1px solid rgba(37,99,235,.14);border-radius:var(--r);padding:16px}
 .trk-empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.meal-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:inherit;font-size:13px;color:var(--text);background:var(--bg);outline:none;line-height:1.5;resize:none;min-height:38px;}
+.meal-input:focus{border-color:var(--accent);}
+.time-input-trk{border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);background:var(--bg);outline:none;cursor:pointer;flex:1;text-align:center;}
+.time-input-trk:focus{border-color:var(--accent);}
+.meal-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.water-row{display:flex;align-items:center;gap:10px;}
+.water-center{flex:1;text-align:center;}
+.water-num{font-size:40px;font-weight:700;line-height:1;transition:color .2s;}
+.water-lbl{font-size:11px;color:var(--text3);margin-top:4px;}
 .saved-badge-trk{background:rgba(16,185,129,.12);color:var(--green);font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;display:none}
 .analytics-wrap{max-width:860px;margin:0 auto;padding:24px 16px 40px}
 .anl-hero{background:linear-gradient(135deg,#1e40af 0%,#2563eb 100%);border-radius:var(--r);padding:28px 24px;margin-bottom:24px;color:#fff}
@@ -833,7 +842,7 @@ function initNews(){renderNews();startNewsTimer();}
 buildPills();buildStats();renderSymGrid();initNews();
 
 /* ======= TRACKER ======= */
-var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],stress:0,notes:'',entries:{},inited:false};
+var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],medTimes:{},stress:0,notes:'',sleepTime:'',wakeTime:'',breakfast:'',lunch:'',dinner:'',waterLiters:0,activity:'',entries:{},inited:false};
 var TSYMS=[{key:'diarrhea',label:'Diarrhea',icon:'&#x1F30A;'},{key:'urgency',label:'Urgency',icon:'&#x26A1;'},{key:'pain',label:'Pain',icon:'&#x1F623;'},{key:'bleeding',label:'Bleeding',icon:'&#x1FA78;'},{key:'fatigue',label:'Fatigue',icon:'&#x1F634;'},{key:'mucus',label:'Mucus',icon:'&#x1F534;'},{key:'bloating',label:'Bloating',icon:'&#x1FAE7;'},{key:'nausea',label:'Nausea',icon:'&#x1F922;'}];
 var TFOODS=[{key:'coffee',label:'Coffee',labeltr:'Kahve',icon:'&#x2615;',risk:'high'},{key:'dairy',label:'Dairy',labeltr:'S\u00FCt',icon:'&#x1F95B;',risk:'high'},{key:'spicy',label:'Spicy',labeltr:'Baharatl\u0131',icon:'&#x1F336;&#xFE0F;',risk:'high'},{key:'alcohol',label:'Alcohol',labeltr:'Alkol',icon:'&#x1F37A;',risk:'high'},{key:'rice',label:'White Rice',labeltr:'Beyaz Pirin\u00E7',icon:'&#x1F35A;',risk:'safe'},{key:'banana',label:'Banana',labeltr:'Muz',icon:'&#x1F34C;',risk:'safe'},{key:'chicken',label:'Chicken',labeltr:'Tavuk',icon:'&#x1F357;',risk:'safe'},{key:'broth',label:'Bone Broth',labeltr:'Kemik Suyu',icon:'&#x1F372;',risk:'safe'},{key:'oats',label:'Oatmeal',labeltr:'Yulaf',icon:'&#x1F963;',risk:'safe'},{key:'eggs',label:'Eggs',labeltr:'Yumurta',icon:'&#x1F95A;',risk:'safe'},{key:'rawveg',label:'Raw Veg',labeltr:'\u00C7i\u011F Sebze',icon:'&#x1F957;',risk:'medium'},{key:'redmeat',label:'Red Meat',labeltr:'K\u0131rm\u0131z\u0131 Et',icon:'&#x1F969;',risk:'medium'}];
 var TMEDS=['Mesalamine','Entyvio','Humira','Remicade','Prednisone','Azathioprine','Stelara','Rinvoq'];
@@ -853,10 +862,23 @@ async function initTracker(){
   trkApplyLang();
   try{var r=localStorage.getItem('uc-tracker-v1');if(r)TRK.entries=JSON.parse(r)||{};}catch(e){TRK.entries={};}
   var te=TRK.entries[trkToday()];
-  if(te){TRK.overall=te.overall||0;TRK.bm=te.bm||0;TRK.symptoms=te.symptoms||{};TRK.foods=te.foods||[];TRK.meds=te.meds||[];TRK.stress=te.stress||0;TRK.notes=te.notes||'';}
+  if(te){TRK.overall=te.overall||0;TRK.bm=te.bm||0;TRK.symptoms=te.symptoms||{};TRK.foods=te.foods||[];TRK.meds=te.meds||[];TRK.medTimes=te.medTimes||{};TRK.stress=te.stress||0;TRK.notes=te.notes||'';TRK.sleepTime=te.sleepTime||'';TRK.wakeTime=te.wakeTime||'';TRK.breakfast=te.breakfast||'';TRK.lunch=te.lunch||'';TRK.dinner=te.dinner||'';TRK.waterLiters=te.waterLiters||0;TRK.activity=te.activity||'';}
   buildTrkFeel();buildTrkSymGrid();buildTrkFoodGrid();buildTrkMedGrid();renderTrkBM();renderTrkStress();
   document.getElementById('trk-notes').value=TRK.notes;
   document.getElementById('trk-notes').oninput=function(){TRK.notes=this.value;};
+  document.getElementById('trk-sleep-time').value=TRK.sleepTime;
+  document.getElementById('trk-wake-time').value=TRK.wakeTime;
+  document.getElementById('trk-sleep-time').oninput=function(){TRK.sleepTime=this.value;};
+  document.getElementById('trk-wake-time').oninput=function(){TRK.wakeTime=this.value;};
+  document.getElementById('trk-breakfast').value=TRK.breakfast;
+  document.getElementById('trk-lunch').value=TRK.lunch;
+  document.getElementById('trk-dinner').value=TRK.dinner;
+  document.getElementById('trk-breakfast').oninput=function(){TRK.breakfast=this.value;};
+  document.getElementById('trk-lunch').oninput=function(){TRK.lunch=this.value;};
+  document.getElementById('trk-dinner').oninput=function(){TRK.dinner=this.value;};
+  document.getElementById('trk-activity').value=TRK.activity;
+  document.getElementById('trk-activity').oninput=function(){TRK.activity=this.value;};
+  renderTrkWater();
 }
 
 function trkApplyLang(){
@@ -944,16 +966,13 @@ function buildTrkMedGrid(){
 }
 function trkToggleMed(med){
   var idx=TRK.meds.indexOf(med);
-  if(idx>-1)TRK.meds.splice(idx,1);else TRK.meds.push(med);
-  var id='tmb-'+med.replace(/ /g,'_'),btn=document.getElementById(id);if(!btn)return;
-  var sel=TRK.meds.indexOf(med)>-1;
-  btn.className='med-btn-trk'+(sel?' sel-med':'');
-  btn.innerHTML=(sel?'&#x2713; ':'')+med;
+  if(idx>-1){TRK.meds.splice(idx,1);delete TRK.medTimes[med];}else{TRK.meds.push(med);}
+  buildTrkMedGrid();
 }
 async function trkSave(){
   var btn=document.getElementById('trk-save-btn');
   btn.textContent=L('trk_saving');btn.disabled=true;
-  var entry={overall:TRK.overall,bm:TRK.bm,symptoms:JSON.parse(JSON.stringify(TRK.symptoms)),foods:TRK.foods.slice(),meds:TRK.meds.slice(),stress:TRK.stress,notes:TRK.notes,date:trkToday()};
+  var entry={overall:TRK.overall,bm:TRK.bm,symptoms:JSON.parse(JSON.stringify(TRK.symptoms)),foods:TRK.foods.slice(),meds:TRK.meds.slice(),medTimes:JSON.parse(JSON.stringify(TRK.medTimes)),stress:TRK.stress,notes:TRK.notes,sleepTime:TRK.sleepTime,wakeTime:TRK.wakeTime,breakfast:TRK.breakfast,lunch:TRK.lunch,dinner:TRK.dinner,waterLiters:TRK.waterLiters,activity:TRK.activity,date:trkToday()};
   TRK.entries[trkToday()]=entry;
   try{localStorage.setItem('uc-tracker-v1',JSON.stringify(TRK.entries));}catch(e){}
   document.getElementById('trk-saved-badge').style.display='block';
@@ -987,6 +1006,12 @@ function renderTrkHistory(){
     if(syms.length>0){out+='<div style="margin-bottom:8px">';syms.forEach(function(kv){var sym=TSYMS.find(function(s){return s.key===kv[0];});if(!sym)return;var col=trkSevColor(kv[1]);out+='<span class="hist-sym-tag" style="background:'+col+'12;border:1px solid '+col+'40;color:'+col+'">'+sym.icon+' '+trkSymLabel(sym)+'</span>';});out+='</div>';}
     if((e.foods||[]).length>0){out+='<div style="margin-bottom:8px">';(e.foods||[]).forEach(function(fk){var fd=TFOODS.find(function(f){return f.key===fk;});if(fd)out+='<span class="hist-food-tag">'+fd.icon+' '+trkFoodLabel(fd)+'</span>';});out+='</div>';}
     if((e.meds||[]).length>0)out+='<div style="font-size:11px;color:var(--text2);margin-bottom:6px">&#x1F48A; '+e.meds.join(', ')+'</div>';
+    if(e.sleepTime||e.wakeTime){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:5px">&#x1F319; Sleep: '+(e.sleepTime||'--')+' &rarr; &#x1F324; Wake: '+(e.wakeTime||'--')+'</div>';}
+    if(e.waterLiters>0){out+='<div style="font-size:11px;color:#2563eb;margin-bottom:5px">&#x1F4A7; Water: '+e.waterLiters.toFixed(1)+' L</div>';}
+    if(e.breakfast){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:4px">&#x1F31E; Breakfast: <em>'+e.breakfast+'</em></div>';}
+    if(e.lunch){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:4px">&#x2600;&#xFE0F; Lunch: <em>'+e.lunch+'</em></div>';}
+    if(e.dinner){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:4px">&#x1F319; Dinner: <em>'+e.dinner+'</em></div>';}
+    if(e.activity){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:5px">&#x1F3C3; Activity: <em>'+e.activity+'</em></div>';}
     if(e.notes)out+='<div style="font-size:12px;color:var(--text2);font-style:italic;background:var(--bg);border-radius:8px;padding:7px 10px">&ldquo;'+e.notes+'&rdquo;</div>';
     out+='</div>';
   });
@@ -1099,13 +1124,7 @@ function renderHeatmap(dates){
     <div class="trk-hdr">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <div><div style="font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.4px" id="trk-page-title">Today's Log</div><div style="font-size:12px;color:var(--text3);margin-top:2px" id="trk-date-lbl"></div></div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <div class="saved-badge-trk" id="trk-saved-badge">&#x2713; Saved!</div>
-          <button id="trk-pdf-btn" onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:6px 13px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22)">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-            Share PDF
-          </button>
-        </div>
+        <div class="saved-badge-trk" id="trk-saved-badge">&#x2713; Saved!</div>
       </div>
       <div class="trk-tabs">
         <button class="trk-tab active" id="tt-log"      onclick="trkTab('log',this)">&#x1F4DD; <span id="ttx-log">Log</span></button>
@@ -1120,11 +1139,62 @@ function renderHeatmap(dates){
       <div class="trk-card"><div class="stress-hdr"><div class="trk-sec" id="trk-sec-stress" style="margin:0">Stress Level</div><div class="stress-val" id="trk-stress-val">-</div></div><input type="range" min="0" max="10" value="0" id="trk-stress" oninput="updateStress(this.value)" style="width:100%;cursor:pointer;margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3)"><span id="trk-stress-lo">No stress</span><span id="trk-stress-hi">Extreme</span></div></div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-foods">Foods Eaten Today</div><div class="food-grid-trk" id="trk-food-grid"></div><div style="font-size:11px;color:var(--text3)"><span style="color:var(--red);font-weight:600">&#x25CF; Red</span> = high-risk &nbsp;<span style="color:var(--orange);font-weight:600">&#x25CF; Orange</span> = moderate &nbsp;<span style="color:var(--green);font-weight:600">&#x25CF; Green</span> = safe</div></div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-meds">Medications Taken Today</div><div id="trk-med-grid" style="display:flex;flex-wrap:wrap"></div></div>
+
+      <div class="trk-card">
+        <div class="trk-sec">&#x1F319; Sleep Schedule</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <div class="meal-label">&#x1F4A4; Bedtime</div>
+            <input type="time" id="trk-sleep-time" class="time-input-trk" style="width:100%">
+          </div>
+          <div>
+            <div class="meal-label">&#x1F324; Wake up</div>
+            <input type="time" id="trk-wake-time" class="time-input-trk" style="width:100%">
+          </div>
+        </div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">&#x1F37D; Meals Today</div>
+        <div style="margin-bottom:12px">
+          <div class="meal-label">&#x1F31E; Breakfast</div>
+          <textarea class="meal-input" id="trk-breakfast" rows="2" placeholder="What did you eat for breakfast?"></textarea>
+        </div>
+        <div style="margin-bottom:12px">
+          <div class="meal-label">&#x2600;&#xFE0F; Lunch</div>
+          <textarea class="meal-input" id="trk-lunch" rows="2" placeholder="What did you eat for lunch?"></textarea>
+        </div>
+        <div>
+          <div class="meal-label">&#x1F319; Dinner</div>
+          <textarea class="meal-input" id="trk-dinner" rows="2" placeholder="What did you eat for dinner?"></textarea>
+        </div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">&#x1F4A7; Water Intake</div>
+        <div class="water-row">
+          <button class="trk-bm-btn" onclick="adjWater(-0.25)">&#x2212;</button>
+          <div class="water-center">
+            <div class="water-num" id="trk-water-num" style="color:#9ca3b8">0.0 L</div>
+            <div class="water-lbl" id="trk-water-lbl">Tap + to add</div>
+          </div>
+          <button class="trk-bm-btn" onclick="adjWater(0.25)">+</button>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:8px;padding:0 4px">
+          <span>0 L</span><span>Goal: 2 L</span><span>3+ L</span>
+        </div>
+        <div style="height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">
+          <div id="trk-water-bar" style="height:100%;background:var(--accent);border-radius:2px;transition:width .3s;width:0%"></div>
+        </div>
+      </div>
+      <div class="trk-card">
+        <div class="trk-sec">&#x1F3C3; Physical Activity</div>
+        <textarea class="meal-input" id="trk-activity" rows="2" placeholder="E.g. 30 min walk, yoga, rest day, gym..."></textarea>
+      </div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-notes">Notes</div><textarea class="notes-trk" id="trk-notes" placeholder="How are you feeling? Any observations, triggers or things to remember..."></textarea></div>
       <button class="save-btn-trk" id="trk-save-btn" onclick="trkSave()">Save Today's Log</button>
+      <div style="margin-top:10px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div>
     </div>
     <div id="trk-panel-history" style="display:none"><div id="trk-hist-list"></div></div>
-    <div id="trk-panel-insights" style="display:none"><div id="trk-ins-content"></div></div>
+    <div id="trk-panel-insights" style="display:none"><div id="trk-ins-content"></div><div style="margin-top:14px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn-insights"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div></div>
   </div>
 </div>
 <!-- ANALYTICS -->
@@ -1141,6 +1211,7 @@ function renderHeatmap(dates){
       <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(8,145,178,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="anl-card-title" id="anl-title-heat">Food &times; Symptom Correlation Heatmap</div><div class="anl-card-sub" id="anl-sub-heat">Which foods correlate with which symptoms</div></div></div><div id="corr-heatmap"></div><div class="anl-insight-box" id="heatmap-insight" style="display:none"></div></div>
     </div>
   </div>
+  <div style="padding:0 14px 28px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn-anl"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div>
 </div>
 
 <script>
@@ -1169,12 +1240,11 @@ function loadJsPDF(){
   });
 }
 async function exportTrkPDF(){
-  var btn=document.getElementById('trk-pdf-btn');
-  if(btn){btn.disabled=true;btn.style.opacity='0.6';}
-  var origText=btn?btn.innerHTML:'';
-  if(btn)btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...';
+  var allBtns=['trk-pdf-btn','trk-pdf-btn-insights','trk-pdf-btn-anl'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+  allBtns.forEach(function(b){b.disabled=true;b.style.opacity='0.6';b.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...';});
 
   try{
+    await loadJsPDF();
     var entries=TRK.entries||{};
     var dates=Object.keys(entries).sort();
 
@@ -1256,7 +1326,7 @@ async function exportTrkPDF(){
     }
 
     /* ---- SUMMARY STATS ---- */
-    sectionHeader('Summary Overview','📊');
+    sectionHeader('Summary Overview');
     var recent=dates.slice(-30);
     var totalDays=recent.length;
     var badDays=recent.filter(function(d){var e=entries[d];return e&&(e.overall===3||Object.values(e.symptoms||{}).some(function(v){return v>=3;}));}).length;
@@ -1278,7 +1348,7 @@ async function exportTrkPDF(){
     });
 
     /* ---- WELLBEING CHART ---- */
-    sectionHeader('Wellbeing Over Time','😊');
+    sectionHeader('Wellbeing Over Time');
     var chartDates=recent.slice(-14);
     if(chartDates.length>0){
       card(38,function(cx,cy,cw){
@@ -1321,7 +1391,7 @@ async function exportTrkPDF(){
     }).sort(function(a,b){return b.avg-a.avg;}).slice(0,5);
 
     if(topSyms.length>0){
-      sectionHeader('Top Symptoms','🔍');
+      sectionHeader('Top Symptoms');
       var symH=10+topSyms.length*12+6;
       card(symH,function(cx,cy,cw){
         doc.setFontSize(7);doc.setFont(undefined,'bold');doc.setTextColor(...gray());
@@ -1360,7 +1430,7 @@ async function exportTrkPDF(){
     }).filter(function(f){return f.pct>40;}).sort(function(a,b){return b.pct-a.pct;}).slice(0,5);
 
     if(riskFoods.length>0){
-      sectionHeader('Personal Risk Foods','⚠️');
+      sectionHeader('Personal Risk Foods');
       var rfH=16+riskFoods.length*11+4;
       card(rfH,function(cx,cy,cw){
         doc.setFontSize(8);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
@@ -1380,7 +1450,7 @@ async function exportTrkPDF(){
     }
 
     /* ---- STRESS TREND ---- */
-    sectionHeader('Stress Trend','😰');
+    sectionHeader('Stress Trend');
     var stressDates=recent.slice(-14);
     var hasStress=stressDates.some(function(d){return (entries[d]||{}).stress>0;});
     if(hasStress){
@@ -1396,7 +1466,7 @@ async function exportTrkPDF(){
           var col=sv>=7?red():sv>=4?orange():green();
           var bh=sv>0?(sv/maxS)*rowH:1;
           var bx=cx+i*spacing+(spacing-barW2)/2;
-          doc.setFillColor(...col());
+          doc.setFillColor(...col);
           doc.roundedRect(bx,cy+rowH-bh,barW2,bh,0.5,0.5,'F');
           doc.setFontSize(5.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
           doc.text(stressDates[i].slice(5).replace('-','/'),bx+barW2/2,cy+26,{align:'center'});
@@ -1412,7 +1482,7 @@ async function exportTrkPDF(){
     });
     var medList=Object.entries(allMeds).sort(function(a,b){return b[1]-a[1];});
     if(medList.length>0){
-      sectionHeader('Medication Log','💊');
+      sectionHeader('Medication Log');
       var medH=14+medList.length*10+4;
       card(medH,function(cx,cy,cw){
         doc.setFontSize(7);doc.setFont(undefined,'bold');doc.setTextColor(...gray());
@@ -1420,7 +1490,7 @@ async function exportTrkPDF(){
         medList.forEach(function(kv,i){
           var ry=cy+12+i*10;
           doc.setFontSize(9);doc.setFont(undefined,'normal');doc.setTextColor(...darkText());
-          doc.text('💊 '+kv[0],cx,ry);
+          doc.text(kv[0],cx,ry);
           bar(cx+cw*0.5,ry-3.5,cw*0.3,Math.round(kv[1]/totalDays*100),...accent());
           doc.setFontSize(8);doc.setTextColor(...accent());doc.setFont(undefined,'bold');
           doc.text(kv[1]+' days',cx+cw-2,ry,{align:'right'});
@@ -1430,17 +1500,18 @@ async function exportTrkPDF(){
 
     /* ---- DETAILED LOG HISTORY ---- */
     doc.addPage();y=M;drawPageFooter();
-    sectionHeader('Full Log History','📅');
+    sectionHeader('Full Log History');
 
     var histDates=dates.slice().reverse().slice(0,30);
-    var emojiMap={1:'😊',2:'😐',3:'😢'};
+    var emojiMap={1:'Good',2:'Okay',3:'Bad'};
     histDates.forEach(function(d){
       var e=entries[d];if(!e)return;
       var syms=Object.entries(e.symptoms||{});
       var foods=(e.foods||[]);
       var meds=(e.meds||[]);
       var hasNotes=!!(e.notes&&e.notes.trim());
-      var entH=14+(syms.length>0?10:0)+(foods.length>0?10:0)+(meds.length>0?8:0)+(hasNotes?12:0)+2;
+      var hasSleep=!!(e.sleepTime||e.wakeTime);var hasMeals=!!(e.breakfast||e.lunch||e.dinner);var hasActivity=!!(e.activity);var hasWater=(e.waterLiters||0)>0;
+      var entH=14+(syms.length>0?10:0)+(foods.length>0?10:0)+(meds.length>0?8:0)+(hasNotes?10:0)+(hasSleep?7:0)+((e.bm>0||e.stress>0||hasWater)?7:0)+(e.breakfast?6:0)+(e.lunch?6:0)+(e.dinner?6:0)+(hasActivity?6:0)+2;
       checkPage(entH+4);
 
       card(entH,function(cx,cy,cw){
@@ -1448,25 +1519,36 @@ async function exportTrkPDF(){
         doc.setFontSize(9);doc.setFont(undefined,'bold');doc.setTextColor(...darkText());
         var isToday=d===trkToday();
         var dateStr=new Date(d+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-        doc.text((isToday?'⭐ Today — ':'')+dateStr,cx,cy+4);
-        // feeling emoji
+        doc.text((isToday?'Today - ':'')+dateStr,cx,cy+4);
+        // feeling + overall
         if(e.overall>0){
-          doc.setFontSize(11);
-          doc.text(emojiMap[e.overall]||'',cx+cw-2,cy+4,{align:'right'});
-        }
-        // BM + stress badges
-        var bx=cx+cw-40;
-        if(e.bm>0){
-          doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
-          doc.text('BM: '+e.bm+'x',bx,cy+4);bx-=16;
-        }
-        if(e.stress>0){
-          doc.setFontSize(7.5);doc.setFont(undefined,'normal');
-          var sc=e.stress>=7?red():e.stress>=4?orange():green();
-          doc.setTextColor(...sc);
-          doc.text('Stress: '+e.stress+'/10',bx-16,cy+4);
+          doc.setFontSize(9);doc.setFont(undefined,'bold');
+          var ovLabel={1:'Good',2:'Okay',3:'Bad'}[e.overall]||'';
+          var ovColor=e.overall===1?green():e.overall===3?red():orange();
+          doc.setTextColor(...ovColor);
+          doc.text(ovLabel,cx+cw-2,cy+4,{align:'right'});
         }
         var iy=cy+9;
+        // Sleep / wake
+        if(e.sleepTime||e.wakeTime){
+          doc.setFontSize(8);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          doc.text('Sleep: '+(e.sleepTime||'--')+'  Wake: '+(e.wakeTime||'--'),cx,iy);iy+=7;
+        }
+        // Water + stress on same line
+        var waterStress=[];
+        if(e.waterLiters>0)waterStress.push('Water: '+e.waterLiters.toFixed(1)+'L');
+        if(e.bm>0)waterStress.push('BM: '+e.bm+'x');
+        if(e.stress>0)waterStress.push('Stress: '+e.stress+'/10');
+        if(waterStress.length>0){
+          doc.setFontSize(8);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
+          doc.text(waterStress.join('   '),cx,iy);iy+=7;
+        }
+        // Meals
+        if(e.breakfast){doc.setFontSize(8);doc.setTextColor(...gray());var bl=doc.splitTextToSize('Breakfast: '+e.breakfast,cw-2);doc.text(bl[0],cx,iy);iy+=6;}
+        if(e.lunch){doc.setFontSize(8);doc.setTextColor(...gray());var ll=doc.splitTextToSize('Lunch: '+e.lunch,cw-2);doc.text(ll[0],cx,iy);iy+=6;}
+        if(e.dinner){doc.setFontSize(8);doc.setTextColor(...gray());var dl2=doc.splitTextToSize('Dinner: '+e.dinner,cw-2);doc.text(dl2[0],cx,iy);iy+=6;}
+        // Activity
+        if(e.activity){doc.setFontSize(8);doc.setTextColor(...gray());doc.text('Activity: '+e.activity,cx,iy);iy+=6;}
         // symptoms
         if(syms.length>0){
           var px=cx;
@@ -1484,13 +1566,13 @@ async function exportTrkPDF(){
         if(foods.length>0){
           doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
           var foodLabels=foods.map(function(fk){var fd=TFOODS.find(function(f){return f.key===fk;});return fd?(LANG==='tr'?(fd.labeltr||fd.label):fd.label):fk;});
-          doc.text('🍽 '+foodLabels.join('  ·  '),cx,iy+4);
+          doc.text(foodLabels.join('  ·  '),cx,iy+4);
           iy+=9;
         }
         // meds
         if(meds.length>0){
           doc.setFontSize(7.5);doc.setFont(undefined,'normal');doc.setTextColor(...gray());
-          doc.text('💊 '+meds.join(', '),cx,iy+4);
+          doc.text(meds.join(', '),cx,iy+4);
           iy+=8;
         }
         // notes
@@ -1504,14 +1586,14 @@ async function exportTrkPDF(){
 
     /* ---- INSIGHTS SUMMARY ---- */
     doc.addPage();y=M;drawPageFooter();
-    sectionHeader('Personal Insights','💡');
+    sectionHeader('Personal Insights');
 
     // tip card
     card(22,function(cx,cy,cw){
       doc.setFillColor(235,240,255);
       doc.roundedRect(M,y-22-4,cW,22,3,3,'F');
       doc.setFontSize(9);doc.setFont(undefined,'bold');doc.setTextColor(...accent());
-      doc.text('💡 Keep Logging Daily',cx,cy+5);
+      doc.text('Keep Logging Daily',cx,cy+5);
       doc.setFontSize(8.5);doc.setFont(undefined,'normal');doc.setTextColor(60,70,100);
       var tip='The more days you log, the more accurate your personal insights. After 2 weeks UCInsights can identify your specific UC triggers and patterns.';
       var lines=doc.splitTextToSize(tip,cw-2);
@@ -1523,7 +1605,7 @@ async function exportTrkPDF(){
     doc.setFillColor(255,248,240);doc.setDrawColor(245,158,11,0.4);
     doc.roundedRect(M,y,cW,16,3,3,'FD');
     doc.setFontSize(8);doc.setFont(undefined,'bold');doc.setTextColor(180,100,0);
-    doc.text('⚕ Medical Disclaimer',M+4,y+6);
+    doc.text('Medical Disclaimer',M+4,y+6);
     doc.setFont(undefined,'normal');doc.setTextColor(120,80,20);
     var dis='This report is for informational purposes only and does not constitute medical advice. Always consult your gastroenterologist or healthcare provider before making changes to your treatment plan.';
     var disLines=doc.splitTextToSize(dis,cW-8);
@@ -1544,8 +1626,7 @@ async function exportTrkPDF(){
     console.error('PDF export error:',err);
     alert('Could not generate PDF. Please try again.');
   }finally{
-    var btn=document.getElementById('trk-pdf-btn');
-    if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF';}
+    ['trk-pdf-btn','trk-pdf-btn-insights','trk-pdf-btn-anl'].forEach(function(id){var b=document.getElementById(id);if(b){b.disabled=false;b.style.opacity='1';b.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF';}});
   }
 }
 /* ======= END PDF EXPORT ======= */
