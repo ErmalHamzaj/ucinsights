@@ -494,6 +494,7 @@ trk_log:'Log',trk_history:'History',trk_insights:'Insights',trk_title:"Today's L
 trk_bm:'Bowel Movements Today',trk_bm_add:'tap + to add',trk_bm_normal:'Normal range',trk_bm_above:'Above normal',trk_bm_severe:'Severe \u2014 consider contacting your doctor',
 trk_stress:'Stress Level',trk_stress_lo:'No stress',trk_stress_hi:'Extreme',trk_foods:'Foods Eaten Today',trk_meds_lbl:'Medications Taken Today',trk_notes_lbl:'Notes',
 trk_notes_ph:'How are you feeling? Any observations, triggers or things to remember...',
+trk_sleep:'Sleep Schedule',trk_bedtime:'Bedtime',trk_wakeup:'Wake Up',trk_meals:'Meals Today',trk_breakfast:'Breakfast',trk_lunch:'Lunch',trk_dinner:'Dinner',trk_breakfast_ph:'What did you eat for breakfast?',trk_lunch_ph:'What did you eat for lunch?',trk_dinner_ph:'What did you eat for dinner?',trk_water:'Water Intake',trk_water_add:'Tap + to add',trk_water_good:'Great hydration!',trk_water_keep:'Keep drinking',trk_water_goal:'Goal: 2 L',trk_activity_lbl:'Physical Activity',trk_activity_ph:'E.g. 30 min walk, yoga, rest day, gym...',trk_med_time_lbl:'Time taken',
 trk_save:"Save Today's Log",trk_saving:'Saving...',trk_saved:'Saved!',trk_latest:'Latest entry',trk_today:'Today',
 trk_no_entries:'No entries yet',trk_no_entries_sub:'Start logging in the Log tab',trk_no_data:'Not enough data yet',
 trk_no_data_sub:'Log at least 3 days to see your personal patterns',trk_start:'Start Logging',
@@ -520,7 +521,8 @@ nav_home:'Ana Sayfa',nav_symptoms:'Belirtiler',nav_chat:'Sohbet',nav_foods:'G\u0
 trk_log:'Kay\u0131t',trk_history:'Ge\u00e7mi\u015f',trk_insights:'G\u00f6r\u00fc\u015fler',trk_title:'Bug\u00fcnk\u00fc Kay\u0131t',trk_overall:'Genel olarak nas\u0131l hissediyorsunuz?',trk_good:'\u0130yi',trk_okay:'Orta',trk_bad:'K\u00f6t\u00fc',
 trk_bm:'Bug\u00fcnk\u00fc Defekasyon Say\u0131s\u0131',trk_bm_add:'eklemek i\u00e7in + ye dokunun',trk_bm_normal:'Normal aral\u0131k',trk_bm_above:'Normalin \u00fczerinde',trk_bm_severe:'Ciddi \u2014 doktorunuzla ileti\u015fime ge\u00e7in',
 trk_stress:'Stres D\u00fczeyi',trk_stress_lo:'Stres yok',trk_stress_hi:'A\u015fr\u0131 stres',trk_foods:'Bug\u00fcn Yenen G\u0131dalar',trk_meds_lbl:'Bug\u00fcn Al\u0131nan \u0130la\u00e7lar',trk_notes_lbl:'Notlar',
-trk_notes_ph:'Nas\u0131l hissediyorsunuz? G\u00f6zlemler, tetikleyiciler veya hat\u0131rlamak istedi\u011finiz \u015feyler...',
+trk_notes_ph:'Nasıl hissediyorsunuz? Gözlemler, tetikleyiciler veya hatırlamak istediğiniz şeyler...',
+trk_sleep:'Uyku Programı',trk_bedtime:'Uyku Saati',trk_wakeup:'Uyanış Saati',trk_meals:'Bugünkü Öğünler',trk_breakfast:'Kahvaltı',trk_lunch:'Öğle Yemeği',trk_dinner:'Akşam Yemeği',trk_breakfast_ph:'Kahvaltıda ne yediniz?',trk_lunch_ph:'Öğle yemeğinde ne yediniz?',trk_dinner_ph:'Akşam yemeğinde ne yediniz?',trk_water:'Su Tüketimi',trk_water_add:'Eklemek için + ye dokunun',trk_water_good:'Harika hidrasyon!',trk_water_keep:'Su içmeye devam edin',trk_water_goal:'Hedef: 2 L',trk_activity_lbl:'Fiziksel Aktivite',trk_activity_ph:'Örn. 30 dk yürüyüş, yoga, dinlenme, spor...',trk_med_time_lbl:'İlaç alınma saati',
 trk_save:'Bug\u00fcnk\u00fc Kayd\u0131 Kaydet',trk_saving:'Kaydediliyor...',trk_saved:'Kaydedildi!',trk_latest:'Son giri\u015f',trk_today:'Bug\u00fcn',
 trk_no_entries:'Hen\u00fcz giri\u015f yok',trk_no_entries_sub:'Kay\u0131t sekmesinden loglama ba\u015flat\u0131n',trk_no_data:'Hen\u00fcz yeterli veri yok',
 trk_no_data_sub:'Ki\u015fisel \u00f6r\u00fcnt\u00fclerinizi g\u00f6rmek i\u00e7in en az 3 g\u00fcn kay\u0131t yap\u0131n',trk_start:'Loglama Ba\u015flat',
@@ -547,7 +549,76 @@ function L(k){return(T[LANG]||T.en)[k];}
 var SYMS=[{key:'diarrhea',icon:'\ud83c\udf0a',pct:76,cnt:9730,monthly:[62,65,70,74,76,79,75,78,80,76,73,77],en:'Diarrhea is the most reported UC symptom, with 8\u201315 bowel movements per day during severe flares. Strongly correlated with urgency (r=0.71).',tr:'\u0130shal en s\u0131k bildirilen UC belirtisidir. \u015eiddetli alevlenmelerde g\u00fcnde 8\u201315 defekasyon bildirilmektedir.',posts:[{title:'15 times a day \u2014 how do you cope?',up:445,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+frequency',tags:['diarrhea','flare']},{title:'Diarrhea patterns before diagnosis',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+diagnosis',tags:['diagnosis']}]},{key:'urgency',icon:'\u26a1',pct:69,cnt:8800,monthly:[55,58,62,65,68,71,69,72,70,68,65,70],en:'Urgency is the most disruptive UC symptom \u2014 only 0\u20135 minutes warning before needing a bathroom.',tr:'Acil tuvalet ihtiyac\u0131 en rahats\u0131z edici belirti; 0\u20135 dakika uyar\u0131 s\u00fcresi.',posts:[{title:'Urgency at the worst times',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+UC',tags:['urgency']},{title:'0\u20135 min warning tips',up:267,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+tips',tags:['tips']}]},{key:'pain',icon:'\ud83d\ude23',pct:64,cnt:8390,monthly:[52,56,60,62,65,68,64,66,68,64,60,65],en:'Abdominal pain across all UC severity levels. Most common: left lower quadrant. Correlates with bleeding (r=0.63).',tr:'Kar\u0131n a\u011fr\u0131s\u0131 t\u00fcm \u015fiddet d\u00fczeylerinde g\u00f6r\u00fcl\u00fcr.',posts:[{title:'Left side pain during flare',up:389,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=abdominal+pain+flare',tags:['pain']},{title:'Pain severity discussion',up:288,url:'https://inflammatoryboweldisease.net/forums/pain',tags:['severity']}]},{key:'bleeding',icon:'\ud83e\ude78',pct:58,cnt:7340,monthly:[44,47,50,55,58,62,57,60,62,58,54,59],en:'Rectal bleeding is a key UC diagnostic marker. Correlates with fatigue (r=0.70). Stress cited as trigger in 79% of cases.',tr:'Rektal kanama \u00f6nemli bir tan\u0131 belirtecidir.',posts:[{title:'Blood in stool \u2014 ER?',up:567,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=blood+stool+ER',tags:['bleeding']},{title:'First time seeing blood',up:423,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=rectal+bleeding',tags:['new']}]},{key:'fatigue',icon:'\ud83d\ude34',pct:51,cnt:7130,monthly:[40,43,46,48,52,55,50,53,55,52,48,53],en:'Fatigue is more disabling than physical symptoms. Persists during remission in 43% of patients.',tr:'Yorgunluk fiziksel belirtilerden daha k\u0131s\u0131tlay\u0131c\u0131. Remisyonda %43\u2019\u00fcnde devam eder.',posts:[{title:'Fatigue even in remission',up:523,url:'https://inflammatoryboweldisease.net/forums/fatigue',tags:['fatigue','remission']},{title:'What helped my UC fatigue',up:398,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=fatigue+UC',tags:['tips']}]},{key:'mucus',icon:'\ud83d\udd34',pct:43,cnt:5440,monthly:[34,36,38,40,43,46,42,44,46,43,40,44],en:'Mucus in stool is common during flares and an early warning sign before a full episode.',tr:'D\u0131\u015fk\u0131da muk\u00fcs alevlenmelerde yayg\u0131nd\u0131r; erken uyar\u0131 i\u015fareti olarak i\u015flev g\u00f6r\u00fcr.',posts:[{title:'Mucus without blood \u2014 flare coming?',up:234,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+stool',tags:['mucus']},{title:'Tracking mucus as predictor',up:178,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+warning',tags:['tracking']}]},{key:'bloating',icon:'\ud83e\udde7',pct:41,cnt:5230,monthly:[32,34,36,38,41,44,40,42,44,41,38,42],en:'Bloating is more common during remission as patients reintroduce foods.',tr:'\u015ei\u015fkinlik g\u0131da yeniden sunumu s\u0131ras\u0131nda daha s\u0131k bildirilir.',posts:[{title:'Gas and bloating between flares',up:187,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+UC',tags:['bloating']},{title:'Bloating with mesalamine',up:156,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+mesalamine',tags:['medication']}]},{key:'nausea',icon:'\ud83e\udd22',pct:29,cnt:3700,monthly:[22,24,25,27,29,32,28,30,32,29,26,30],en:'Nausea is mostly medication-related \u2014 azathioprine and corticosteroids are the top causes.',tr:'Bulant\u0131 genellikle ila\u00e7la ili\u015fkilidir.',posts:[{title:'Azathioprine nausea \u2014 does it stop?',up:298,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=azathioprine+nausea',tags:['nausea','meds']},{title:'Mesalamine nausea tips',up:212,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mesalamine+nausea',tags:['nausea']}]}];
 var SYM_COLORS=['var(--accent)','var(--orange)','var(--red)','var(--red)','var(--purple)','var(--teal)','var(--teal)','var(--text3)'];
 var SYM_RGBA=['rgba(37,99,235,.55)','rgba(245,158,11,.55)','rgba(232,64,64,.55)','rgba(232,64,64,.55)','rgba(124,58,237,.55)','rgba(8,145,178,.55)','rgba(8,145,178,.55)','rgba(148,163,184,.55)'];
-var FOODS={avoid:[{n:'Coffee',nt:'Kahve',icon:'\u2615',neg:68,pos:12,cnt:3240,note:'Strong motility trigger',notet:'G\u00fc\u00e7l\u00fc motilite uyar\u0131c\u0131s\u0131'},{n:'Spicy food',nt:'Baharatl\u0131',icon:'\ud83c\udf36\ufe0f',neg:64,pos:14,cnt:2890,note:'Mucosal irritant',notet:'Mukoza tahr\u0131\u015fi'},{n:'Alcohol',nt:'Alkol',icon:'\ud83c\udf7a',neg:61,pos:14,cnt:2100,note:'Disrupts microbiome',notet:'Mikrobiyom bozucu'},{n:'Dairy',nt:'S\u00fct \u00fcr\u00fcnleri',icon:'\ud83e\udd5b',neg:55,pos:17,cnt:2670,note:'Lactose inflammation',notet:'Laktoz iltihab\u0131'},{n:'Raw veg',nt:'\u00c7i\u011f sebze',icon:'\ud83e\udd57',neg:52,pos:18,cnt:1980,note:'High fiber',notet:'Y\u00fcksek lif'},{n:'Fried food',nt:'K\u0131zartma',icon:'\ud83c\udf5f',neg:58,pos:17,cnt:1820,note:'High fat',notet:'Y\u00fcksek ya\u011f'},{n:'Red meat',nt:'K\u0131rm\u0131z\u0131 et',icon:'\ud83e\udd69',neg:48,pos:20,cnt:1560,note:'Pro-inflammatory',notet:'\u0130ltihap art\u0131r\u0131c\u0131'},{n:'Carbonated',nt:'Gazl\u0131',icon:'\ud83e\udde7',neg:51,pos:19,cnt:1670,note:'Gas and bloating',notet:'Gaz ve \u015fi\u015fkinlik'}],safe:[{n:'Banana',nt:'Muz',icon:'\ud83c\udf4c',pos:78,neg:7,cnt:2890,note:'Gentle & binding',notet:'Hafif ve ba\u011flay\u0131c\u0131'},{n:'White rice',nt:'Beyaz pirin\u00e7',icon:'\ud83c\udf5a',pos:74,neg:8,cnt:3120,note:'Low-residue',notet:'D\u00fc\u015f\u00fck kal\u0131nt\u0131'},{n:'Bone broth',nt:'Kemik suyu',icon:'\ud83c\udf72',pos:72,neg:8,cnt:1230,note:'Gut healing',notet:'Ba\u011f\u0131rsak iyile\u015ftirici'},{n:'Oatmeal',nt:'Yulaf',icon:'\ud83e\udd63',pos:68,neg:10,cnt:1780,note:'Soluble fiber',notet:'\u00c7\u00f6z\u00fcn\u00fcr lif'},{n:'Boiled chicken',nt:'Ha\u015fl. tavuk',icon:'\ud83c\udf57',pos:66,neg:10,cnt:2340,note:'Lean protein',notet:'Ya\u011fs\u0131z protein'},{n:'Eggs',nt:'Yumurta',icon:'\ud83e\udd5a',pos:65,neg:12,cnt:2010,note:'Easy to digest',notet:'Kolay sindirim'},{n:'Cooked fish',nt:'Pi\u015fmi\u015f bal\u0131k',icon:'\ud83d\udc1f',pos:67,neg:11,cnt:1340,note:'Omega-3',notet:'Omega-3'},{n:'Applesauce',nt:'Elma p\u00fcresi',icon:'\ud83c\udf4e',pos:62,neg:10,cnt:1100,note:'Pectin helps',notet:'Pektin faydas\u0131'}],drinks:[{n:'Water',nt:'Su',icon:'\ud83d\udca7',pos:91,neg:1,cnt:4200,note:'Always recommended',notet:'Her zaman \u00f6nerilir'},{n:'Electrolytes',nt:'Elektrolit',icon:'\u26a1',pos:74,neg:6,cnt:1890,note:'Hydration',notet:'Hidratasyon'},{n:'Herbal tea',nt:'Bitki \u00e7ay\u0131',icon:'\ud83c\udf75',pos:66,neg:8,cnt:1340,note:'Soothing',notet:'Rahatlat\u0131c\u0131'},{n:'Bone broth',nt:'Kemik suyu',icon:'\ud83c\udf72',pos:72,neg:8,cnt:1230,note:'Gut healing',notet:'\u0130yile\u015ftirici'},{n:'Ginger tea',nt:'Zencefil \u00e7ay\u0131',icon:'\ud83e\uded6',pos:63,neg:12,cnt:920,note:'Anti-nausea',notet:'Bulant\u0131 \u00f6nleyici'},{n:'Green tea',nt:'Ye\u015fil \u00e7ay',icon:'\ud83c\udf3f',pos:54,neg:16,cnt:980,note:'Some caffeine',notet:'Kafein riski'},{n:'Coffee',nt:'Kahve',icon:'\u2615',pos:12,neg:68,cnt:3240,note:'Major trigger',notet:'B\u00fcy\u00fck tetikleyici'},{n:'Alcohol',nt:'Alkol',icon:'\ud83c\udf77',pos:8,neg:74,cnt:2100,note:'Avoid entirely',notet:'Tamamen ka\u00e7\u0131n\u0131n'}]};
+var FOODS={avoid:[{n:'Coffee',nt:'Kahve',icon:'\u2615',neg:68,pos:12,cnt:3240,note:'Strong motility trigger',notet:'G\u00fc\u00e7l\u00fc motilite uyar\u0131c\u0131s\u0131'},{n:'Spicy food',nt:'Baharatl\u0131',icon:'\ud83c\udf36\ufe0f',neg:64,pos:14,cnt:2890,note:'Mucosal irritant',notet:'Mukoza tahr\u0131\u015fi'},{n:'Alcohol',nt:'Alkol',icon:'\ud83c\udf7a',neg:61,pos:14,cnt:2100,note:'Disrupts microbiome',notet:'Mikrobiyom bozucu'},{n:'Dairy',nt:'S\u00fct \u00fcr\u00fcnleri',icon:'\ud83e\udd5b',neg:55,pos:17,cnt:2670,note:'Lactose inflammation',notet:'Laktoz iltihab\u0131'},{n:'Raw veg',nt:'\u00c7i\u011f sebze',icon:'\ud83e\udd57',neg:52,pos:18,cnt:1980,note:'High fiber',notet:'Y\u00fcksek lif'},{n:'Fried food',nt:'K\u0131zartma',icon:'\ud83c\udf5f',neg:58,pos:17,cnt:1820,note:'High fat',notet:'Y\u00fcksek ya\u011f'},{n:'Red meat',nt:'K\u0131rm\u0131z\u0131 et',icon:'\ud83e\udd69',neg:48,pos:20,cnt:1560,note:'Pro-inflammatory',notet:'\u0130ltihap art\u0131r\u0131c\u0131'},{n:'Carbonated',nt:'Gazl\u0131',icon:'\ud83e\udde7',neg:51,pos:19,cnt:1670,note:'Gas and bloating',notet:'Gaz ve \u015fi\u015fkinlik'}
+,{n:'Gluten/Wheat',nt:'Gluten/Buğday',icon:'🍞',neg:44,pos:22,cnt:1890,note:'Gluten sensitivity link',notet:'Gluten hassasiyeti bağlantısı'}
+,{n:'Nuts & seeds',nt:'Kuruyemiş',icon:'🥜',neg:46,pos:24,cnt:1450,note:'Hard to digest',notet:'Sindirim güçlüğü'}
+,{n:'Popcorn',nt:'Patlamış mısır',icon:'🍿',neg:52,pos:16,cnt:1120,note:'Insoluble fiber spike',notet:'Çözünmez lif'}
+,{n:'Corn',nt:'Mısır',icon:'🌽',neg:45,pos:20,cnt:1340,note:'Indigestible fiber',notet:'Sindirilemeyen lif'}
+,{n:'Beans/Legumes',nt:'Baklagiller',icon:'🫘',neg:51,pos:19,cnt:1670,note:'Gas producing',notet:'Gaz yapıcı'}
+,{n:'Onion & garlic',nt:'Sogan & sarımsak',icon:'🧅',neg:47,pos:18,cnt:1230,note:'FODMAP irritants',notet:'FODMAP tahriş'}
+,{n:'Processed food',nt:'İşlenmiş gıda',icon:'🌭',neg:49,pos:16,cnt:1560,note:'Additives trigger flares',notet:'Katkı maddeleri'}
+,{n:'Artificial sweeteners',nt:'Yapay tatlandırıcı',icon:'🪧',neg:43,pos:14,cnt:890,note:'Microbiome disruptor',notet:'Mikrobiyom bozucu'}
+,{n:'Sugary foods',nt:'Şekerli gıda',icon:'🍬',neg:40,pos:15,cnt:1200,note:'Feeds bad bacteria',notet:'Zararlı bakteri besler'}
+,{n:'Tomatoes',nt:'Domates',icon:'🍅',neg:38,pos:28,cnt:1090,note:'Acidic for some',notet:'Bazıları için asidik'},{n:'Fast food',nt:'Fast food',icon:'🍔',neg:61,pos:12,cnt:1780,note:'Trans fats & additives',notet:'Trans yağ ve katkı maddeleri'}
+,{n:'Chips/crisps',nt:'Cips',icon:'🍟',neg:54,pos:13,cnt:1450,note:'High salt & fat',notet:'Yüksek tuz ve yağ'}
+,{n:'Ice cream',nt:'Dondurma',icon:'🍦',neg:50,pos:18,cnt:1320,note:'Dairy + sugar combo',notet:'Süt + şeker kombinasyonu'}
+,{n:'Pizza',nt:'Pizza',icon:'🍕',neg:52,pos:17,cnt:1560,note:'Gluten, fat & dairy',notet:'Gluten, yağ ve süt'}
+,{n:'Chocolate',nt:'Çikolata',icon:'🍫',neg:42,pos:22,cnt:1240,note:'Caffeine & sugar',notet:'Kafein ve şeker'}
+,{n:'Cabbage/broccoli',nt:'Lahana/brokoli',icon:'🥦',neg:46,pos:22,cnt:1380,note:'Gas-producing cruciferous',notet:'Gaz yapıcı'}
+,{n:'Mushrooms',nt:'Mantar',icon:'🍄',neg:38,pos:26,cnt:980,note:'Difficult to digest',notet:'Sindirim güçlüğü'}
+,{n:'Hot sauce',nt:'Acı sos',icon:'🌶️',neg:60,pos:11,cnt:1120,note:'Capsaicin irritates mucosa',notet:'Kapsaisin mukoza tahrişi'}
+,{n:'Margarine/butter',nt:'Margarin/tereyağ',icon:'🧈',neg:44,pos:16,cnt:890,note:'Saturated fats',notet:'Doymuş yağlar'}
+,{n:'White bread',nt:'Beyaz ekmek',icon:'🍞',neg:36,pos:30,cnt:1670,note:'Refined carbs spike',notet:'Rafine karbonhidrat'}
+,{n:'Sausage/deli',nt:'Sosis/salam',icon:'🌭',neg:55,pos:11,cnt:1230,note:'Nitrates & preservatives',notet:'Nitrat ve koruyucular'}
+,{n:'Pineapple',nt:'Ananas',icon:'🍍',neg:41,pos:28,cnt:890,note:'Acidic for some',notet:'Bazıları için asidik'}
+,{n:'Citrus fruits',nt:'Turunçgiller',icon:'🍊',neg:43,pos:29,cnt:1340,note:'Acidic triggers',notet:'Asidik tetikleyici'}
+,{n:'Cucumber',nt:'Salatalık',icon:'🥒',neg:35,pos:32,cnt:980,note:'Seeds irritate some',notet:'Tohumlar tahriş edebilir'}
+,{n:'Lentils',nt:'Mercimek',icon:'🫘',neg:48,pos:21,cnt:1120,note:'Fermentable fibers',notet:'Fermente edilebilir lifler'}
+,{n:'Excess salt',nt:'Fazla tuz',icon:'🧂',neg:39,pos:10,cnt:780,note:'Increases inflammation',notet:'Enflamasyonu artırır'}],safe:[{n:'Banana',nt:'Muz',icon:'\ud83c\udf4c',pos:78,neg:7,cnt:2890,note:'Gentle & binding',notet:'Hafif ve ba\u011flay\u0131c\u0131'},{n:'White rice',nt:'Beyaz pirin\u00e7',icon:'\ud83c\udf5a',pos:74,neg:8,cnt:3120,note:'Low-residue',notet:'D\u00fc\u015f\u00fck kal\u0131nt\u0131'},{n:'Bone broth',nt:'Kemik suyu',icon:'\ud83c\udf72',pos:72,neg:8,cnt:1230,note:'Gut healing',notet:'Ba\u011f\u0131rsak iyile\u015ftirici'},{n:'Oatmeal',nt:'Yulaf',icon:'\ud83e\udd63',pos:68,neg:10,cnt:1780,note:'Soluble fiber',notet:'\u00c7\u00f6z\u00fcn\u00fcr lif'},{n:'Boiled chicken',nt:'Ha\u015fl. tavuk',icon:'\ud83c\udf57',pos:66,neg:10,cnt:2340,note:'Lean protein',notet:'Ya\u011fs\u0131z protein'},{n:'Eggs',nt:'Yumurta',icon:'\ud83e\udd5a',pos:65,neg:12,cnt:2010,note:'Easy to digest',notet:'Kolay sindirim'},{n:'Cooked fish',nt:'Pi\u015fmi\u015f bal\u0131k',icon:'\ud83d\udc1f',pos:67,neg:11,cnt:1340,note:'Omega-3',notet:'Omega-3'},{n:'Applesauce',nt:'Elma p\u00fcresi',icon:'\ud83c\udf4e',pos:62,neg:10,cnt:1100,note:'Pectin helps',notet:'Pektin faydas\u0131'}
+,{n:'Sweet potato',nt:'Tatlı patates',icon:'🍠',pos:70,neg:9,cnt:1450,note:'Soluble fiber',notet:'Çözünür lif'}
+,{n:'Cooked carrots',nt:'Pişmiş havuç',icon:'🥕',pos:68,neg:8,cnt:1340,note:'Beta-carotene',notet:'Beta-karoten'}
+,{n:'Avocado',nt:'Avokado',icon:'🥑',pos:65,neg:11,cnt:1120,note:'Healthy fats',notet:'Sağlıklı yağlar'}
+,{n:'Salmon',nt:'Somon',icon:'🥩',pos:66,neg:10,cnt:1120,note:'Omega-3 anti-inflam.',notet:'Omega-3 iltihaplanmayı azaltır'}
+,{n:'White toast',nt:'Beyaz ekmek',icon:'🍞',pos:64,neg:12,cnt:1890,note:'Low-residue option',notet:'Düşük kalıntılı'}
+,{n:'Plain pasta',nt:'Sade makarna',icon:'🍝',pos:61,neg:11,cnt:1670,note:'Easy on the gut',notet:'Bağırsağı yormaz'}
+,{n:'Pumpkin',nt:'Kabak',icon:'🍏',pos:67,neg:8,cnt:890,note:'Soothing mucilage',notet:'Yatıştırıcı'}
+,{n:'Cooked zucchini',nt:'Pişmiş kabak',icon:'🦒',pos:63,neg:10,cnt:780,note:'Soft & easy to digest',notet:'Kolay sindirim'}
+,{n:'Probiotic yogurt',nt:'Probiyotik yoğurt',icon:'🥮',pos:58,neg:18,cnt:1560,note:'Helps some patients',notet:'Bazı hastalara faydalı'}
+,{n:'Tofu',nt:'Tofu',icon:'🧆',pos:60,neg:12,cnt:780,note:'Gentle plant protein',notet:'Kolay bitkisel protein'},{n:'Mashed potato',nt:'Patates püresi',icon:'🥔',pos:72,neg:8,cnt:1780,note:'Bland & easy',notet:'Hafif ve kolay sindirim'}
+,{n:'Plain crackers',nt:'Sade kraker',icon:'🫙',pos:65,neg:10,cnt:1230,note:'Low-residue snack',notet:'Düşük kalıntılı atıştırmalık'}
+,{n:'Cooked spinach',nt:'Pişmiş ıspanak',icon:'🥬',pos:66,neg:9,cnt:1120,note:'Iron & low fiber cooked',notet:'Pişince lif azalır'}
+,{n:'Turkey',nt:'Hindi',icon:'🦃',pos:67,neg:9,cnt:1010,note:'Lean easy protein',notet:'Yağsız kolay protein'}
+,{n:'Plain yogurt',nt:'Sade yoğurt',icon:'🫙',pos:60,neg:16,cnt:1780,note:'Probiotics if tolerated',notet:'Tolere edilirse probiyotik'}
+,{n:'Papaya',nt:'Papaya',icon:'🍈',pos:64,neg:11,cnt:780,note:'Digestive enzymes',notet:'Sindirim enzimleri'}
+,{n:'Melon',nt:'Kavun',icon:'🍈',pos:63,neg:10,cnt:890,note:'High water, easy to digest',notet:'Yüksek su içeriği'}
+,{n:'Peeled apple',nt:'Soyulmuş elma',icon:'🍎',pos:61,neg:12,cnt:1340,note:'Pectin soothes gut',notet:'Pektin bağırsağı yatıştırır'}
+,{n:'Cooked beets',nt:'Pişmiş pancar',icon:'🫐',pos:59,neg:11,cnt:670,note:'Anti-inflammatory',notet:'İltihaplanmayı azaltır'}
+,{n:'Soft tofu',nt:'Yumuşak tofu',icon:'🧊',pos:61,neg:11,cnt:780,note:'Easy plant protein',notet:'Kolay bitkisel protein'}
+,{n:'Rice cakes',nt:'Pirinç keki',icon:'🍘',pos:66,neg:8,cnt:1010,note:'Very low residue',notet:'Çok düşük kalıntı'}
+,{n:'Steamed broccoli',nt:'Buharda brokoli',icon:'🥦',pos:55,neg:18,cnt:980,note:'Better cooked than raw',notet:'Pişmiş hali daha iyi'}
+,{n:'Pear (peeled)',nt:'Armut (soyulmuş)',icon:'🍐',pos:58,neg:13,cnt:780,note:'Gentle fiber',notet:'Yumuşak lif'}
+,{n:'Cream of wheat',nt:'İrmik',icon:'🫕',pos:67,neg:9,cnt:890,note:'Smooth easy starch',notet:'Düzgün kolay nişasta'}
+,{n:'Quinoa',nt:'Kinoa',icon:'🌾',pos:57,neg:14,cnt:1120,note:'Complete protein',notet:'Tam protein'}
+,{n:'Olive oil',nt:'Zeytinyağı',icon:'🫒',pos:63,neg:10,cnt:1340,note:'Anti-inflammatory fats',notet:'İltihaplanmayı azaltan yağlar'}],drinks:[{n:'Water',nt:'Su',icon:'\ud83d\udca7',pos:91,neg:1,cnt:4200,note:'Always recommended',notet:'Her zaman \u00f6nerilir'},{n:'Electrolytes',nt:'Elektrolit',icon:'\u26a1',pos:74,neg:6,cnt:1890,note:'Hydration',notet:'Hidratasyon'},{n:'Herbal tea',nt:'Bitki \u00e7ay\u0131',icon:'\ud83c\udf75',pos:66,neg:8,cnt:1340,note:'Soothing',notet:'Rahatlat\u0131c\u0131'},{n:'Bone broth',nt:'Kemik suyu',icon:'\ud83c\udf72',pos:72,neg:8,cnt:1230,note:'Gut healing',notet:'\u0130yile\u015ftirici'},{n:'Ginger tea',nt:'Zencefil \u00e7ay\u0131',icon:'\ud83e\uded6',pos:63,neg:12,cnt:920,note:'Anti-nausea',notet:'Bulant\u0131 \u00f6nleyici'},{n:'Green tea',nt:'Ye\u015fil \u00e7ay',icon:'\ud83c\udf3f',pos:54,neg:16,cnt:980,note:'Some caffeine',notet:'Kafein riski'},{n:'Coffee',nt:'Kahve',icon:'\u2615',pos:12,neg:68,cnt:3240,note:'Major trigger',notet:'B\u00fcy\u00fck tetikleyici'},{n:'Alcohol',nt:'Alkol',icon:'\ud83c\udf77',pos:8,neg:74,cnt:2100,note:'Avoid entirely',notet:'Tamamen ka\u00e7\u0131n\u0131n'}
+,{n:'Chamomile tea',nt:'Papatya çayı',icon:'🌼',pos:68,neg:7,cnt:1120,note:'Anti-inflammatory',notet:'İltihap giderici'}
+,{n:'Peppermint tea',nt:'Nane çayı',icon:'🌿',pos:61,neg:14,cnt:890,note:'Relaxes gut muscle',notet:'Bağırsak kastlarını gevşetir'}
+,{n:'Coconut water',nt:'Hindistan cevizi suyu',icon:'🥥',pos:63,neg:11,cnt:780,note:'Natural electrolytes',notet:'Doğal elektrolitler'}
+,{n:'Turmeric milk',nt:'Zerdeçal sütü',icon:'🥫',pos:58,neg:12,cnt:670,note:'Anti-inflammatory curcumin',notet:'Kurkümin iltihaplanmayı azaltır'}
+,{n:'Aloe vera juice',nt:'Sarısabır suyu',icon:'🌾',pos:55,neg:16,cnt:560,note:'Mucosal healing',notet:'Mukoza iyileştirici'}
+,{n:'Milk',nt:'Süt',icon:'🥛',pos:35,neg:48,cnt:1890,note:'Lactose issues for many',notet:'Laktoz sorunu yaygın'}
+,{n:'Fruit juice',nt:'Meyve suyu',icon:'🧃',pos:22,neg:54,cnt:1340,note:'Sugar spikes',notet:'Şeker yükü'}
+,{n:'Energy drinks',nt:'Enerji içeceği',icon:'🫇',pos:6,neg:78,cnt:890,note:'Caffeine + stimulants',notet:'Kafein + uyarıcı'}
+,{n:'Sparkling water',nt:'Maden suyu',icon:'🧃',pos:44,neg:38,cnt:1120,note:'Gas risk for some',notet:'Bazılarına gaz yapabilir'}
+,{n:'Kefir',nt:'Kefir',icon:'🥮',pos:60,neg:18,cnt:980,note:'Probiotic benefit',notet:'Probiyotik faydası'},{n:'Warm lemon water',nt:'Ilık limon suyu',icon:'🍋',pos:57,neg:20,cnt:890,note:'Stimulates digestion',notet:'Sindirimi uyarır'}
+,{n:'Licorice root tea',nt:'Meyan kökü çayı',icon:'🍵',pos:60,neg:10,cnt:560,note:'Soothes gut lining',notet:'Bağırsak astarını yatıştırır'}
+,{n:'Slippery elm tea',nt:'Kaygan elm çayı',icon:'🌿',pos:62,neg:8,cnt:480,note:'Mucilage coating',notet:'Mukoza kaplama'}
+,{n:'Marshmallow root',nt:'Hatmi kökü çayı',icon:'🌸',pos:60,neg:9,cnt:420,note:'Gut soothing',notet:'Bağırsak yatıştırıcı'}
+,{n:'Almond milk',nt:'Badem sütü',icon:'🥛',pos:55,neg:17,cnt:1120,note:'Dairy-free alternative',notet:'Sütsüz alternatif'}
+,{n:'Oat milk',nt:'Yulaf sütü',icon:'🥛',pos:54,neg:16,cnt:890,note:'Gentle dairy-free',notet:'Hafif sütsüz seçenek'}
+,{n:'Apple juice (diluted)',nt:'Elma suyu (sulandırılmış)',icon:'🍎',pos:48,neg:28,cnt:780,note:'Dilute to reduce sugar',notet:'Sulandırılmış şeker'}
+,{n:'Rice water',nt:'Pirinç suyu',icon:'🍚',pos:68,neg:6,cnt:780,note:'Traditional gut remedy',notet:'Geleneksel bağırsak çözümü'}
+,{n:'Carrot juice',nt:'Havuç suyu',icon:'🥕',pos:62,neg:10,cnt:670,note:'Beta-carotene rich',notet:'Beta-karoten zengini'}
+,{n:'Fennel tea',nt:'Rezene çayı',icon:'🌿',pos:64,neg:9,cnt:670,note:'Reduces gas & bloating',notet:'Gaz ve şişkinliği azaltır'}]};
 var MEDS=[{n:'Mesalamine',c:'5-ASA',i:61,s:28,r:18,rem:55,cnt:4200,en:'First-line maintenance',tr:'Birinci basamak idame'},{n:'Prednisone',c:'Steroid',i:78,s:65,r:47,rem:35,cnt:3800,en:'Fast relief, not long-term',tr:'H\u0131zl\u0131 etki, uzun d\u00f6nem de\u011fil'},{n:'Humira',c:'Biologic',i:58,s:22,r:31,rem:52,cnt:2100,en:'Anti-TNF, mod-severe',tr:'Anti-TNF, orta-a\u011f\u0131r'},{n:'Remicade',c:'Biologic',i:62,s:25,r:28,rem:57,cnt:1890,en:'IV infusion, strong',tr:'IV inf\u00fczyonu, g\u00fc\u00e7l\u00fc'},{n:'Entyvio',c:'Biologic',i:65,s:14,r:24,rem:71,cnt:2340,en:'Gut-selective, safest',tr:'Ba\u011f\u0131rsak se\u00e7ici, en g\u00fcvenli'},{n:'Rinvoq',c:'JAK',i:67,s:30,r:22,rem:61,cnt:890,en:'New oral option',tr:'Yeni oral se\u00e7enek'},{n:'Azathioprine',c:'Immuno',i:54,s:35,r:38,rem:48,cnt:1670,en:'Slow onset 3\u20136mo',tr:'Yava\u015f etki 3\u20136 ay'},{n:'Stelara',c:'Biologic',i:60,s:12,r:26,rem:58,cnt:1120,en:'Best safety profile',tr:'En d\u00fc\u015f\u00fck yan etki'}];
 var PATTERNS=[{en:'Coffee + Dairy \u2192 87% higher flare risk',tr:'Kahve + S\u00fct \u2192 %87 y\u00fcksek alevlenme riski',conf:87,n:1240,den:'Both together showed 87% higher flare rates. The effect is additive.',dtr:'Her ikisi birlikte %87 daha y\u00fcksek alevlenme oran\u0131 g\u00f6sterdi.'},{en:'Stress + Poor Sleep \u2192 3\u00d7 longer flares',tr:'Stres + K\u00f6t\u00fc Uyku \u2192 3\u00d7 uzun alevlenmeler',conf:82,n:980,den:'3x more likely to describe flares lasting over 2 weeks.',dtr:'2 haftadan uzun alevlenmeler 3 kat daha olas\u0131.'},{en:'Bleeding + Fatigue \u2192 79% stress trigger',tr:'Kanama + Yorgunluk \u2192 %79 stres tetikleyici',conf:79,n:860,den:'Simultaneous bleeding and fatigue predicts stress trigger in 79% of cases.',dtr:'E\u015f zamanl\u0131 kanama ve yorgunluk vakalar\u0131n %79\u2019unda stres tetikleyicisi.'},{en:'Probiotics in remission \u2192 40% longer',tr:'Remisyonda probiyotik \u2192 %40 uzun',conf:74,n:720,den:'Probiotics during remission reported 40% longer periods.',dtr:'Probiyotik kullananlar %40 daha uzun remisyon bildirdi.'},{en:'Travel + Antibiotics \u2192 68% acute flare',tr:'Seyahat + Antibiyotik \u2192 %68 alevlenme',conf:68,n:410,den:'68% flare rate within 2 weeks \u2014 double vs antibiotics alone.',dtr:'2 hafta i\u00e7inde %68 alevlenme oran\u0131.'}];
 function navTo(id,el){document.querySelectorAll('.nlink,.mob-link').forEach(function(b){b.classList.remove('active')});if(el)el.classList.add('active');document.getElementById('nl-'+id)&&document.getElementById('nl-'+id).classList.add('active');document.getElementById('ml-'+id)&&document.getElementById('ml-'+id).classList.add('active');document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');}
@@ -844,7 +915,37 @@ buildPills();buildStats();renderSymGrid();initNews();
 /* ======= TRACKER ======= */
 var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],medTimes:{},stress:0,notes:'',sleepTime:'',wakeTime:'',breakfast:'',lunch:'',dinner:'',waterLiters:0,activity:'',entries:{},inited:false};
 var TSYMS=[{key:'diarrhea',label:'Diarrhea',icon:'&#x1F30A;'},{key:'urgency',label:'Urgency',icon:'&#x26A1;'},{key:'pain',label:'Pain',icon:'&#x1F623;'},{key:'bleeding',label:'Bleeding',icon:'&#x1FA78;'},{key:'fatigue',label:'Fatigue',icon:'&#x1F634;'},{key:'mucus',label:'Mucus',icon:'&#x1F534;'},{key:'bloating',label:'Bloating',icon:'&#x1FAE7;'},{key:'nausea',label:'Nausea',icon:'&#x1F922;'}];
-var TFOODS=[{key:'coffee',label:'Coffee',labeltr:'Kahve',icon:'&#x2615;',risk:'high'},{key:'dairy',label:'Dairy',labeltr:'S\u00FCt',icon:'&#x1F95B;',risk:'high'},{key:'spicy',label:'Spicy',labeltr:'Baharatl\u0131',icon:'&#x1F336;&#xFE0F;',risk:'high'},{key:'alcohol',label:'Alcohol',labeltr:'Alkol',icon:'&#x1F37A;',risk:'high'},{key:'rice',label:'White Rice',labeltr:'Beyaz Pirin\u00E7',icon:'&#x1F35A;',risk:'safe'},{key:'banana',label:'Banana',labeltr:'Muz',icon:'&#x1F34C;',risk:'safe'},{key:'chicken',label:'Chicken',labeltr:'Tavuk',icon:'&#x1F357;',risk:'safe'},{key:'broth',label:'Bone Broth',labeltr:'Kemik Suyu',icon:'&#x1F372;',risk:'safe'},{key:'oats',label:'Oatmeal',labeltr:'Yulaf',icon:'&#x1F963;',risk:'safe'},{key:'eggs',label:'Eggs',labeltr:'Yumurta',icon:'&#x1F95A;',risk:'safe'},{key:'rawveg',label:'Raw Veg',labeltr:'\u00C7i\u011F Sebze',icon:'&#x1F957;',risk:'medium'},{key:'redmeat',label:'Red Meat',labeltr:'K\u0131rm\u0131z\u0131 Et',icon:'&#x1F969;',risk:'medium'}];
+var TFOODS=[
+  {key:'coffee',label:'Coffee',labeltr:'Kahve',icon:'&#x2615;',risk:'high'},
+  {key:'dairy',label:'Dairy',labeltr:'Süt ürünleri',icon:'&#x1F95B;',risk:'high'},
+  {key:'spicy',label:'Spicy food',labeltr:'Baharatlı',icon:'&#x1F336;&#xFE0F;',risk:'high'},
+  {key:'alcohol',label:'Alcohol',labeltr:'Alkol',icon:'&#x1F37A;',risk:'high'},
+  {key:'fried',label:'Fried food',labeltr:'Kızartma',icon:'&#x1F35F;',risk:'high'},
+  {key:'fastfood',label:'Fast food',labeltr:'Fast food',icon:'&#x1F354;',risk:'high'},
+  {key:'gluten',label:'Gluten/Wheat',labeltr:'Gluten/Buğday',icon:'&#x1F35E;',risk:'high'},
+  {key:'sausage',label:'Sausage/deli',labeltr:'Sosis/salam',icon:'&#x1F32D;',risk:'high'},
+  {key:'carbonated',label:'Carbonated',labeltr:'Gazlı içecek',icon:'&#x1F9E7;',risk:'medium'},
+  {key:'redmeat',label:'Red Meat',labeltr:'Kırmızı Et',icon:'&#x1F969;',risk:'medium'},
+  {key:'rawveg',label:'Raw Veg',labeltr:'Çiğ Sebze',icon:'&#x1F957;',risk:'medium'},
+  {key:'beans',label:'Beans/Legumes',labeltr:'Baklagiller',icon:'&#x1FAD8;',risk:'medium'},
+  {key:'oniongarlic',label:'Onion & garlic',labeltr:'Soğan & sarımsak',icon:'&#x1F9C5;',risk:'medium'},
+  {key:'chocolate',label:'Chocolate',labeltr:'Çikolata',icon:'&#x1F36B;',risk:'medium'},
+  {key:'rice',label:'White Rice',labeltr:'Beyaz Pirinç',icon:'&#x1F35A;',risk:'safe'},
+  {key:'banana',label:'Banana',labeltr:'Muz',icon:'&#x1F34C;',risk:'safe'},
+  {key:'chicken',label:'Chicken',labeltr:'Tavuk',icon:'&#x1F357;',risk:'safe'},
+  {key:'broth',label:'Bone Broth',labeltr:'Kemik Suyu',icon:'&#x1F372;',risk:'safe'},
+  {key:'oats',label:'Oatmeal',labeltr:'Yulaf',icon:'&#x1F963;',risk:'safe'},
+  {key:'eggs',label:'Eggs',labeltr:'Yumurta',icon:'&#x1F95A;',risk:'safe'},
+  {key:'fish',label:'Cooked fish',labeltr:'Pişmiş balık',icon:'&#x1F41F;',risk:'safe'},
+  {key:'sweetpotato',label:'Sweet potato',labeltr:'Tatlı patates',icon:'&#x1F360;',risk:'safe'},
+  {key:'mashedpotato',label:'Mashed potato',labeltr:'Patates püresi',icon:'&#x1F954;',risk:'safe'},
+  {key:'carrots',label:'Cooked carrots',labeltr:'Pişmiş havuç',icon:'&#x1F955;',risk:'safe'},
+  {key:'applesauce',label:'Applesauce',labeltr:'Elma püresi',icon:'&#x1F34E;',risk:'safe'},
+  {key:'plainpasta',label:'Plain pasta',labeltr:'Sade makarna',icon:'&#x1F35D;',risk:'safe'},
+  {key:'oliveoil',label:'Olive oil',labeltr:'Zeytinyağı',icon:'&#x1FAD2;',risk:'safe'},
+  {key:'yogurt',label:'Plain yogurt',labeltr:'Sade yoğurt',icon:'&#x1F963;',risk:'safe'},
+  {key:'tofu',label:'Tofu',labeltr:'Tofu',icon:'&#x1F9C6;',risk:'safe'}
+];
 var TMEDS=['Mesalamine','Entyvio','Humira','Remicade','Prednisone','Azathioprine','Stelara','Rinvoq'];
 
 function trkToday(){return new Date().toISOString().split('T')[0];}
@@ -893,6 +994,16 @@ function trkApplyLang(){
   var np=document.getElementById('trk-notes');if(np)np.placeholder=L('trk_notes_ph');
   var btn=document.getElementById('trk-save-btn');if(btn&&!btn.disabled)btn.textContent=L('trk_save');
   var badge=document.getElementById('trk-saved-badge');if(badge)badge.textContent='\u2713 '+L('trk_saved');
+  // New fields i18n
+  var secMapNew={sleep:'trk_sleep',meals:'trk_meals',water:'trk_water',activity:'trk_activity_lbl'};
+  Object.keys(secMapNew).forEach(function(k){var e2=document.getElementById('trk-sec-'+k);if(e2)e2.textContent=L(secMapNew[k]);});
+  var ids2={'trk-bedtime-lbl':'trk_bedtime','trk-wakeup-lbl':'trk_wakeup','trk-breakfast-lbl':'trk_breakfast','trk-lunch-lbl':'trk_lunch','trk-dinner-lbl':'trk_dinner','trk-water-goal-lbl':'trk_water_goal'};
+  Object.keys(ids2).forEach(function(id){var e3=document.getElementById(id);if(e3)e3.textContent=L(ids2[id]);});
+  var bfph=document.getElementById('trk-breakfast');if(bfph)bfph.placeholder=L('trk_breakfast_ph');
+  var luph=document.getElementById('trk-lunch');if(luph)luph.placeholder=L('trk_lunch_ph');
+  var diph=document.getElementById('trk-dinner');if(diph)diph.placeholder=L('trk_dinner_ph');
+  var acph=document.getElementById('trk-activity');if(acph)acph.placeholder=L('trk_activity_ph');
+  var wlbl=document.getElementById('trk-water-lbl');if(wlbl){var wn=TRK.waterLiters;wlbl.textContent=wn>=2?L('trk_water_good'):wn>=1?L('trk_water_keep'):L('trk_water_add');}
 }
 
 function buildTrkFeel(){
@@ -958,10 +1069,20 @@ function trkToggleFood(key){
   var btn=document.getElementById('tfb-'+key);
   if(btn){btn.style.borderColor=sel?bc:'var(--border)';btn.style.background=sel?bc+'15':'var(--bg)';btn.style.color=sel?bc:'var(--text2)';}
 }
+function renderTrkWater(){
+  var n=TRK.waterLiters,el=document.getElementById('trk-water-num');if(!el)return;
+  el.textContent=n.toFixed(1)+' L';
+  el.style.color=n>=2?'#10b981':n>=1?'#2563eb':'#9ca3b8';
+  var lbl=document.getElementById('trk-water-lbl');if(lbl)lbl.textContent=n>=2?L('trk_water_good'):n>=1?L('trk_water_keep'):L('trk_water_add');
+  var bar=document.getElementById('trk-water-bar');if(bar)bar.style.width=Math.min(100,n/2*100)+'%';
+}
+function adjWater(d){TRK.waterLiters=Math.max(0,Math.round((TRK.waterLiters+d)*4)/4);renderTrkWater();}
 function buildTrkMedGrid(){
   document.getElementById('trk-med-grid').innerHTML=TMEDS.map(function(m){
     var sel=TRK.meds.indexOf(m)>-1,id='tmb-'+m.replace(/ /g,'_');
-    return '<button class="med-btn-trk'+(sel?' sel-med':'')+'" id="'+id+'" onclick="trkToggleMed(\''+m+'\')">'+(sel?'&#x2713; ':'')+m+'</button>';
+    var t=(TRK.medTimes&&TRK.medTimes[m])||'';
+    var timeHtml=sel?'<input type="time" value="'+t+'" title="'+L('trk_med_time_lbl')+'" onclick="event.stopPropagation()" oninput="if(!TRK.medTimes)TRK.medTimes={};TRK.medTimes[\''+m+'\']=this.value" style="margin-left:6px;border:1px solid var(--border);border-radius:6px;padding:2px 6px;font-size:11px;background:var(--bg);color:var(--text);font-family:inherit;vertical-align:middle">':'';
+    return '<div style="display:flex;align-items:center;margin:3px"><button class="med-btn-trk'+(sel?' sel-med':'')+'" id="'+id+'" onclick="trkToggleMed(\''+m+'\')">'+(sel?'&#x2713; ':'')+m+'</button>'+timeHtml+'</div>';
   }).join('');
 }
 function trkToggleMed(med){
@@ -1141,35 +1262,35 @@ function renderHeatmap(dates){
       <div class="trk-card"><div class="trk-sec" id="trk-sec-meds">Medications Taken Today</div><div id="trk-med-grid" style="display:flex;flex-wrap:wrap"></div></div>
 
       <div class="trk-card">
-        <div class="trk-sec">&#x1F319; Sleep Schedule</div>
+        <div class="trk-sec" id="trk-sec-sleep">&#x1F319; Sleep Schedule</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div>
-            <div class="meal-label">&#x1F4A4; Bedtime</div>
+            <div class="meal-label" id="trk-bedtime-lbl">&#x1F4A4; Bedtime</div>
             <input type="time" id="trk-sleep-time" class="time-input-trk" style="width:100%">
           </div>
           <div>
-            <div class="meal-label">&#x1F324; Wake up</div>
+            <div class="meal-label" id="trk-wakeup-lbl">&#x1F324; Wake up</div>
             <input type="time" id="trk-wake-time" class="time-input-trk" style="width:100%">
           </div>
         </div>
       </div>
       <div class="trk-card">
-        <div class="trk-sec">&#x1F37D; Meals Today</div>
+        <div class="trk-sec" id="trk-sec-meals">&#x1F37D; Meals Today</div>
         <div style="margin-bottom:12px">
-          <div class="meal-label">&#x1F31E; Breakfast</div>
+          <div class="meal-label" id="trk-breakfast-lbl">&#x1F31E; Breakfast</div>
           <textarea class="meal-input" id="trk-breakfast" rows="2" placeholder="What did you eat for breakfast?"></textarea>
         </div>
         <div style="margin-bottom:12px">
-          <div class="meal-label">&#x2600;&#xFE0F; Lunch</div>
+          <div class="meal-label" id="trk-lunch-lbl">&#x2600;&#xFE0F; Lunch</div>
           <textarea class="meal-input" id="trk-lunch" rows="2" placeholder="What did you eat for lunch?"></textarea>
         </div>
         <div>
-          <div class="meal-label">&#x1F319; Dinner</div>
+          <div class="meal-label" id="trk-dinner-lbl">&#x1F319; Dinner</div>
           <textarea class="meal-input" id="trk-dinner" rows="2" placeholder="What did you eat for dinner?"></textarea>
         </div>
       </div>
       <div class="trk-card">
-        <div class="trk-sec">&#x1F4A7; Water Intake</div>
+        <div class="trk-sec" id="trk-sec-water">&#x1F4A7; Water Intake</div>
         <div class="water-row">
           <button class="trk-bm-btn" onclick="adjWater(-0.25)">&#x2212;</button>
           <div class="water-center">
@@ -1179,14 +1300,14 @@ function renderHeatmap(dates){
           <button class="trk-bm-btn" onclick="adjWater(0.25)">+</button>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:8px;padding:0 4px">
-          <span>0 L</span><span>Goal: 2 L</span><span>3+ L</span>
+          <span>0 L</span><span id="trk-water-goal-lbl">Goal: 2 L</span><span>3+ L</span>
         </div>
         <div style="height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden">
           <div id="trk-water-bar" style="height:100%;background:var(--accent);border-radius:2px;transition:width .3s;width:0%"></div>
         </div>
       </div>
       <div class="trk-card">
-        <div class="trk-sec">&#x1F3C3; Physical Activity</div>
+        <div class="trk-sec" id="trk-sec-activity">&#x1F3C3; Physical Activity</div>
         <textarea class="meal-input" id="trk-activity" rows="2" placeholder="E.g. 30 min walk, yoga, rest day, gym..."></textarea>
       </div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-notes">Notes</div><textarea class="notes-trk" id="trk-notes" placeholder="How are you feeling? Any observations, triggers or things to remember..."></textarea></div>
