@@ -41,7 +41,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .nav-logo{height:40px;cursor:pointer;display:flex;align-items:center;flex-shrink:0}
 .nav-logo img{height:40px;width:auto;object-fit:contain}
 .nav-links{display:flex;gap:2px;position:absolute;left:50%;transform:translateX(-50%)}
-.nlink{padding:6px 11px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;font-family:inherit}
+.nlink{padding:6px 11px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all .15s;border:none;background:none;font-family:inherit;white-space:nowrap}
 .nlink:hover{background:var(--bg);color:var(--text)}
 .nlink.active{background:var(--accent);color:#fff}
 .nav-right{margin-left:auto;display:flex;gap:6px;align-items:center}
@@ -1896,6 +1896,7 @@ async function exportTrkPDF(){
 /* ---------- i18n strings for new screens ---------- */
 var TX={
   en:{
+    nav_news:'News',nav_mymeds:'My Meds',nav_profile:'Profile',
     news_title:'UC Research News',news_sub:'Latest ulcerative colitis research and treatment updates',
     badge_new:'NEW',badge_recent:'RECENT',read_more:'Read more →',
     mymeds_title:'My Medications',mymeds_sub:'Add your prescriptions and get reminders to take them on time',
@@ -1918,6 +1919,7 @@ var TX={
     trk_remind_eve:'Evening log — record today’s symptoms & meals.'
   },
   tr:{
+    nav_news:'Haberler',nav_mymeds:'İlaçlarım',nav_profile:'Profil',
     news_title:'UC Araştırma Haberleri',news_sub:'Ülseratif kolit araştırmaları ve tedavi güncellemeleri',
     badge_new:'YENİ',badge_recent:'SON',read_more:'Devamını oku →',
     mymeds_title:'İlaçlarım',mymeds_sub:'İlaçlarınızı ekleyin ve zamanında almak için hatırlatıcı alın',
@@ -2155,9 +2157,9 @@ function setTxt(id,t){var e=document.getElementById(id);if(e)e.textContent=t;}
 window.ucApplyLangExtras=function(){
   var navMap={news:'news_title',mymeds:'mymeds_title',profile:'profile_title'};
   // nav button labels (desktop + mobile)
-  setTxt('ntx-news',tx('news_title'));setTxt('mtx-news',tx('news_title'));
-  setTxt('ntx-mymeds',tx('mymeds_title'));setTxt('mtx-mymeds',tx('mymeds_title'));
-  setTxt('ntx-profile',tx('profile_title'));setTxt('mtx-profile',tx('profile_title'));
+  setTxt('ntx-news',tx('nav_news'));setTxt('mtx-news',tx('nav_news'));
+  setTxt('ntx-mymeds',tx('nav_mymeds'));setTxt('mtx-mymeds',tx('nav_mymeds'));
+  setTxt('ntx-profile',tx('nav_profile'));setTxt('mtx-profile',tx('nav_profile'));
   setTxt('news-page-title',tx('news_title'));setTxt('news-page-sub',tx('news_sub'));
   setTxt('mymeds-title',tx('mymeds_title'));setTxt('mymeds-sub',tx('mymeds_sub'));
   setTxt('mymeds-add-lbl',tx('mymeds_add'));
