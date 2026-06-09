@@ -640,6 +640,7 @@ anl_low_ins:'Low flare risk today. Your indicators look stable. Keep logging dai
 anl_remission:'Remission',anl_mild:'Mild',anl_moderate:'Moderate',anl_severe:'Severe',
 anl_stool:'Stool frequency',anl_bleed:'Rectal bleeding',anl_wellbeing:'General wellbeing',anl_mucosal:'Mucosal symptoms',
 anl_ucai_ins:"Score based on today's log. <strong>Share with your gastroenterologist</strong> for a more informed consultation.",
+anl_attack:'Attack Risk Score',anl_attack_sub:'Predicted flare risk from your data & labs',anl_attack_pts:'points',anl_attack_low:'Low risk',anl_attack_mod:'Moderate risk',anl_attack_high:'High risk',anl_attack_blood:'Bloody stool',anl_attack_cal:'Calprotectin',anl_attack_colo:'Colonoscopy score',anl_attack_nolabs:'Add CRP, calprotectin or your last colonoscopy score in your Profile for a more accurate score.',anl_attack_ins:'Predicts the likelihood of a flare from your bowel data and clinical labs. A self-tracking estimate — not a diagnosis.',
 anl_baseline:'Baseline bad day rate',anl_of_days:'of your days',
 anl_no_triggers:'No clear triggers found yet. Keep logging for more accurate results.',
 anl_need5:'Log at least 5 days to discover your personal triggers',anl_need5h:'Need 5+ days of data for heatmap',
@@ -668,6 +669,7 @@ anl_low_ins:'Bug\u00fcn d\u00fc\u015f\u00fck alevlenme riski. G\u00f6stergelerin
 anl_remission:'Remisyon',anl_mild:'Hafif',anl_moderate:'Orta',anl_severe:'Ciddi',
 anl_stool:'D\u0131\u015fk\u0131lama s\u0131kl\u0131\u011f\u0131',anl_bleed:'Rektal kanama',anl_wellbeing:'Genel sa\u011fl\u0131k',anl_mucosal:'Mukozal belirtiler',
 anl_ucai_ins:'Skor bug\u00fcnk\u00fc kay\u0131da dayan\u0131yor. <strong>Gastroenteroloji uzman\u0131n\u0131zla payla\u015f\u0131n.</strong>',
+anl_attack:'Atak Risk Skoru',anl_attack_sub:'Verileriniz ve tahlillerinizden atak riski tahmini',anl_attack_pts:'puan',anl_attack_low:'D\u00fc\u015f\u00fck risk',anl_attack_mod:'Orta risk',anl_attack_high:'Y\u00fcksek risk',anl_attack_blood:'Kanl\u0131 d\u0131\u015fk\u0131',anl_attack_cal:'Kalprotektin',anl_attack_colo:'Kolonoskopi skoru',anl_attack_nolabs:'Daha do\u011fru bir skor i\u00e7in Profilinize CRP, kalprotektin veya son kolonoskopi skorunuzu ekleyin.',anl_attack_ins:'Ba\u011f\u0131rsak verileriniz ve klinik tahlillerinizden atak olas\u0131l\u0131\u011f\u0131n\u0131 tahmin eder. \u00d6z-takip tahminidir \u2014 te\u015fhis de\u011fildir.',
 anl_baseline:'Taban k\u00f6t\u00fc g\u00fcn oran\u0131',anl_of_days:'g\u00fcnlerinizden',
 anl_no_triggers:'Hen\u00fcz belirgin tetikleyici bulunamad\u0131. Loglama yapmaya devam edin.',
 anl_need5:'Tetikleyici ke\u015fi i\u00e7in en az 5 g\u00fcn veri gerekli',anl_need5h:'Is\u0131 haritas\u0131 i\u00e7in 5+ g\u00fcn veri gerekli',
@@ -1289,6 +1291,7 @@ function anlApplyLang(){
     'anl-hero-title':'anl_title',
     'anl-title-flare':'anl_flare','anl-sub-flare':'anl_flare_sub',
     'anl-title-ucai':'anl_ucai','anl-sub-ucai':'anl_ucai_sub',
+    'anl-title-attack':'anl_attack','anl-sub-attack':'anl_attack_sub',
     'anl-title-triggers':'anl_triggers','anl-sub-triggers':'anl_triggers_sub',
     'anl-title-heat':'anl_heatmap','anl-sub-heat':'anl_heatmap_sub',
     'anl-nd-title':'anl_no_data','anl-nd-sub':'anl_no_data_sub'
@@ -1303,7 +1306,34 @@ function initAnalytics(){
   var dates=Object.keys(TRK.entries).sort();
   if(dates.length<3){document.getElementById('anl-no-data').style.display='block';document.getElementById('anl-content').style.display='none';return;}
   document.getElementById('anl-no-data').style.display='none';document.getElementById('anl-content').style.display='block';
-  renderFlarePredict(dates);renderUCAI(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);
+  renderFlarePredict(dates);renderUCAI(dates);renderAttackRisk(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);
+}
+function renderAttackRisk(dates){
+  var today=dates[dates.length-1],e=TRK.entries[today]||{};
+  var p=window.UC_PROFILE||{};
+  var over=Math.max(0,(e.bm||0)-((p.normalBM)||0));
+  var stoolPts=over<=0?0:over===1?10:over===2?20:30;
+  var bleeding=(e.symptoms||{}).bleeding||0;
+  var bleedMayo=bleeding===0?0:bleeding<=2?1:bleeding<=3?2:3;
+  var bleedPts=bleedMayo*10;
+  var crp=(p.crp==null||p.crp==='')?null:+p.crp,cal=(p.calprotectin==null||p.calprotectin==='')?null:+p.calprotectin,endo=(p.endoscopyScore==null||p.endoscopyScore==='')?null:+p.endoscopyScore;
+  var crpPts=crp==null?0:(crp<5?0:crp<10?10:crp<30?20:30);
+  var calPts=cal==null?0:(cal<100?0:cal<250?10:cal<500?20:cal<1000?30:40);
+  var endoPts=(endo==null?0:endo)*10;
+  var total=stoolPts+bleedPts+crpPts+calPts+endoPts;
+  var level=total>=60?'high':total>20?'mod':'low';
+  var col=level==='high'?'#e84040':level==='mod'?'#f59e0b':'#10b981';
+  var lvlLbl=level==='high'?L('anl_attack_high'):level==='mod'?L('anl_attack_mod'):L('anl_attack_low');
+  var hasLabs=(crp!=null||cal!=null||endo!=null);
+  var rows=[[L('anl_stool'),stoolPts],[L('anl_attack_blood'),bleedPts],['CRP',crpPts],[L('anl_attack_cal'),calPts],[L('anl_attack_colo'),endoPts]];
+  var h='<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">'
+    +'<div style="font-size:40px;font-weight:800;line-height:1;color:'+col+'">'+total+'</div>'
+    +'<div style="font-size:13px;color:var(--text3)">'+L('anl_attack_pts')+'</div>'
+    +'<div style="margin-left:auto;font-size:13px;font-weight:700;color:'+col+';background:'+col+'1f;padding:6px 12px;border-radius:8px">'+lvlLbl+'</div></div>';
+  h+=rows.map(function(r){return '<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:13px"><span style="color:var(--text2)">'+r[0]+'</span><span style="font-weight:600;color:'+(r[1]>0?'#e84040':'var(--text3)')+'">+'+r[1]+'</span></div>';}).join('');
+  if(!hasLabs)h+='<div style="font-size:11px;color:#f59e0b;margin-top:10px;line-height:1.5">'+L('anl_attack_nolabs')+'</div>';
+  h+='<div style="font-size:12px;color:var(--text2);margin-top:10px;line-height:1.6">'+L('anl_attack_ins')+'</div>';
+  document.getElementById('attack-wrap').innerHTML=h;
 }
 function renderFlarePredict(dates){
   var today=dates[dates.length-1],e=TRK.entries[today]||{};
@@ -1459,6 +1489,7 @@ function renderHeatmap(dates){
         <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(232,64,64,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="anl-card-title" id="anl-title-flare">Flare Prediction</div><div class="anl-card-sub" id="anl-sub-flare">48-hour risk forecast</div></div></div><div class="flare-gauge" id="flare-gauge"></div><div class="flare-factors" id="flare-factors"></div><div class="anl-insight-box" id="flare-insight"></div></div>
         <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(37,99,235,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="anl-card-title" id="anl-title-ucai">UC Activity Index</div><div class="anl-card-sub" id="anl-sub-ucai">Simplified Mayo Score (today)</div></div></div><div class="ucai-wrap" id="ucai-wrap"></div></div>
       </div>
+      <div class="anl-card" style="margin-bottom:16px"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(232,64,64,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="anl-card-title" id="anl-title-attack">Attack Risk Score</div><div class="anl-card-sub" id="anl-sub-attack">Predicted flare risk from your data &amp; labs</div></div></div><div id="attack-wrap"></div></div>
       <div class="anl-card" style="margin-bottom:16px"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(124,58,237,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div><div class="anl-card-title" id="anl-title-triggers">Personal Trigger Discovery</div><div class="anl-card-sub" id="anl-sub-triggers">Correlations unique to you</div></div></div><div id="trigger-discovery"></div></div>
       <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(8,145,178,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="anl-card-title" id="anl-title-heat">Food &times; Symptom Correlation Heatmap</div><div class="anl-card-sub" id="anl-sub-heat">Which foods correlate with which symptoms</div></div></div><div id="corr-heatmap"></div><div class="anl-insight-box" id="heatmap-insight" style="display:none"></div></div>
     </div>
@@ -1907,6 +1938,7 @@ var TX={
     dxyear:'Year of diagnosis',addyear:'Add year',clear:'Clear',
     normalbm:'My normal bowel movements per day',normalbm_hint:'When well — used to score disease activity accurately.',perday:'per day',
     curmeds:'Current medications',
+    labs:'Clinical labs',labs_hint:'From your latest doctor visit — used in your Attack Risk Score.',lab_cal:'Fecal calprotectin',lab_colo:'Last colonoscopy score (endoscopic Mayo)',lab_normal:'Normal',lab_mild:'Mild',lab_moderate:'Moderate',lab_severe:'Severe',
     personalize:'Personalize AI with my data',personalize_hint:'Share a summary of your tracker log with the AI for tailored answers.',
     remind_trk:'Daily tracker reminders',remind_trk_hint:'Get reminded at 9 AM, 2 PM and 7 PM to log how you feel.',
     save:'Save',saved:'✓ Saved!',
@@ -1930,6 +1962,7 @@ var TX={
     dxyear:'Tanı yılı',addyear:'Yıl ekle',clear:'Temizle',
     normalbm:'Günlük normal bağırsak hareketi sayım',normalbm_hint:'İyiyken — hastalık aktivitesini doğru puanlamak için kullanılır.',perday:'/ gün',
     curmeds:'Mevcut ilaçlar',
+    labs:'Klinik tahliller',labs_hint:'Son doktor ziyaretinizden — Atak Risk Skorunuzda kullanılır.',lab_cal:'Fekal kalprotektin',lab_colo:'Son kolonoskopi skoru (endoskopik Mayo)',lab_normal:'Normal',lab_mild:'Hafif',lab_moderate:'Orta',lab_severe:'Ağır',
     personalize:'Yapay zekayı verilerimle kişiselleştir',personalize_hint:'Daha uygun yanıtlar için takip kaydınızın özetini yapay zeka ile paylaşın.',
     remind_trk:'Günlük takip hatırlatıcıları',remind_trk_hint:'Nasıl hissettiğinizi kaydetmek için 09:00, 14:00 ve 19:00’da hatırlatılır.',
     save:'Kaydet',saved:'✓ Kaydedildi!',
@@ -1974,7 +2007,7 @@ window.renderNewsPage=function(){
 /* ====================== PROFILE ====================== */
 var PKEY='uc-profile-v1';
 function loadProfile(){
-  var p={diagnosed:false,ucType:'',diagnosisYear:null,normalBM:1,currentMeds:[],personalizeAI:false,remindTracker:false};
+  var p={diagnosed:false,ucType:'',diagnosisYear:null,normalBM:1,currentMeds:[],personalizeAI:false,remindTracker:false,crp:null,calprotectin:null,endoscopyScore:null};
   try{var r=localStorage.getItem(PKEY);if(r)p=Object.assign(p,JSON.parse(r)||{});}catch(e){}
   if(!Array.isArray(p.currentMeds))p.currentMeds=[];
   window.UC_PROFILE=p;return p;
@@ -2009,6 +2042,15 @@ window.renderProfile=function(){
   // current meds
   h+='<div class="pf-card"><div class="pf-label">'+tx('curmeds')+'</div><div class="chip-wrap">'
     +(window.TMEDS||[]).map(function(m){var s=p.currentMeds.indexOf(m)>-1;return '<button class="pf-chip'+(s?' sel':'')+'" onclick="pfToggleMed(\''+m+'\')">'+esc(m)+'</button>';}).join('')+'</div></div>';
+  // clinical labs (feed the Attack Risk Score)
+  var endoOpts=[tx('lab_normal'),tx('lab_mild'),tx('lab_moderate'),tx('lab_severe')];
+  h+='<div class="pf-card"><div class="pf-label">'+tx('labs')+'</div><div class="pf-hint" style="margin:-4px 0 10px">'+tx('labs_hint')+'</div>'
+    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span style="font-size:18px">🧪</span><div style="flex:1;font-size:13px">CRP</div>'
+    +'<input type="number" inputmode="decimal" step="any" min="0" value="'+(p.crp==null?'':p.crp)+'" oninput="pfSetLab(\'crp\',this.value)" style="width:80px;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;text-align:right"><span style="font-size:12px;color:var(--text3);width:34px">mg/L</span></div>'
+    +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:18px">💩</span><div style="flex:1;font-size:13px">'+tx('lab_cal')+'</div>'
+    +'<input type="number" inputmode="decimal" step="any" min="0" value="'+(p.calprotectin==null?'':p.calprotectin)+'" oninput="pfSetLab(\'calprotectin\',this.value)" style="width:80px;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;text-align:right"><span style="font-size:12px;color:var(--text3);width:34px">µg/g</span></div>'
+    +'<div class="pf-hint" style="margin-bottom:6px">'+tx('lab_colo')+'</div><div class="chip-wrap">'
+    +endoOpts.map(function(lbl,i){var s=p.endoscopyScore===i;return '<button class="pf-chip'+(s?' sel':'')+'" onclick="pfSetEndo('+i+')">'+i+' · '+lbl+'</button>';}).join('')+'</div></div>';
   // personalize AI
   h+='<div class="pf-card"><div class="pf-row"><div class="pf-grow"><div style="font-size:14px">'+tx('personalize')+'</div><div class="pf-hint">'+tx('personalize_hint')+'</div></div>'+sw('personalizeAI',p.personalizeAI)+'</div></div>';
   // tracker reminders
@@ -2022,6 +2064,8 @@ window.pfSetType=function(t){var p=window.UC_PROFILE;p.ucType=p.ucType===t?'':t;
 window.pfSetYear=function(y){var p=window.UC_PROFILE;if(y!=null){y=Math.max(1970,Math.min(new Date().getFullYear(),y));}p.diagnosisYear=y;saveProfile();renderProfile();};
 window.pfSetBM=function(n){window.UC_PROFILE.normalBM=Math.max(0,Math.min(10,n));saveProfile();renderProfile();};
 window.pfToggleMed=function(m){var a=window.UC_PROFILE.currentMeds,i=a.indexOf(m);if(i>-1)a.splice(i,1);else a.push(m);saveProfile();renderProfile();};
+window.pfSetLab=function(f,v){v=(''+v).trim();window.UC_PROFILE[f]=(v===''?null:(isNaN(+v)?null:+v));saveProfile();};
+window.pfSetEndo=function(n){var p=window.UC_PROFILE;p.endoscopyScore=p.endoscopyScore===n?null:n;saveProfile();renderProfile();};
 window.pfSave=function(){saveProfile();var b=document.getElementById('pf-save-btn');if(b){b.textContent=tx('saved');setTimeout(function(){b.textContent=tx('save');},1600);}};
 
 /* AI personalization context injected into chat system prompt */
@@ -2033,6 +2077,9 @@ window.profileAIContext=function(){
   if(p.diagnosisYear)bits.push('diagnosed in '+p.diagnosisYear);
   if(p.normalBM!=null)bits.push('normal baseline ~'+p.normalBM+' bowel movements/day when well');
   if(p.currentMeds&&p.currentMeds.length)bits.push('current medications: '+p.currentMeds.join(', '));
+  if(p.crp!=null)bits.push('latest CRP '+p.crp+' mg/L');
+  if(p.calprotectin!=null)bits.push('latest fecal calprotectin '+p.calprotectin+' µg/g');
+  if(p.endoscopyScore!=null)bits.push('last colonoscopy/endoscopic Mayo score '+p.endoscopyScore+'/3');
   // recent tracker summary
   try{
     var TRK=window.TRK;
