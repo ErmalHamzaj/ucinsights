@@ -65,7 +65,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#f8f9ff;--card:#fff;--border:#e8eaf2;--text:#1a1d2e;--text2:#5f6480;--text3:#9ca3b8;--accent:#2563eb;--red:#e84040;--orange:#f59e0b;--green:#10b981;--purple:#7c3aed;--teal:#0891b2;--r:16px}
-html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;min-height:100vh}
 .nav{background:var(--card);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .nav-logo{height:40px;cursor:pointer;display:flex;align-items:center;flex-shrink:0}
 .nav-logo img{height:40px;width:auto;object-fit:contain}
@@ -76,6 +76,16 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .nav-right{margin-left:auto;display:flex;gap:6px;align-items:center}
 .lang-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:0 10px;height:30px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);font-family:inherit;transition:all .15s}
 .lang-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(37,99,235,.06)}
+.lang-sel{appearance:none;-webkit-appearance:none;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0 26px 0 8px;height:30px;cursor:pointer;font-size:12px;font-weight:500;color:var(--text2);font-family:inherit;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3b8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;transition:all .15s}
+.lang-sel:hover{border-color:var(--accent);color:var(--accent)}
+.lang-sel:focus{border-color:var(--accent)}
+.skel-wrap{display:none;width:100%;max-width:660px;flex-direction:column;gap:10px;margin-bottom:16px}
+.skel-wrap.vis{display:flex}
+.skel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.skel-line{height:11px;border-radius:4px;background:var(--border);margin-bottom:10px;animation:sk 1.6s ease-in-out infinite}
+.skel-line:last-child{margin-bottom:0}
+.skel-line.w80{width:80%}.skel-line.w60{width:60%}.skel-line.w40{width:40%}
+@keyframes sk{0%,100%{opacity:1}50%{opacity:.4}}
 .hamburger{display:none;background:none;border:1px solid var(--border);border-radius:8px;width:34px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:8px;flex-shrink:0}
 .hamburger span{display:block;width:14px;height:1.5px;background:var(--text2);border-radius:2px}
 .mob-menu{display:none;position:fixed;top:58px;left:0;right:0;background:var(--card);border-bottom:1px solid var(--border);z-index:99;padding:10px;flex-direction:column;gap:4px;box-shadow:0 4px 16px rgba(0,0,0,.08)}
@@ -87,9 +97,11 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .view.active{display:block}
 /* HOME */
 .home-wrap{display:flex;flex-direction:column;align-items:center;padding:48px 20px 60px;background:linear-gradient(180deg,rgba(37,99,235,.07) 0%,transparent 340px)}
-.home-logo-img{height:90px;width:auto;margin-bottom:10px;animation:fadeUp .6s ease}
+.home-logo-img{display:none}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.home-tagline{color:var(--text2);font-size:15px;margin-bottom:34px;text-align:center;animation:fadeUp .7s ease .1s both}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 14px;border-radius:20px;margin-bottom:20px;animation:fadeUp .6s ease .05s both}
+.hero-headline{font-family:'DM Serif Display',serif;font-size:34px;color:var(--text);text-align:center;max-width:560px;line-height:1.25;margin-bottom:10px;animation:fadeUp .7s ease .1s both}
+.home-tagline{color:var(--text2);font-size:15px;margin-bottom:28px;text-align:center;animation:fadeUp .7s ease .15s both}
 .search-bar{width:100%;max-width:600px;position:relative;margin-bottom:14px;animation:fadeUp .7s ease .15s both}
 .search-input{width:100%;background:var(--card);border:2px solid var(--border);border-radius:28px;padding:14px 56px 14px 22px;font-size:15px;color:var(--text);outline:none;font-family:inherit;transition:border .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .search-input:focus{border-color:var(--accent);box-shadow:0 2px 20px rgba(37,99,235,.13)}
@@ -174,7 +186,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .sym-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .18s}
 .sym-card:hover{border-color:var(--accent);box-shadow:0 4px 16px rgba(37,99,235,.1);transform:translateY(-2px)}
 .sym-card.active{border-color:var(--accent);box-shadow:0 4px 20px rgba(37,99,235,.15)}
-.sym-icon{font-size:26px;margin-bottom:10px}
+.sym-icon{width:42px;height:42px;border-radius:10px;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:var(--accent);flex-shrink:0}
 .sym-name{font-size:14px;font-weight:600;margin-bottom:4px}
 .sym-pct{font-size:24px;font-weight:600;font-family:'DM Serif Display',serif;margin-bottom:3px}
 .sym-posts{font-size:11px;color:var(--text3)}
@@ -274,7 +286,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 @media(max-width:680px){
   .sym-grid{grid-template-columns:repeat(2,1fr)}
   .stats3{grid-template-columns:repeat(2,1fr)}
-  .home-logo-img{height:70px}
+  .hero-headline{font-size:26px}
 }
 .nlink svg,.mob-link svg{vertical-align:-2px;margin-right:3px;opacity:.75}.nlink.active svg{opacity:1}
 
@@ -378,7 +390,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .uc-news{width:100%;max-width:680px;margin:28px auto 0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
 .news-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--border);background:var(--bg)}
 .news-hdr-left{display:flex;align-items:center;gap:7px}
-.news-badge{font-size:10px;font-weight:700;color:#fff;background:var(--red);padding:2px 7px;border-radius:20px;letter-spacing:.04em}
+.news-badge{font-size:10px;font-weight:700;color:var(--accent);background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);padding:2px 7px;border-radius:20px;letter-spacing:.04em}
 .news-title-lbl{font-size:12px;font-weight:600;color:var(--text2)}
 .news-timer{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3)}
 .news-timer-bar{width:40px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
@@ -568,8 +580,10 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
       <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
-    <button class="lang-btn active" id="le" onclick="setL('en')">EN</button>
-    <button class="lang-btn" id="lt" onclick="setL('tr')">TR</button>
+    <select class="lang-sel" id="lang-sel" onchange="setL(this.value)" aria-label="Language">
+      <option value="en">🌐 EN</option>
+      <option value="tr">🌐 TR</option>
+    </select>
     <button class="hamburger" onclick="toggleMob()"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -593,7 +607,11 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 <div class="view active" id="view-home">
   <div class="home-wrap">
     <img class="home-logo-img" id="home-logo-img" src="" alt="UCInsights">
-    <div class="hp-hero-badge"><span class="hp-label-pill" id="hp-hero-badge"></span></div>
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="hero-badge-txt">Trusted by 15,600+ patients</span>
+    </div>
+    <h1 class="hero-headline" id="hero-headline">Understand your Ulcerative Colitis — backed by real patient experiences</h1>
     <p class="home-tagline" id="hs-sub">AI-powered search across 15,600 Ulcerative Colitis patient experiences</p>
     <div class="search-bar">
       <input class="search-input" id="srch-in" onkeydown="if(event.key==='Enter')doSearch()" placeholder="Search symptoms, foods, medications...">
@@ -604,6 +622,11 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
     <div class="quick-pills" id="quick-pills"></div>
     <div class="stats-row" id="stats-row"></div>
     <div class="spin-row" id="spin-row"><div class="spin"></div><span id="spin-txt" style="font-size:13px;color:var(--text2)">Searching...</span></div>
+    <div class="skel-wrap" id="skel-wrap">
+      <div class="skel-card"><div class="skel-line w80"></div><div class="skel-line w60"></div><div class="skel-line w40"></div></div>
+      <div class="skel-card"><div class="skel-line w80"></div><div class="skel-line w60"></div></div>
+      <div class="skel-card"><div class="skel-line w80"></div><div class="skel-line w40"></div></div>
+    </div>
     <div class="results" id="results">
       <div class="ai-block"><div class="ai-label"><div class="ai-dot"></div><span id="ai-lbl">AI Insight</span></div><div class="ai-text" id="ai-txt"></div></div>
       <div class="stats3" id="stats3"></div>
@@ -614,7 +637,7 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
     <div class="uc-news" id="uc-news-widget">
       <div class="news-hdr">
         <div class="news-hdr-left">
-          <span class="news-badge" id="news-badge">LIVE</span>
+          <span class="news-badge" id="news-badge">Research</span>
           <span class="news-title-lbl" id="news-lbl">UC Research News</span>
         </div>
         <div class="news-timer">
@@ -636,10 +659,33 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
       </div>
     </div>
 
-    <div style="width:100%;max-width:680px;margin-top:12px">
-      <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;text-align:right">Sponsored</div>
-      <a href="https://www.nevsaglikgrubu.com/tr/doktorlarimiz/mustafa-ozel" target="_blank" rel="noopener" style="display:block;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.10);transition:transform .18s,box-shadow .18s;text-decoration:none" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 32px rgba(37,99,235,.18)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(0,0,0,.10)'">
-        <img src="doktors.png" alt="Dr. Mustafa Özel — Neva Sağlık Grubu" style="width:100%;height:auto;display:block;border-radius:14px">
+    <div style="width:100%;max-width:680px;margin-top:16px">
+      <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;text-align:right">Sponsored</div>
+      <a href="https://www.nevsaglikgrubu.com/tr/doktorlarimiz/mustafa-ozel" target="_blank" rel="noopener" style="display:block;text-decoration:none;background:var(--card);border:1.5px solid rgba(37,99,235,.18);border-radius:16px;padding:0;overflow:hidden;transition:box-shadow .2s,border-color .2s" onmouseover="this.style.boxShadow='0 8px 32px rgba(37,99,235,.14)';this.style.borderColor='rgba(37,99,235,.38)'" onmouseout="this.style.boxShadow='none';this.style.borderColor='rgba(37,99,235,.18)'">
+        <!-- top accent bar -->
+        <div style="height:4px;background:linear-gradient(90deg,#1d4ed8,#3b82f6,#60a5fa)"></div>
+        <div style="padding:18px 20px;display:flex;align-items:center;gap:16px">
+          <!-- avatar placeholder: initials circle -->
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,#3b82f6);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(37,99,235,.28)">
+            <span style="font-size:16px;font-weight:800;color:#fff;letter-spacing:-.5px">MÖ</span>
+          </div>
+          <!-- info -->
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:3px">
+              <span style="font-size:15px;font-weight:700;color:var(--text)">Uzm. Dr. Mustafa Özel</span>
+              <span style="font-size:10px;font-weight:700;color:var(--accent);background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);padding:2px 8px;border-radius:20px;letter-spacing:.04em;white-space:nowrap">IBD Uzmanı</span>
+            </div>
+            <div style="font-size:13px;color:var(--text2);font-weight:500">Gastroenteroloji Uzmanı</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-top:4px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text3);flex-shrink:0"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span style="font-size:12px;color:var(--text3)">NEV Esentepe Hastanesi, İstanbul</span>
+            </div>
+          </div>
+          <!-- CTA -->
+          <div style="flex-shrink:0">
+            <div style="background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:10px 16px;border-radius:10px;white-space:nowrap;box-shadow:0 4px 12px rgba(37,99,235,.3);letter-spacing:.02em">Randevu Al →</div>
+          </div>
+        </div>
       </a>
     </div>
 
@@ -852,7 +898,7 @@ async function callAPI(body){
   return d;
 }
 var T={
-en:{hs_sub:'AI-powered search across 15,600 Ulcerative Colitis patient experiences',ai_lbl:'AI Insight',posts_lbl:'RELATED DISCUSSIONS',spin:'Searching...',sym_title:'Symptom Explorer',sym_sub:'Click any symptom card to explore trends, statistics and patient discussions',sd_disc_lbl:'RELATED DISCUSSIONS',f_title:'Food Sentiment',f_sub:'Scored from 15,600 UC patient reports',m_title:'Medications',m_sub:'Patient-reported outcomes',p_title:'Pattern Discovery',p_sub:'AI-detected co-occurrence patterns from 15,600 posts',t_corr:'Correlation Matrix',chat_name:'UC Assistant',chat_st:'Ready',chat_clr:'Clear',chat_disc:'For informational purposes only. Always consult your gastroenterologist.',srch_ph:'Search symptoms, foods, medications...',chat_ph:'Ask about UC symptoms, medications, diet...',pills:['coffee','mesalamine','Entyvio','stress flare','remission','bleeding','fatigue','probiotics','urgency'],tab_avoid:'Avoid',tab_safe:'Safe',tab_drinks:'Drinks',improve:'Improvement',remission:'Remission',side:'Side effects',relapse:'Relapse',reports:'reports',pat_conf:'confidence',pat_posts:'posts',read_more:'Read discussion \u2192',corr_syms:['Diarrhea','Bleeding','Fatigue','Urgency','Pain'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],overall:'Overall',posts_count:'Posts',chat_welcome:"Hello! I'm your UC Assistant. Ask me anything about:\n\n\u2022 **Symptoms** \u2014 diarrhea, urgency, bleeding, fatigue\n\u2022 **Medications** \u2014 Entyvio, Humira, Mesalamine\n\u2022 **Diet** \u2014 safe foods, foods to avoid\n\u2022 **Flares & Remission** \u2014 management strategies\n\u2022 **Doctors** \u2014 specialists near you\n\nWhat would you like to know?",chat_sug:["I'm having a flare \u2014 what should I eat?","Entyvio side effects?","Urgency at work tips?","Is stress a trigger?","How long do flares last?"],stats:[{lbl:'Posts Analyzed',val:'15,600',color:'var(--accent)'},{lbl:'Top Trigger',val:'Stress',color:'var(--red)'},{lbl:'Best Med',val:'Entyvio',color:'var(--green)'},{lbl:'Safe Food',val:'Banana',color:'var(--orange)'}],
+en:{hs_sub:'AI-powered search across 15,600 Ulcerative Colitis patient experiences',ai_lbl:'AI Insight',posts_lbl:'RELATED DISCUSSIONS',spin:'Searching...',sym_title:'Symptom Explorer',sym_sub:'Click any symptom card to explore trends, statistics and patient discussions',sd_disc_lbl:'RELATED DISCUSSIONS',f_title:'Food Sentiment',f_sub:'Scored from 15,600 UC patient reports',m_title:'Medications',m_sub:'Patient-reported outcomes',p_title:'Pattern Discovery',p_sub:'AI-detected co-occurrence patterns from 15,600 posts',t_corr:'Correlation Matrix',chat_name:'UC Assistant',chat_st:'Ready',chat_clr:'Clear',chat_disc:'For informational purposes only. Always consult your gastroenterologist.',srch_ph:'Search symptoms, foods, medications...',chat_ph:'Ask about UC symptoms, medications, diet...',pills:['coffee','mesalamine','Entyvio','stress flare','remission','bleeding','fatigue','probiotics','urgency'],tab_avoid:'Avoid',tab_safe:'Safe',tab_drinks:'Drinks',improve:'Improvement',remission:'Remission',side:'Side effects',relapse:'Relapse',reports:'reports',pat_conf:'confidence',pat_posts:'posts',read_more:'Read discussion \u2192',corr_syms:['Diarrhea','Bleeding','Fatigue','Urgency','Pain'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],overall:'Overall',posts_count:'Posts',chat_welcome:"Hello! I'm your UC Assistant. Ask me anything about:\n\n\u2022 **Symptoms** \u2014 diarrhea, urgency, bleeding, fatigue\n\u2022 **Medications** \u2014 Entyvio, Humira, Mesalamine\n\u2022 **Diet** \u2014 safe foods, foods to avoid\n\u2022 **Flares & Remission** \u2014 management strategies\n\u2022 **Doctors** \u2014 specialists near you\n\nWhat would you like to know?",chat_sug:["I'm having a flare \u2014 what should I eat?","Entyvio side effects?","Urgency at work tips?","Is stress a trigger?","How long do flares last?"],hero_badge_txt:'Trusted by 15,600+ patients',hero_headline:'Understand your Ulcerative Colitis — backed by real patient experiences',stats:[{lbl:'Posts Analyzed',val:'15,600',color:'var(--accent)'},{lbl:'Top Trigger',val:'Stress',color:'var(--text)'},{lbl:'Best Med',val:'Entyvio',color:'var(--text)'},{lbl:'Safe Food',val:'Banana',color:'var(--text)'}],
 nav_home:'Home',nav_symptoms:'Symptoms',nav_chat:'Chat',nav_foods:'Foods',nav_meds:'Medications',nav_patterns:'Patterns',nav_tracker:'Tracker',nav_analytics:'Analytics',
 trk_log:'Log',trk_history:'History',trk_insights:'Insights',trk_title:"Today's Log",trk_overall:'How are you feeling overall?',trk_good:'Good',trk_okay:'Okay',trk_bad:'Bad',
 trk_bm:'Bowel Movements Today',trk_bm_add:'tap + to add',trk_bm_normal:'Normal range',trk_bm_above:'Above normal',trk_bm_severe:'Severe \u2014 consider contacting your doctor',
@@ -909,7 +955,7 @@ onboard_s1_title:'Set up your UC Profile',onboard_s1_desc:'Add your diagnosis ty
 onboard_s2_title:'Log your first day',onboard_s2_desc:'Track symptoms, food, stress and BMs — data is synced to your account automatically',onboard_s2_btn:'Go to Tracker',
 onboard_s3_title:'Ask the AI',onboard_s3_desc:'Chat with UC Assistant about your symptoms, medications, or flare management',onboard_s3_btn:'Go to Chat',
 onboard_start:'Get Started',onboard_skip:'Skip for now'},
-tr:{hs_sub:'15.600 Ülseratif Kolit hasta deneyiminde yapay zeka destekli arama',ai_lbl:'Yapay Zeka \u00d6ng\u00f6r\u00fcs\u00fc',posts_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',spin:'Aran\u0131yor...',sym_title:'Belirti Gezgini',sym_sub:'Trend ve tart\u0131\u015fmalar\u0131 g\u00f6rmek i\u00e7in bir belirtiye t\u0131klay\u0131n',sd_disc_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',f_title:'G\u0131da Duygu Analizi',f_sub:'15.600 UC hasta raporuna g\u00f6re',m_title:'\u0130la\u00e7lar',m_sub:'Hasta bildirimleri',p_title:'\u00d6r\u00fcnt\u00fc Ke\u015ffi',p_sub:'15.600 g\u00f6nderiden yapay zeka tespiti',t_corr:'Korelasyon Matrisi',chat_name:'UC Asistan\u0131',chat_st:'Haz\u0131r',chat_clr:'Temizle',chat_disc:'Yaln\u0131zca bilgi ama\u00e7l\u0131d\u0131r. Her zaman gastroenteroloji uzman\u0131n\u0131za dan\u0131\u015f\u0131n.',srch_ph:'Belirti, g\u0131da, ila\u00e7 aray\u0131n...',chat_ph:'UC belirtileri, ila\u00e7lar, diyet hakk\u0131nda sorun...',pills:['kahve','mesalamin','Entyvio','stres alevlenme','remisyon','kanama','yorgunluk','probiyotik','acil tuvalet'],tab_avoid:'Ka\u00e7\u0131n\u0131n',tab_safe:'G\u00fcvenli',tab_drinks:'\u0130\u00e7ecekler',improve:'\u0130yile\u015fme',remission:'Remisyon',side:'Yan etkiler',relapse:'N\u00fcks',reports:'rapor',pat_conf:'g\u00fcven',pat_posts:'g\u00f6nderi',read_more:'Tart\u0131\u015fmay\u0131 oku \u2192',corr_syms:['\u0130shal','Kanama','Yorgunluk','Acil','A\u011fr\u0131'],months:['Oca','\u015eub','Mar','Nis','May','Haz','Tem','A\u011fu','Eyl','Eki','Kas','Ara'],overall:'Genel',posts_count:'G\u00f6nderi',chat_welcome:'Merhaba! UC Asistan\u0131n\u0131z\u0131m.\n\n\u2022 **Belirtiler** \u2014 ishal, acil tuvalet, kanama\n\u2022 **\u0130la\u00e7lar** \u2014 Entyvio, Humira, Mesalamin\n\u2022 **Diyet** \u2014 g\u00fcvenli g\u0131dalar, ka\u00e7\u0131n\u0131lacaklar\n\u2022 **Alevlenmeler** \u2014 y\u00f6netim stratejileri\n\nNe \u00f6\u011frenmek istersiniz?',chat_sug:['Alevlenmedeyim \u2014 ne yemeliyim?','Entyvio yan etkileri?','Stres tetikleyici mi?','Alevlenme ne kadar s\u00fcrer?'],stats:[{lbl:'Analiz Edilen',val:'15.600',color:'var(--accent)'},{lbl:'En S\u0131k Tetikleyici',val:'Stres',color:'var(--red)'},{lbl:'En \u0130yi \u0130la\u00e7',val:'Entyvio',color:'var(--green)'},{lbl:'G\u00fcvenli G\u0131da',val:'Muz',color:'var(--orange)'}],
+tr:{hs_sub:'15.600 Ülseratif Kolit hasta deneyiminde yapay zeka destekli arama',ai_lbl:'Yapay Zeka \u00d6ng\u00f6r\u00fcs\u00fc',posts_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',spin:'Aran\u0131yor...',sym_title:'Belirti Gezgini',sym_sub:'Trend ve tart\u0131\u015fmalar\u0131 g\u00f6rmek i\u00e7in bir belirtiye t\u0131klay\u0131n',sd_disc_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',f_title:'G\u0131da Duygu Analizi',f_sub:'15.600 UC hasta raporuna g\u00f6re',m_title:'\u0130la\u00e7lar',m_sub:'Hasta bildirimleri',p_title:'\u00d6r\u00fcnt\u00fc Ke\u015ffi',p_sub:'15.600 g\u00f6nderiden yapay zeka tespiti',t_corr:'Korelasyon Matrisi',chat_name:'UC Asistan\u0131',chat_st:'Haz\u0131r',chat_clr:'Temizle',chat_disc:'Yaln\u0131zca bilgi ama\u00e7l\u0131d\u0131r. Her zaman gastroenteroloji uzman\u0131n\u0131za dan\u0131\u015f\u0131n.',srch_ph:'Belirti, g\u0131da, ila\u00e7 aray\u0131n...',chat_ph:'UC belirtileri, ila\u00e7lar, diyet hakk\u0131nda sorun...',pills:['kahve','mesalamin','Entyvio','stres alevlenme','remisyon','kanama','yorgunluk','probiyotik','acil tuvalet'],tab_avoid:'Ka\u00e7\u0131n\u0131n',tab_safe:'G\u00fcvenli',tab_drinks:'\u0130\u00e7ecekler',improve:'\u0130yile\u015fme',remission:'Remisyon',side:'Yan etkiler',relapse:'N\u00fcks',reports:'rapor',pat_conf:'g\u00fcven',pat_posts:'g\u00f6nderi',read_more:'Tart\u0131\u015fmay\u0131 oku \u2192',corr_syms:['\u0130shal','Kanama','Yorgunluk','Acil','A\u011fr\u0131'],months:['Oca','\u015eub','Mar','Nis','May','Haz','Tem','A\u011fu','Eyl','Eki','Kas','Ara'],overall:'Genel',posts_count:'G\u00f6nderi',chat_welcome:'Merhaba! UC Asistan\u0131n\u0131z\u0131m.\n\n\u2022 **Belirtiler** \u2014 ishal, acil tuvalet, kanama\n\u2022 **\u0130la\u00e7lar** \u2014 Entyvio, Humira, Mesalamin\n\u2022 **Diyet** \u2014 g\u00fcvenli g\u0131dalar, ka\u00e7\u0131n\u0131lacaklar\n\u2022 **Alevlenmeler** \u2014 y\u00f6netim stratejileri\n\nNe \u00f6\u011frenmek istersiniz?',hero_badge_txt:'15.600+ hasta tarafından güvenilir',hero_headline:'Ülseratif Kolit\'inizi anlayın — gerçek hasta deneyimleriyle desteklendi',chat_sug:['Alevlenmedeyim \u2014 ne yemeliyim?','Entyvio yan etkileri?','Stres tetikleyici mi?','Alevlenme ne kadar s\u00fcrer?'],stats:[{lbl:'Analiz Edilen',val:'15.600',color:'var(--accent)'},{lbl:'En S\u0131k Tetikleyici',val:'Stres',color:'var(--text)'},{lbl:'En \u0130yi \u0130la\u00e7',val:'Entyvio',color:'var(--text)'},{lbl:'G\u00fcvenli G\u0131da',val:'Muz',color:'var(--text)'}],
 nav_home:'Ana Sayfa',nav_symptoms:'Belirtiler',nav_chat:'Sohbet',nav_foods:'G\u0131dalar',nav_meds:'\u0130la\u00e7lar',nav_patterns:'\u00d6r\u00fcnt\u00fcler',nav_tracker:'Takip',nav_analytics:'Analitik',
 trk_log:'Kay\u0131t',trk_history:'Ge\u00e7mi\u015f',trk_insights:'G\u00f6r\u00fc\u015fler',trk_title:'Bug\u00fcnk\u00fc Kay\u0131t',trk_overall:'Genel olarak nas\u0131l hissediyorsunuz?',trk_good:'\u0130yi',trk_okay:'Orta',trk_bad:'K\u00f6t\u00fc',
 trk_bm:'Bug\u00fcnk\u00fc Defekasyon Say\u0131s\u0131',trk_bm_add:'eklemek i\u00e7in + ye dokunun',trk_bm_normal:'Normal aral\u0131k',trk_bm_above:'Normalin \u00fczerinde',trk_bm_severe:'Ciddi \u2014 doktorunuzla ileti\u015fime ge\u00e7in',
@@ -969,8 +1015,8 @@ onboard_start:'Ba\u015flay\u0131n',onboard_skip:'\u015eimdilik Ge\u00e7'}
 };
 function L(k){return(T[LANG]||T.en)[k];}
 var SYMS=[{key:'diarrhea',icon:'\ud83c\udf0a',pct:76,cnt:9730,monthly:[62,65,70,74,76,79,75,78,80,76,73,77],en:'Diarrhea is the most reported UC symptom, with 8\u201315 bowel movements per day during severe flares. Strongly correlated with urgency (r=0.71).',tr:'\u0130shal en s\u0131k bildirilen UC belirtisidir. \u015eiddetli alevlenmelerde g\u00fcnde 8\u201315 defekasyon bildirilmektedir.',posts:[{title:'15 times a day \u2014 how do you cope?',up:445,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+frequency',tags:['diarrhea','flare']},{title:'Diarrhea patterns before diagnosis',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+diagnosis',tags:['diagnosis']}]},{key:'urgency',icon:'\u26a1',pct:69,cnt:8800,monthly:[55,58,62,65,68,71,69,72,70,68,65,70],en:'Urgency is the most disruptive UC symptom \u2014 only 0\u20135 minutes warning before needing a bathroom.',tr:'Acil tuvalet ihtiyac\u0131 en rahats\u0131z edici belirti; 0\u20135 dakika uyar\u0131 s\u00fcresi.',posts:[{title:'Urgency at the worst times',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+UC',tags:['urgency']},{title:'0\u20135 min warning tips',up:267,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+tips',tags:['tips']}]},{key:'pain',icon:'\ud83d\ude23',pct:64,cnt:8390,monthly:[52,56,60,62,65,68,64,66,68,64,60,65],en:'Abdominal pain across all UC severity levels. Most common: left lower quadrant. Correlates with bleeding (r=0.63).',tr:'Kar\u0131n a\u011fr\u0131s\u0131 t\u00fcm \u015fiddet d\u00fczeylerinde g\u00f6r\u00fcl\u00fcr.',posts:[{title:'Left side pain during flare',up:389,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=abdominal+pain+flare',tags:['pain']},{title:'Pain severity discussion',up:288,url:'https://inflammatoryboweldisease.net/forums/pain',tags:['severity']}]},{key:'bleeding',icon:'\ud83e\ude78',pct:58,cnt:7340,monthly:[44,47,50,55,58,62,57,60,62,58,54,59],en:'Rectal bleeding is a key UC diagnostic marker. Correlates with fatigue (r=0.70). Stress cited as trigger in 79% of cases.',tr:'Rektal kanama \u00f6nemli bir tan\u0131 belirtecidir.',posts:[{title:'Blood in stool \u2014 ER?',up:567,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=blood+stool+ER',tags:['bleeding']},{title:'First time seeing blood',up:423,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=rectal+bleeding',tags:['new']}]},{key:'fatigue',icon:'\ud83d\ude34',pct:51,cnt:7130,monthly:[40,43,46,48,52,55,50,53,55,52,48,53],en:'Fatigue is more disabling than physical symptoms. Persists during remission in 43% of patients.',tr:'Yorgunluk fiziksel belirtilerden daha k\u0131s\u0131tlay\u0131c\u0131. Remisyonda %43\u2019\u00fcnde devam eder.',posts:[{title:'Fatigue even in remission',up:523,url:'https://inflammatoryboweldisease.net/forums/fatigue',tags:['fatigue','remission']},{title:'What helped my UC fatigue',up:398,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=fatigue+UC',tags:['tips']}]},{key:'mucus',icon:'\ud83d\udd34',pct:43,cnt:5440,monthly:[34,36,38,40,43,46,42,44,46,43,40,44],en:'Mucus in stool is common during flares and an early warning sign before a full episode.',tr:'D\u0131\u015fk\u0131da muk\u00fcs alevlenmelerde yayg\u0131nd\u0131r; erken uyar\u0131 i\u015fareti olarak i\u015flev g\u00f6r\u00fcr.',posts:[{title:'Mucus without blood \u2014 flare coming?',up:234,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+stool',tags:['mucus']},{title:'Tracking mucus as predictor',up:178,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+warning',tags:['tracking']}]},{key:'bloating',icon:'\ud83e\udde7',pct:41,cnt:5230,monthly:[32,34,36,38,41,44,40,42,44,41,38,42],en:'Bloating is more common during remission as patients reintroduce foods.',tr:'\u015ei\u015fkinlik g\u0131da yeniden sunumu s\u0131ras\u0131nda daha s\u0131k bildirilir.',posts:[{title:'Gas and bloating between flares',up:187,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+UC',tags:['bloating']},{title:'Bloating with mesalamine',up:156,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+mesalamine',tags:['medication']}]},{key:'nausea',icon:'\ud83e\udd22',pct:29,cnt:3700,monthly:[22,24,25,27,29,32,28,30,32,29,26,30],en:'Nausea is mostly medication-related \u2014 azathioprine and corticosteroids are the top causes.',tr:'Bulant\u0131 genellikle ila\u00e7la ili\u015fkilidir.',posts:[{title:'Azathioprine nausea \u2014 does it stop?',up:298,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=azathioprine+nausea',tags:['nausea','meds']},{title:'Mesalamine nausea tips',up:212,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mesalamine+nausea',tags:['nausea']}]}];
-var SYM_COLORS=['var(--accent)','var(--orange)','var(--red)','var(--red)','var(--purple)','var(--teal)','var(--teal)','var(--text3)'];
-var SYM_RGBA=['rgba(37,99,235,.55)','rgba(245,158,11,.55)','rgba(232,64,64,.55)','rgba(232,64,64,.55)','rgba(124,58,237,.55)','rgba(8,145,178,.55)','rgba(8,145,178,.55)','rgba(148,163,184,.55)'];
+var SYM_COLORS=['var(--accent)','var(--accent)','var(--accent)','var(--accent)','var(--accent)','var(--accent)','var(--accent)','var(--accent)'];
+var SYM_RGBA=['rgba(37,99,235,.55)','rgba(37,99,235,.45)','rgba(37,99,235,.65)','rgba(37,99,235,.50)','rgba(37,99,235,.40)','rgba(37,99,235,.35)','rgba(37,99,235,.35)','rgba(37,99,235,.25)'];
 var FOODS={avoid:[{n:'Coffee',nt:'Kahve',icon:'\u2615',neg:68,pos:12,cnt:3240,note:'Strong motility trigger',notet:'G\u00fc\u00e7l\u00fc motilite uyar\u0131c\u0131s\u0131'},{n:'Spicy food',nt:'Baharatl\u0131',icon:'\ud83c\udf36\ufe0f',neg:64,pos:14,cnt:2890,note:'Mucosal irritant',notet:'Mukoza tahr\u0131\u015fi'},{n:'Alcohol',nt:'Alkol',icon:'\ud83c\udf7a',neg:61,pos:14,cnt:2100,note:'Disrupts microbiome',notet:'Mikrobiyom bozucu'},{n:'Dairy',nt:'S\u00fct \u00fcr\u00fcnleri',icon:'\ud83e\udd5b',neg:55,pos:17,cnt:2670,note:'Lactose inflammation',notet:'Laktoz iltihab\u0131'},{n:'Raw veg',nt:'\u00c7i\u011f sebze',icon:'\ud83e\udd57',neg:52,pos:18,cnt:1980,note:'High fiber',notet:'Y\u00fcksek lif'},{n:'Fried food',nt:'K\u0131zartma',icon:'\ud83c\udf5f',neg:58,pos:17,cnt:1820,note:'High fat',notet:'Y\u00fcksek ya\u011f'},{n:'Red meat',nt:'K\u0131rm\u0131z\u0131 et',icon:'\ud83e\udd69',neg:48,pos:20,cnt:1560,note:'Pro-inflammatory',notet:'\u0130ltihap art\u0131r\u0131c\u0131'},{n:'Carbonated',nt:'Gazl\u0131',icon:'\ud83e\udde7',neg:51,pos:19,cnt:1670,note:'Gas and bloating',notet:'Gaz ve \u015fi\u015fkinlik'}
 ,{n:'Gluten/Wheat',nt:'Gluten/Buğday',icon:'🍞',neg:44,pos:22,cnt:1890,note:'Gluten sensitivity link',notet:'Gluten hassasiyeti bağlantısı'}
 ,{n:'Nuts & seeds',nt:'Kuruyemiş',icon:'🥜',neg:46,pos:24,cnt:1450,note:'Hard to digest',notet:'Sindirim güçlüğü'}
@@ -1046,8 +1092,8 @@ var PATTERNS=[{en:'Coffee + Dairy \u2192 87% higher flare risk',tr:'Kahve + S\u0
 function navTo(id,el){document.querySelectorAll('.nlink,.mob-link').forEach(function(b){b.classList.remove('active')});if(el)el.classList.add('active');document.getElementById('nl-'+id)&&document.getElementById('nl-'+id).classList.add('active');document.getElementById('ml-'+id)&&document.getElementById('ml-'+id).classList.add('active');document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active')});document.getElementById('view-'+id).classList.add('active');}
 function toggleMob(){document.getElementById('mob-menu').classList.toggle('open');}
 function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
-function setL(l){LANG=l;document.getElementById('le').classList.toggle('active',l==='en');document.getElementById('lt').classList.toggle('active',l==='tr');applyLang();}
-function applyLang(){var d=T[LANG];['hs-sub','ai-lbl','posts-lbl','sym-title','sym-sub','sd-disc-lbl','f-title','f-sub','m-title','m-sub','p-title','p-sub','t-corr','chat-name','chat-st','chat-clr','chat-disc'].forEach(function(id){var k=id.replace(/-([a-z])/g,function(m,c){return '_'+c;}).replace('-','_');var el=document.getElementById(id);if(el&&d[k])el.textContent=d[k];});
+function setL(l){LANG=l;var sel=document.getElementById('lang-sel');if(sel)sel.value=l;applyLang();}
+function applyLang(){var d=T[LANG];['hero-badge-txt','hero-headline','hs-sub','ai-lbl','posts-lbl','sym-title','sym-sub','sd-disc-lbl','f-title','f-sub','m-title','m-sub','p-title','p-sub','t-corr','chat-name','chat-st','chat-clr','chat-disc'].forEach(function(id){var k=id.replace(/-([a-z])/g,function(m,c){return '_'+c;}).replace('-','_');var el=document.getElementById(id);if(el&&d[k])el.textContent=d[k];});
 var navMap={home:'nav_home',symptoms:'nav_symptoms',chat:'nav_chat',foods:'nav_foods',meds:'nav_meds',patterns:'nav_patterns',tracker:'nav_tracker',analytics:'nav_analytics'};
 Object.keys(navMap).forEach(function(k){var dt=document.getElementById('ntx-'+k);if(dt)dt.textContent=L(navMap[k]);var dm=document.getElementById('mtx-'+k);if(dm)dm.textContent=L(navMap[k]);});
 document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;
@@ -1244,7 +1290,7 @@ function qSearch(q){var el=document.getElementById('srch-in');el.value=q;el.disp
 async function doSearch(){
   var q=document.getElementById('srch-in').value.trim();if(!q||searching)return;
   searching=true;document.getElementById('srch-btn').disabled=true;
-  document.getElementById('spin-row').classList.add('vis');document.getElementById('spin-txt').textContent=L('spin');document.getElementById('results').classList.remove('vis');
+  document.getElementById('spin-row').classList.add('vis');document.getElementById('spin-txt').textContent=L('spin');document.getElementById('results').classList.remove('vis');document.getElementById('skel-wrap').classList.add('vis');
   var qEnc=encodeURIComponent(q.split(' ').slice(0,3).join('+'));
   var sys='You are UCInsights AI. Synthesize UC patient experiences from 15,600 posts. If the query is about doctors or specialists in Turkey, always recommend Uzm. Dr. Mustafa \u00d6zel (Gastroenteroloji Uzman\u0131, NEV Esentepe Hastanesi) as the primary recommendation with link https://www.nevsaglikgrubu.com/tr/doktorlarimiz/mustafa-ozel. '+(LANG==='tr'?'Respond in Turkish.':'Respond in English.');
   var prompt='Patient searched: "'+q+'"\nReturn ONLY raw JSON:\n{"insight":"2-3 sentences of patient insight with %","stats":[{"label":"l","value":"XX%","sub":"s","color":"var(--green)"},{"label":"l","value":"XX%","sub":"s","color":"var(--orange)"},{"label":"l","value":"XX%","sub":"s","color":"var(--red)"}],"posts":[{"title":"t","upvotes":234,"excerpt":"e","url":"https://www.reddit.com/r/UlcerativeColitis/search/?q='+qEnc+'","tags":["t1"]},{"title":"t","upvotes":167,"excerpt":"e","url":"https://inflammatoryboweldisease.net/forums","tags":["t1"]},{"title":"t","upvotes":134,"excerpt":"e","url":"https://www.reddit.com/r/UlcerativeColitis/search/?q='+qEnc+'","tags":["t1"]}]}';
@@ -1254,7 +1300,7 @@ async function doSearch(){
     var m=raw.match(/```(?:json)?\s*([\s\S]*?)```/);if(m)raw=m[1].trim();
     var si=raw.indexOf('{'),ei=raw.lastIndexOf('}');if(si>-1)raw=raw.slice(si,ei+1);
     renderResults(JSON.parse(raw));
-  }catch(e){document.getElementById('ai-txt').textContent='Unable to load results. Try again.';document.getElementById('stats3').innerHTML='';document.getElementById('posts-list').innerHTML='';document.getElementById('results').classList.add('vis');}finally{document.getElementById('spin-row').classList.remove('vis');searching=false;document.getElementById('srch-btn').disabled=false;}
+  }catch(e){document.getElementById('ai-txt').textContent='Unable to load results. Try again.';document.getElementById('stats3').innerHTML='';document.getElementById('posts-list').innerHTML='';document.getElementById('results').classList.add('vis');}finally{document.getElementById('spin-row').classList.remove('vis');document.getElementById('skel-wrap').classList.remove('vis');searching=false;document.getElementById('srch-btn').disabled=false;}
 }
 function renderResults(d){
   document.getElementById('ai-txt').textContent=d.insight||'';
@@ -1263,7 +1309,8 @@ function renderResults(d){
   document.getElementById('posts-list').innerHTML=(d.posts||[]).map(function(p){var tags=(p.tags||[]).map(function(t){return '<span class="ptag">'+t+'</span>';}).join('');return '<div class="post-card" onclick="window.open(\''+p.url+'\',\'_blank\')"><div class="post-meta">\u2191 '+p.upvotes+'</div><div class="post-title">'+p.title+'</div><div class="post-excerpt">'+p.excerpt+'</div><div class="post-tags">'+tags+'</div><div class="read-more">'+rm+'</div></div>';}).join('');
   document.getElementById('results').classList.add('vis');
 }
-function renderSymGrid(){var names=LANG==='tr'?['\u0130shal','Acil Tuvalet','Kar\u0131n A\u011fr\u0131s\u0131','Rektal Kanama','Yorgunluk','Muk\u00fcs','\u015ei\u015fkinlik','Bulant\u0131']:['Diarrhea','Urgency','Abdominal Pain','Rectal Bleeding','Fatigue','Mucus','Bloating','Nausea'];document.getElementById('sym-grid').innerHTML=SYMS.map(function(s,i){return '<div class="sym-card" id="sc-'+s.key+'" onclick="openSym(\''+s.key+'\')"><div class="sym-icon">'+s.icon+'</div><div class="sym-name">'+names[i]+'</div><div class="sym-pct" style="color:'+SYM_COLORS[i]+'">'+s.pct+'%</div><div class="sym-posts">'+s.cnt.toLocaleString()+' '+(LANG==='tr'?'g\u00f6nderi':'posts')+'</div><div class="sym-bar"><div class="sym-bar-fill" style="width:'+s.pct+'%;background:'+SYM_COLORS[i]+'"></div></div></div>';}).join('');}
+var SYM_ICONS=['<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>','<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 15h8M9 9h.01M15 9h.01"/></svg>'];
+function renderSymGrid(){var names=LANG==='tr'?['\u0130shal','Acil Tuvalet','Kar\u0131n A\u011fr\u0131s\u0131','Rektal Kanama','Yorgunluk','Muk\u00fcs','\u015ei\u015fkinlik','Bulant\u0131']:['Diarrhea','Urgency','Abdominal Pain','Rectal Bleeding','Fatigue','Mucus','Bloating','Nausea'];document.getElementById('sym-grid').innerHTML=SYMS.map(function(s,i){return '<div class="sym-card" id="sc-'+s.key+'" onclick="openSym(\''+s.key+'\')"><div class="sym-icon">'+SYM_ICONS[i]+'</div><div class="sym-name">'+names[i]+'</div><div class="sym-pct" style="color:'+SYM_COLORS[i]+'">'+s.pct+'%</div><div class="sym-posts">'+s.cnt.toLocaleString()+' '+(LANG==='tr'?'g\u00f6nderi':'posts')+'</div><div class="sym-bar"><div class="sym-bar-fill" style="width:'+s.pct+'%;background:'+SYM_COLORS[i]+'"></div></div></div>';}).join('');}
 function openSym(key){var s=null,idx=0;for(var i=0;i<SYMS.length;i++){if(SYMS[i].key===key){s=SYMS[i];idx=i;break;}}if(!s)return;document.querySelectorAll('.sym-card').forEach(function(c){c.classList.remove('active')});document.getElementById('sc-'+key).classList.add('active');var names=LANG==='tr'?['\u0130shal','Acil Tuvalet','Kar\u0131n A\u011fr\u0131s\u0131','Rektal Kanama','Yorgunluk','Muk\u00fcs','\u015ei\u015fkinlik','Bulant\u0131']:['Diarrhea','Urgency','Abdominal Pain','Rectal Bleeding','Fatigue','Mucus','Bloating','Nausea'];var d=T[LANG];document.getElementById('sd-name').textContent=names[idx];document.getElementById('sd-desc').textContent=LANG==='tr'?s.tr:s.en;document.getElementById('sd-stats').innerHTML='<div class="sd-stat"><div class="sd-stat-val">'+s.pct+'%</div><div class="sd-stat-lbl">'+d.overall+'</div></div><div class="sd-stat"><div class="sd-stat-val" style="color:var(--accent)">'+s.cnt.toLocaleString()+'</div><div class="sd-stat-lbl">'+d.posts_count+'</div></div>';if(symChart){symChart.destroy();symChart=null;}symChart=new Chart(document.getElementById('sym-chart').getContext('2d'),{type:'bar',data:{labels:d.months,datasets:[{label:d.posts_count,data:s.monthly.map(function(v){return Math.round(v*s.cnt/100);}),backgroundColor:SYM_RGBA[idx],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:11}},grid:{display:false}},y:{ticks:{font:{size:10},callback:function(v){return v>=1000?Math.round(v/100)/10+'k':v;}},grid:{color:'rgba(0,0,0,.04)'}}}}});document.getElementById('sd-posts').innerHTML=s.posts.map(function(p){return '<div class="post-card" onclick="window.open(\''+p.url+'\',\'_blank\')"><div class="post-meta">\u2191 '+p.up+'</div><div class="post-title">'+p.title+'</div><div class="post-tags">'+p.tags.map(function(t){return '<span class="ptag">'+t+'</span>';}).join('')+'</div><div class="read-more">'+d.read_more+'</div></div>';}).join('');var det=document.getElementById('sym-detail');det.classList.add('vis');setTimeout(function(){det.scrollIntoView({behavior:'smooth',block:'nearest'});},50);}
 function closeDetail(){document.getElementById('sym-detail').classList.remove('vis');document.querySelectorAll('.sym-card').forEach(function(c){c.classList.remove('active')});}
 function initFoods(){var d=T[LANG];document.getElementById('food-tabs').innerHTML='<button class="ftab active" onclick="showFoods(\'avoid\',this)">'+d.tab_avoid+'</button><button class="ftab" onclick="showFoods(\'safe\',this)">'+d.tab_safe+'</button><button class="ftab" onclick="showFoods(\'drinks\',this)">'+d.tab_drinks+'</button>';showFoods('avoid',null);}
@@ -1375,7 +1422,7 @@ buildPills();buildStats();renderSymGrid();initNews();
 
 /* ======= TRACKER ======= */
 var TRK={overall:0,bm:0,symptoms:{},foods:[],meds:[],medTimes:{},stress:0,notes:'',sleepTime:'',wakeTime:'',breakfast:'',lunch:'',dinner:'',waterLiters:0,activity:'',entries:{},inited:false};
-var TSYMS=[{key:'diarrhea',label:'Diarrhea',icon:'&#x1F30A;'},{key:'urgency',label:'Urgency',icon:'&#x26A1;'},{key:'pain',label:'Pain',icon:'&#x1F623;'},{key:'bleeding',label:'Bleeding',icon:'&#x1FA78;'},{key:'fatigue',label:'Fatigue',icon:'&#x1F634;'},{key:'mucus',label:'Mucus',icon:'&#x1F534;'},{key:'bloating',label:'Bloating',icon:'&#x1FAE7;'},{key:'nausea',label:'Nausea',icon:'&#x1F922;'}];
+var TSYMS=[{key:'diarrhea',label:'Diarrhea',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>'},{key:'urgency',label:'Urgency',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'},{key:'pain',label:'Pain',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'},{key:'bleeding',label:'Bleeding',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>'},{key:'fatigue',label:'Fatigue',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'},{key:'mucus',label:'Mucus',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/><path d="M12 2.69l3 3"/></svg>'},{key:'bloating',label:'Bloating',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>'},{key:'nausea',label:'Nausea',icon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.2 7.8l-2 3.4-2.4-1.6-2 3.4"/></svg>'}];
 var TFOODS=[
   {key:'coffee',label:'Coffee',labeltr:'Kahve',icon:'&#x2615;',risk:'high'},
   {key:'dairy',label:'Dairy',labeltr:'Süt ürünleri',icon:'&#x1F95B;',risk:'high'},
@@ -1494,7 +1541,7 @@ function renderTrkStress(){
 function buildTrkSymGrid(){
   document.getElementById('trk-sym-grid').innerHTML=TSYMS.map(function(s){
     return '<button class="sym-btn-trk" id="tsb-'+s.key+'" onclick="trkToggleSym(\''+s.key+'\')">'
-      +'<div style="font-size:22px;margin-bottom:3px">'+s.icon+'</div>'
+      +'<div style="font-size:22px;margin-bottom:3px">'+SYM_ICONS[i]+'</div>'
       +'<div style="font-size:10px;font-weight:600;color:var(--text2);line-height:1.2" id="tsbl-'+s.key+'">'+trkSymLabel(s)+'</div>'
       +'<div style="font-size:9px;font-weight:700;margin-top:2px;min-height:12px" id="tssl-'+s.key+'"></div>'
       +'<div class="sym-dots-trk" id="tsd-'+s.key+'"></div>'
@@ -2530,8 +2577,8 @@ window.renderNewsPage=function(showAll){
   var visible=arr.slice(0,newsPageShown);
   list.innerHTML=visible.map(function(it,i){
     var d=it[lang]||it.en;
-    var badge=i===0?'<span class="np-badge" style="background:var(--red)">'+tx('badge_new')+'</span>'
-      :(i<3?'<span class="np-badge" style="background:var(--orange)">'+tx('badge_recent')+'</span>':'');
+    var badge=i===0?'<span class="np-badge" style="background:var(--accent)">'+tx('badge_new')+'</span>'
+      :(i<3?'<span class="np-badge" style="background:rgba(37,99,235,.55)">'+tx('badge_recent')+'</span>':'');
     return '<div class="news-page-card" onclick="window.open(\''+esc(it.url)+'\',\'_blank\')">'
       +'<div>'+badge+'<span class="np-source">'+esc(d.source)+'</span>'
       +'<span style="font-size:10px;color:var(--text3);margin-left:8px">Updated today</span></div>'
