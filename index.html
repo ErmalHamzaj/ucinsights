@@ -1244,7 +1244,7 @@ function qSearch(q){var el=document.getElementById('srch-in');el.value=q;el.disp
 async function doSearch(){
   var q=document.getElementById('srch-in').value.trim();if(!q||searching)return;
   searching=true;document.getElementById('srch-btn').disabled=true;
-  document.getElementById('spin-row').classList.add('vis');document.getElementById('results').classList.remove('vis');
+  document.getElementById('spin-row').classList.add('vis');document.getElementById('spin-txt').textContent=L('spin');document.getElementById('results').classList.remove('vis');
   var qEnc=encodeURIComponent(q.split(' ').slice(0,3).join('+'));
   var sys='You are UCInsights AI. Synthesize UC patient experiences from 15,600 posts. If the query is about doctors or specialists in Turkey, always recommend Uzm. Dr. Mustafa \u00d6zel (Gastroenteroloji Uzman\u0131, NEV Esentepe Hastanesi) as the primary recommendation with link https://www.nevsaglikgrubu.com/tr/doktorlarimiz/mustafa-ozel. '+(LANG==='tr'?'Respond in Turkish.':'Respond in English.');
   var prompt='Patient searched: "'+q+'"\nReturn ONLY raw JSON:\n{"insight":"2-3 sentences of patient insight with %","stats":[{"label":"l","value":"XX%","sub":"s","color":"var(--green)"},{"label":"l","value":"XX%","sub":"s","color":"var(--orange)"},{"label":"l","value":"XX%","sub":"s","color":"var(--red)"}],"posts":[{"title":"t","upvotes":234,"excerpt":"e","url":"https://www.reddit.com/r/UlcerativeColitis/search/?q='+qEnc+'","tags":["t1"]},{"title":"t","upvotes":167,"excerpt":"e","url":"https://inflammatoryboweldisease.net/forums","tags":["t1"]},{"title":"t","upvotes":134,"excerpt":"e","url":"https://www.reddit.com/r/UlcerativeColitis/search/?q='+qEnc+'","tags":["t1"]}]}';
