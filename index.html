@@ -2875,27 +2875,35 @@ else document.addEventListener('DOMContentLoaded',boot);
   if(!window.supabase || !window.supabase.createClient) return;
   var supa = window.supabase.createClient(SUPA_URL, SUPA_ANON, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 
-  var CURRENT=null, mode='signin', synced=false, syncing=false, lastPushed='';
+  var CURRENT=null, mode='signin', synced=false, syncing=false, lastPushed='', authGender='';
   var PERSON='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
 
   var AX={
-    en:{account:'Account',intro:'Create an account to securely back up your profile, tracker and meds — and sync across your phone and the web.',
+    en:{account:'Account',intro:'Welcome back. Sign in to restore your data and sync across devices.',
+      register_intro:'A few details help our AI give you better insights. Your age, gender, and country let us compare your patterns with similar patients — making your flare predictions and trigger analysis more accurate. 🔒 Private and never shared.',
       sign_in:'Sign in',register:'Register',email:'Email',password:'Password',or:'or',
       send_link:'Email me a magic link',google:'Continue with Google',
       need_both:'Enter your email and password.',need_email:'Enter your email first.',
-      working:'Working…',check_email:'Check your email to confirm.',
+      need_name:'Enter your first and last name.',need_gender:'Select your gender.',
+      working:'Working…',check_email:'Check your email to confirm your account.',
       signed_as:'Signed in as',cloud_on:'Backup & sync are on',sign_out:'Sign out',
       del_data:'Delete my cloud data',del_confirm:'Delete your backed-up data from the cloud? Your data on this device stays.',del_done:'Cloud data deleted.',
       syncing:'Syncing…',synced:'Backup & sync are on',
+      first_name:'First name',last_name:'Last name',age_ph:'Age (optional)',
+      male:'Male',female:'Female',country_ph:'Country (optional)',
       privacy:'Your health data is encrypted in transit and protected per-user. We never share it, and you can delete it anytime.'},
-    tr:{account:'Hesap',intro:'Profilinizi, takip ve ilaç verilerinizi güvenle yedeklemek ve telefon ile web arasında eşitlemek için bir hesap oluşturun.',
+    tr:{account:'Hesap',intro:'Tekrar hoş geldiniz. Verilerinizi geri yüklemek ve cihazlar arasında eşitlemek için giriş yapın.',
+      register_intro:'Birkaç bilgi, yapay zekanın size daha iyi içgörüler sunmasına yardımcı olur. Yaş, cinsiyet ve ülke bilgileriniz, benzer hastalarla karşılaştırma yaparak alevlenme tahminlerinizi ve tetikleyici analizinizi daha isabetli hale getirir. 🔒 Gizli tutulur, asla paylaşılmaz.',
       sign_in:'Giriş yap',register:'Kayıt ol',email:'E-posta',password:'Şifre',or:'veya',
       send_link:'Bana sihirli bağlantı gönder',google:'Google ile devam et',
       need_both:'E-posta ve şifrenizi girin.',need_email:'Önce e-postanızı girin.',
-      working:'İşleniyor…',check_email:'Onaylamak için e-postanızı kontrol edin.',
+      need_name:'Ad ve soyadınızı girin.',need_gender:'Cinsiyetinizi seçin.',
+      working:'İşleniyor…',check_email:'Hesabınızı onaylamak için e-postanızı kontrol edin.',
       signed_as:'Giriş yapıldı:',cloud_on:'Yedekleme ve eşitleme açık',sign_out:'Çıkış yap',
       del_data:'Bulut verilerimi sil',del_confirm:'Buluttaki yedek verileriniz silinsin mi? Bu cihazdaki verileriniz kalır.',del_done:'Bulut verileri silindi.',
       syncing:'Eşitleniyor…',synced:'Yedekleme ve eşitleme açık',
+      first_name:'Ad',last_name:'Soyad',age_ph:'Yaş (isteğe bağlı)',
+      male:'Erkek',female:'Kadın',country_ph:'Ülke (isteğe bağlı)',
       privacy:'Sağlık verileriniz aktarım sırasında şifrelenir ve kullanıcıya özel korunur. Asla paylaşmayız, istediğiniz zaman silebilirsiniz.'}
   };
   function L(k){var o=AX[window.LANG||'en']||AX.en;return o[k]||AX.en[k]||k;}
@@ -2950,19 +2958,43 @@ else document.addEventListener('DOMContentLoaded',boot);
   window.uauth={
     open:function(){render();document.getElementById('auth-overlay').style.display='flex';},
     close:function(){document.getElementById('auth-overlay').style.display='none';},
-    setMode:function(m){mode=m;render();},
+    setMode:function(m){mode=m;authGender='';render();},
+    setGender:function(g){
+      authGender=g;
+      var bm=document.getElementById('auth-g-m'),bf=document.getElementById('auth-g-f');
+      [bm,bf].forEach(function(b){if(b){b.style.background='transparent';b.style.color='var(--text2)';b.style.borderColor='var(--border)';}});
+      var active=g==='male'?bm:bf;
+      if(active){active.style.background='var(--accent)';active.style.color='#fff';active.style.borderColor='var(--accent)';}
+    },
     submit:function(){
       var em=((document.getElementById('auth-email')||{}).value||'').trim();
       var pw=(document.getElementById('auth-pw')||{}).value||'';
       if(!em||!pw){showMsg(L('need_both'),true);return;}
+      var fn='',ln='',age='',country='';
+      if(mode==='register'){
+        fn=((document.getElementById('auth-fname')||{}).value||'').trim();
+        ln=((document.getElementById('auth-lname')||{}).value||'').trim();
+        age=((document.getElementById('auth-age')||{}).value||'').trim();
+        country=((document.getElementById('auth-country')||{}).value||'').trim();
+        if(!fn||!ln){showMsg(L('need_name'),true);return;}
+        if(!authGender){showMsg(L('need_gender'),true);return;}
+      }
       showMsg(L('working'));
+      var opts={emailRedirectTo:location.href};
+      if(mode==='register') opts.data={first_name:fn,last_name:ln,age:age?parseInt(age):null,gender:authGender,country:country||null};
       var p=mode==='signin'
         ?supa.auth.signInWithPassword({email:em,password:pw})
-        :supa.auth.signUp({email:em,password:pw,options:{emailRedirectTo:location.href}});
+        :supa.auth.signUp({email:em,password:pw,options:opts});
       p.then(function(r){
         if(r.error){showMsg(r.error.message,true);}
-        else if(mode==='register'&&!(r.data&&r.data.session)){showMsg(L('check_email'));}
-        else{window.uauth.close();}
+        else{
+          if(mode==='register'&&r.data&&r.data.user){
+            supa.from('user_profiles').upsert({user_id:r.data.user.id,first_name:fn,last_name:ln,email:em,age:age?parseInt(age):null,gender:authGender,country:country||null},{onConflict:'user_id'})
+              .then(function(pr){if(pr.error)console.warn('profile:',pr.error.message);});
+          }
+          if(mode==='register'&&!(r.data&&r.data.session)){showMsg(L('check_email'));}
+          else{window.uauth.close();}
+        }
       });
     },
     magic:function(){
@@ -2986,17 +3018,46 @@ else document.addEventListener('DOMContentLoaded',boot);
   function render(){
     var c=document.getElementById('auth-card');if(!c)return;var h='';
     if(CURRENT){
+      var meta=CURRENT.user_metadata||{};
+      var fullName=(meta.first_name&&meta.last_name)?(meta.first_name+' '+meta.last_name):meta.first_name||'';
       h+=hdr(L('account'));
+      if(fullName)h+='<div style="font-size:17px;font-weight:700;margin-bottom:2px">'+esc(fullName)+'</div>';
+      if(meta.gender||meta.country||meta.age){
+        var info=[];
+        if(meta.gender)info.push(meta.gender==='male'?L('male'):L('female'));
+        if(meta.age)info.push(meta.age+' y/o');
+        if(meta.country)info.push(meta.country);
+        h+='<div style="font-size:12px;color:var(--text3);margin-bottom:4px">'+esc(info.join(' · '))+'</div>';
+      }
       h+='<div style="font-size:12px;color:var(--text3);margin-bottom:4px">'+L('signed_as')+'</div>';
-      h+='<div style="font-size:16px;font-weight:600;margin-bottom:14px;word-break:break-all">'+esc(CURRENT.email||'')+'</div>';
+      h+='<div style="font-size:13px;color:var(--text2);margin-bottom:14px;word-break:break-all">'+esc(CURRENT.email||'')+'</div>';
       h+='<div style="display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:16px"><span style="width:8px;height:8px;border-radius:50%;background:#27ae60;flex:none"></span><span id="auth-status" style="font-size:12px;color:var(--text2)">'+L('cloud_on')+'</span></div>';
       h+='<button class="pf-save" onclick="uauth.signout()">'+L('sign_out')+'</button>';
       h+='<button class="btn-ghost" onclick="uauth.deldata()" style="width:100%;margin-top:10px;color:#c0392b">'+L('del_data')+'</button>';
     }else{
       h+=hdr(L('account'));
-      h+='<div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.5">'+L('intro')+'</div>';
+      h+='<div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">'+(mode==='register'?L('register_intro'):L('intro'))+'</div>';
       h+='<div style="display:flex;gap:8px;margin-bottom:14px">'+tab('signin',L('sign_in'))+tab('register',L('register'))+'</div>';
-      h+=inp('auth-email','email',L('email'))+inp('auth-pw','password',L('password'));
+      var IS='width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;margin-bottom:10px;box-sizing:border-box';
+      var IS1='flex:1;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;margin-bottom:10px;box-sizing:border-box';
+      if(mode==='register'){
+        h+='<div style="display:flex;gap:8px">';
+        h+='<input id="auth-fname" type="text" placeholder="'+esc(L('first_name'))+' *" autocomplete="given-name" style="'+IS1+'">';
+        h+='<input id="auth-lname" type="text" placeholder="'+esc(L('last_name'))+' *" autocomplete="family-name" style="'+IS1+'">';
+        h+='</div>';
+      }
+      h+=inp('auth-email','email',L('email')+(mode==='register'?' *':''))+inp('auth-pw','password',L('password')+(mode==='register'?' *':''));
+      if(mode==='register'){
+        var gbtn='padding:11px 6px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;flex:1;transition:all .15s';
+        h+='<div style="display:flex;gap:8px;margin-bottom:10px">';
+        h+='<button type="button" id="auth-g-m" onclick="uauth.setGender(\'male\')" style="'+gbtn+'">'+esc(L('male'))+'</button>';
+        h+='<button type="button" id="auth-g-f" onclick="uauth.setGender(\'female\')" style="'+gbtn+'">'+esc(L('female'))+'</button>';
+        h+='</div>';
+        h+='<div style="display:flex;gap:8px">';
+        h+='<input id="auth-age" type="number" min="1" max="120" placeholder="'+esc(L('age_ph'))+'" autocomplete="off" style="'+IS1+'">';
+        h+='<input id="auth-country" type="text" placeholder="'+esc(L('country_ph'))+'" autocomplete="country-name" style="'+IS1+'">';
+        h+='</div>';
+      }
       h+='<button class="pf-save" onclick="uauth.submit()">'+(mode==='signin'?L('sign_in'):L('register'))+'</button>';
       h+='<div id="auth-msg" style="font-size:12px;margin-top:10px;min-height:15px;color:var(--text2)"></div>';
       h+='<div style="text-align:center;margin:8px 0 12px;color:var(--text3);font-size:11px">'+L('or')+'</div>';
@@ -3023,8 +3084,8 @@ else document.addEventListener('DOMContentLoaded',boot);
   function updateBtn(){
     var b=document.getElementById('acct-btn');
     if(b){
-      if(CURRENT){var e=CURRENT.email||'?';
-        b.innerHTML='<span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:10px;font-weight:700">'+esc(e.charAt(0).toUpperCase())+'</span><span class="acct-label">'+L('account')+'</span>';
+      if(CURRENT){var e=CURRENT.email||'?';var meta=CURRENT.user_metadata||{};var initLetter=(meta.first_name||e).charAt(0).toUpperCase();var dispName=meta.first_name||L('account');
+        b.innerHTML='<span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:10px;font-weight:700">'+esc(initLetter)+'</span><span class="acct-label">'+esc(dispName)+'</span>';
         b.title=e;
       }else{b.innerHTML=PERSON+'<span class="acct-label">'+L('sign_in')+'</span>';b.title=L('sign_in');}
     }
