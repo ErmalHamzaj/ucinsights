@@ -203,7 +203,8 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 @media(max-width:1024px){
   .nav-links{display:none}
   .hamburger{display:flex}
-  #acct-btn{display:none!important}
+  #acct-btn{padding:6px 8px!important}
+  #acct-btn .acct-label{display:none}
 }
 @media(max-width:680px){
   .sym-grid{grid-template-columns:repeat(2,1fr)}
@@ -2808,15 +2809,8 @@ else document.addEventListener('DOMContentLoaded',boot);
       var b=document.createElement('button');b.id='acct-btn';b.type='button';
       b.style.cssText='display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:10px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap';
       b.onclick=function(){window.uauth.open();};
-      nr.insertBefore(b,document.getElementById('theme-btn')||nr.firstChild);
-    }
-    var mm=document.getElementById('mob-menu');
-    if(mm&&!document.getElementById('acct-mob')){
-      var m=document.createElement('button');m.id='acct-mob';m.type='button';
-      m.style.cssText='width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:8px';
-      m.innerHTML=PERSON+' <span id="acct-mob-tx">'+L('sign_in')+'</span>';
-      m.onclick=function(){window.uauth.open();if(window.closeMob)window.closeMob();};
-      mm.insertBefore(m,mm.firstChild);
+      var ham=document.querySelector('.hamburger');
+      nr.insertBefore(b,ham||null);
     }
     updateBtn();
   }
@@ -2825,11 +2819,10 @@ else document.addEventListener('DOMContentLoaded',boot);
     var b=document.getElementById('acct-btn');
     if(b){
       if(CURRENT){var e=CURRENT.email||'?';
-        b.innerHTML='<span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:10px;font-weight:700">'+esc(e.charAt(0).toUpperCase())+'</span><span>'+L('account')+'</span>';
+        b.innerHTML='<span style="display:inline-flex;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;align-items:center;justify-content:center;font-size:10px;font-weight:700">'+esc(e.charAt(0).toUpperCase())+'</span><span class="acct-label">'+L('account')+'</span>';
         b.title=e;
-      }else{b.innerHTML=PERSON+'<span>'+L('sign_in')+'</span>';b.title=L('sign_in');}
+      }else{b.innerHTML=PERSON+'<span class="acct-label">'+L('sign_in')+'</span>';b.title=L('sign_in');}
     }
-    var mt=document.getElementById('acct-mob-tx');if(mt)mt.textContent=CURRENT?L('account'):L('sign_in');
     // show/hide gated nav items + separators
     GATED.forEach(function(pg){
       var d=document.getElementById('nl-'+pg);if(d)d.style.display=CURRENT?'':'none';
