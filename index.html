@@ -420,6 +420,50 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 .pf-hub-divider{display:flex;align-items:center;gap:10px;margin:4px 0 16px;color:var(--text3);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .pf-hub-divider::before,.pf-hub-divider::after{content:'';flex:1;height:1px;background:var(--border)}
 .pf-hub-signin{background:var(--card);border:1px dashed var(--border);border-radius:var(--r);padding:24px 20px;text-align:center;margin-bottom:18px}
+/* ---- History Charts ---- */
+.hist-charts-wrap{margin-bottom:16px}
+.hist-chart-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.hist-chart-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+/* ---- Med Adherence ---- */
+.med-taken-btn{border:none;border-radius:12px;padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.med-taken-btn.taken{background:rgba(16,185,129,.15);color:#10b981}
+.med-taken-btn.not-taken{background:var(--bg);color:var(--text3);border:1px solid var(--border)}
+.med-adherence-badge{font-size:10px;color:var(--text3);margin-top:3px}
+/* ---- Analytics Trends ---- */
+.anl-trends-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:16px}
+.anl-trends-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.anl-trends-sub{font-size:12px;color:var(--text3);margin-bottom:14px}
+/* ---- Chat AI nudge banner ---- */
+.chat-ai-nudge{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.18);border-radius:10px;padding:10px 12px;margin:8px 0 4px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2)}
+.chat-ai-nudge button{border:none;background:none;font-size:11px;cursor:pointer;padding:3px 8px;border-radius:8px;font-family:inherit}
+.chat-ai-nudge .nudge-link{color:var(--accent);font-weight:600}
+.chat-ai-nudge .nudge-x{color:var(--text3);margin-left:auto;font-size:14px;line-height:1}
+/* ---- Onboarding modal ---- */
+.onboard-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px}
+.onboard-modal{background:var(--card);border-radius:16px;padding:28px 24px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.onboard-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.onboard-step-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.onboard-step-body{flex:1}
+.onboard-step-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.onboard-step-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.onboard-step-btn{margin-top:7px;padding:5px 14px;background:var(--bg);border:1px solid var(--border);border-radius:20px;font-family:inherit;font-size:12px;cursor:pointer;color:var(--text)}
+/* ---- Doctor Visit Log ---- */
+.visit-hist-entry{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:10px}
+/* ---- Edit day mode ---- */
+.edit-day-bar{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:12px;color:#b45309}
+/* ---- Doctor Visit Prep banner ---- */
+.anl-doctor-banner{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(37,99,235,.04));border:1.5px solid rgba(37,99,235,.25);border-radius:var(--r);padding:16px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.anl-doctor-icon{font-size:28px;flex-shrink:0}
+.anl-doctor-info{flex:1}
+.anl-doctor-info h3{font-size:14px;font-weight:700;margin:0 0 3px}
+.anl-doctor-info p{font-size:12px;color:var(--text3);margin:0}
+.anl-doctor-btn{padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0}
+/* ---- News load more ---- */
+.news-load-more{width:100%;padding:10px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-family:inherit;font-size:13px;cursor:pointer;color:var(--text2);margin-top:8px;transition:border-color .15s}
+.news-load-more:hover{border-color:var(--accent);color:var(--accent)}
+/* ---- History edit button ---- */
+.hist-edit-btn{border:none;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 9px;font-size:11px;cursor:pointer;font-family:inherit;color:var(--text3);transition:all .15s}
+.hist-edit-btn:hover{border-color:var(--accent);color:var(--accent)}
 </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
@@ -551,6 +595,11 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
       <div><div class="chat-aname" id="chat-name">UC Assistant</div><div class="chat-status"><div class="chat-sdot"></div><span id="chat-st">Ready</span></div></div>
       <button class="chat-clr" id="chat-clr" onclick="clearChat()">Clear</button>
     </div>
+    <div class="chat-ai-nudge" id="chat-ai-nudge-bar" style="display:none">
+      <span id="chat-nudge-text">&#x1F4A1; </span>
+      <button class="nudge-link" id="chat-nudge-go-btn" onclick="navTo('profile',null);renderProfile()"> &#x2192;</button>
+      <button class="nudge-x" onclick="dismissChatNudge()">&#x2715;</button>
+    </div>
     <div class="chat-msgs" id="chat-msgs"></div>
     <div class="chat-sugs" id="chat-sugs"></div>
     <div class="chat-inp-row">
@@ -671,7 +720,20 @@ anl_no_triggers:'No clear triggers found yet. Keep logging for more accurate res
 anl_need5:'Log at least 5 days to discover your personal triggers',anl_need5h:'Need 5+ days of data for heatmap',
 anl_strongest:'Strongest correlation:',anl_when_eat:'When you eat',anl_experience:'you experience',anl_next_day:'the next day',
 anl_consider:'of the time. Consider eliminating it for 2 weeks to confirm.',anl_bad_days_lbl:'% bad days',
-trk_sym_hint:'Tap to add &middot; tap again to increase severity (1&ndash;5) &middot; tap at max to remove',sym_diarrhea:'Diarrhea',sym_urgency:'Urgency',sym_pain:'Pain',sym_bleeding:'Bleeding',sym_fatigue:'Fatigue',sym_mucus:'Mucus',sym_bloating:'Bloating',sym_nausea:'Nausea',anl_no_data:'Not enough data yet',anl_no_data_sub:'Log at least 3 days in the Tracker to unlock your personal analytics',anl_go_tracker:'Go to Tracker',anl_flare_sub:'48-hour risk forecast',anl_sub:'AI-powered analysis of your personal UC data. Three scientific algorithms running on your symptom logs.'},
+trk_sym_hint:'Tap to add &middot; tap again to increase severity (1&ndash;5) &middot; tap at max to remove',sym_diarrhea:'Diarrhea',sym_urgency:'Urgency',sym_pain:'Pain',sym_bleeding:'Bleeding',sym_fatigue:'Fatigue',sym_mucus:'Mucus',sym_bloating:'Bloating',sym_nausea:'Nausea',anl_no_data:'Not enough data yet',anl_no_data_sub:'Log at least 3 days in the Tracker to unlock your personal analytics',anl_go_tracker:'Go to Tracker',anl_flare_sub:'48-hour risk forecast',anl_sub:'AI-powered analysis of your personal UC data. Three scientific algorithms running on your symptom logs.',
+visit_toggle:'Doctor Visit (optional)',visit_section:'Log a Doctor Visit',visit_date:'Date of visit',visit_doctor:'Doctor / clinic name',visit_doctor_ph:'e.g. Dr. Smith — General Hospital',visit_notes:'Notes from visit',visit_notes_ph:'Medication changes, test results, next steps...',visit_save:'Save Visit',visit_alert:'Please enter a doctor/clinic name or notes before saving.',
+anl_doctor_title:'Prepare for Your Doctor Visit',anl_doctor_sub:'Export your UC log as a PDF to share with your gastroenterologist.',anl_doctor_btn:'Export PDF',
+hist_bm_chart:'BM Count & Mood (14 days)',hist_stress_chart:'Stress Level (14 days)',hist_bms_lbl:'BMs',hist_mood_lbl:'Mood',hist_stress_lbl:'Stress',hist_doctor_lbl:'Doctor visit',
+trk_editing:'Editing: ',trk_save_changes:'Save Changes',trk_cancel_back:'Cancel & Back',
+anl_trends_title:'Your 30-Day Trends',anl_trends_sub:'Bowel movements & stress over time',anl_trends_min:'Log 5+ days to unlock 30-day trends',
+news_load_more:'Load more',news_remaining:'remaining',
+med_taken:'Taken',med_take_now:'Take now',med_7days:'Last 7 days:',med_taken_lbl:'taken',
+chat_nudge_text:'Enable AI personalization in Profile to get answers based on your actual UC data.',chat_nudge_go:'Go to Profile',
+onboard_title:'Welcome to UCInsights',onboard_sub:'3 quick steps to get the most out of your account',
+onboard_s1_title:'Set up your UC Profile',onboard_s1_desc:'Add your diagnosis type, medications, and lab values for personalized analytics',onboard_s1_btn:'Go to Profile',
+onboard_s2_title:'Log your first day',onboard_s2_desc:'Track symptoms, food, stress and BMs — data is synced to your account automatically',onboard_s2_btn:'Go to Tracker',
+onboard_s3_title:'Ask the AI',onboard_s3_desc:'Chat with UC Assistant about your symptoms, medications, or flare management',onboard_s3_btn:'Go to Chat',
+onboard_start:'Get Started',onboard_skip:'Skip for now'},
 tr:{hs_sub:'15.600 UC hasta deneyiminde yapay zeka destekli arama',ai_lbl:'Yapay Zeka \u00d6ng\u00f6r\u00fcs\u00fc',posts_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',spin:'Aran\u0131yor...',sym_title:'Belirti Gezgini',sym_sub:'Trend ve tart\u0131\u015fmalar\u0131 g\u00f6rmek i\u00e7in bir belirtiye t\u0131klay\u0131n',sd_disc_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',f_title:'G\u0131da Duygu Analizi',f_sub:'15.600 UC hasta raporuna g\u00f6re',m_title:'\u0130la\u00e7lar',m_sub:'Hasta bildirimleri',p_title:'\u00d6r\u00fcnt\u00fc Ke\u015ffi',p_sub:'15.600 g\u00f6nderiden yapay zeka tespiti',t_corr:'Korelasyon Matrisi',chat_name:'UC Asistan\u0131',chat_st:'Haz\u0131r',chat_clr:'Temizle',chat_disc:'Yaln\u0131zca bilgi ama\u00e7l\u0131d\u0131r. Her zaman gastroenteroloji uzman\u0131n\u0131za dan\u0131\u015f\u0131n.',srch_ph:'Belirti, g\u0131da, ila\u00e7 aray\u0131n...',chat_ph:'UC belirtileri, ila\u00e7lar, diyet hakk\u0131nda sorun...',pills:['kahve','mesalamin','Entyvio','stres alevlenme','remisyon','kanama','yorgunluk','probiyotik','acil tuvalet'],tab_avoid:'Ka\u00e7\u0131n\u0131n',tab_safe:'G\u00fcvenli',tab_drinks:'\u0130\u00e7ecekler',improve:'\u0130yile\u015fme',remission:'Remisyon',side:'Yan etkiler',relapse:'N\u00fcks',reports:'rapor',pat_conf:'g\u00fcven',pat_posts:'g\u00f6nderi',read_more:'Tart\u0131\u015fmay\u0131 oku \u2192',corr_syms:['\u0130shal','Kanama','Yorgunluk','Acil','A\u011fr\u0131'],months:['Oca','\u015eub','Mar','Nis','May','Haz','Tem','A\u011fu','Eyl','Eki','Kas','Ara'],overall:'Genel',posts_count:'G\u00f6nderi',chat_welcome:'Merhaba! UC Asistan\u0131n\u0131z\u0131m.\n\n\u2022 **Belirtiler** \u2014 ishal, acil tuvalet, kanama\n\u2022 **\u0130la\u00e7lar** \u2014 Entyvio, Humira, Mesalamin\n\u2022 **Diyet** \u2014 g\u00fcvenli g\u0131dalar, ka\u00e7\u0131n\u0131lacaklar\n\u2022 **Alevlenmeler** \u2014 y\u00f6netim stratejileri\n\nNe \u00f6\u011frenmek istersiniz?',chat_sug:['Alevlenmedeyim \u2014 ne yemeliyim?','Entyvio yan etkileri?','Stres tetikleyici mi?','Alevlenme ne kadar s\u00fcrer?'],stats:[{lbl:'Analiz Edilen',val:'15.600',color:'var(--accent)'},{lbl:'En S\u0131k Tetikleyici',val:'Stres',color:'var(--red)'},{lbl:'En \u0130yi \u0130la\u00e7',val:'Entyvio',color:'var(--green)'},{lbl:'G\u00fcvenli G\u0131da',val:'Muz',color:'var(--orange)'}],
 nav_home:'Ana Sayfa',nav_symptoms:'Belirtiler',nav_chat:'Sohbet',nav_foods:'G\u0131dalar',nav_meds:'\u0130la\u00e7lar',nav_patterns:'\u00d6r\u00fcnt\u00fcler',nav_tracker:'Takip',nav_analytics:'Analitik',
 trk_log:'Kay\u0131t',trk_history:'Ge\u00e7mi\u015f',trk_insights:'G\u00f6r\u00fc\u015fler',trk_title:'Bug\u00fcnk\u00fc Kay\u0131t',trk_overall:'Genel olarak nas\u0131l hissediyorsunuz?',trk_good:'\u0130yi',trk_okay:'Orta',trk_bad:'K\u00f6t\u00fc',
@@ -700,7 +762,20 @@ anl_no_triggers:'Hen\u00fcz belirgin tetikleyici bulunamad\u0131. Loglama yapmay
 anl_need5:'Tetikleyici ke\u015fi i\u00e7in en az 5 g\u00fcn veri gerekli',anl_need5h:'Is\u0131 haritas\u0131 i\u00e7in 5+ g\u00fcn veri gerekli',
 anl_strongest:'En g\u00fc\u00e7l\u00fc korelasyon:',anl_when_eat:'Yedi\u011finizde',anl_experience:'ya\u015fad\u0131\u011f\u0131n\u0131z',anl_next_day:'ertesi g\u00fcn',
 anl_consider:'oran\u0131nda. 2 hafta elimine etmeyi d\u00fc\u015f\u00fcn\u00fcn.',anl_bad_days_lbl:'% k\u00f6t\u00fc g\u00fcn',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_go_tracker:'Takip Sayfas\u0131na Git',
-trk_sym_hint:'Eklemek i\u00e7in dokun &middot; tekrar dokun \u015fiddet art\u0131r (1-5) &middot; maksimumda kald\u0131rmak i\u00e7in dokun',sym_diarrhea:'\u0130shal',sym_urgency:'Acil Tuvalet',sym_pain:'A\u011fr\u0131',sym_bleeding:'Kanama',sym_fatigue:'Yorgunluk',sym_mucus:'Muk\u00fcs',sym_bloating:'\u015ei\u015fkinlik',sym_nausea:'Bulant\u0131',anl_no_data:'Hen\u00fcz yeterli veri yok',anl_no_data_sub:'Ki\u015fisel analitiklerinizi a\u00e7mak i\u00e7in Takip\'te en az 3 g\u00fcn kay\u0131t yap\u0131n',anl_go_tracker:'Takip Sayfas\u0131na Git',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai:'UC Aktivite \u0130ndeksi',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers:'Ki\u015fisel Tetikleyici Ke\u015ffi',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_title:'Ara\u015ft\u0131rma Analiti\u011fi'}
+trk_sym_hint:'Eklemek i\u00e7in dokun &middot; tekrar dokun \u015fiddet art\u0131r (1-5) &middot; maksimumda kald\u0131rmak i\u00e7in dokun',sym_diarrhea:'\u0130shal',sym_urgency:'Acil Tuvalet',sym_pain:'A\u011fr\u0131',sym_bleeding:'Kanama',sym_fatigue:'Yorgunluk',sym_mucus:'Muk\u00fcs',sym_bloating:'\u015ei\u015fkinlik',sym_nausea:'Bulant\u0131',anl_no_data:'Hen\u00fcz yeterli veri yok',anl_no_data_sub:'Ki\u015fisel analitiklerinizi a\u00e7mak i\u00e7in Takip\'te en az 3 g\u00fcn kay\u0131t yap\u0131n',anl_go_tracker:'Takip Sayfas\u0131na Git',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai:'UC Aktivite \u0130ndeksi',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers:'Ki\u015fisel Tetikleyici Ke\u015ffi',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_title:'Ara\u015ft\u0131rma Analiti\u011fi',
+visit_toggle:'Doktor Ziyareti (iste\u011fe ba\u011fl\u0131)',visit_section:'Doktor Ziyareti Kaydet',visit_date:'Ziyaret tarihi',visit_doctor:'Doktor / klinik ad\u0131',visit_doctor_ph:'\u00f6rn. Dr. \u00d6zel \u2014 NEV Hastanesi',visit_notes:'Ziyaretten notlar',visit_notes_ph:'\u0130la\u00e7 de\u011fi\u015fiklikleri, test sonu\u00e7lar\u0131, sonraki ad\u0131mlar...',visit_save:'Ziyareti Kaydet',visit_alert:'Kaydetmeden \u00f6nce l\u00fctfen bir doktor/klinik ad\u0131 veya not girin.',
+anl_doctor_title:'Doktor Ziyaretinize Haz\u0131rlan\u0131n',anl_doctor_sub:'UC kayd\u0131n\u0131z\u0131 gastroenteroloji uzman\u0131n\u0131zla payla\u015fmak i\u00e7in PDF olarak d\u0131\u015fa aktar\u0131n.',anl_doctor_btn:'PDF \u0130ndir',
+hist_bm_chart:'Defekasyon & Ruh Hali (14 g\u00fcn)',hist_stress_chart:'Stres D\u00fczeyi (14 g\u00fcn)',hist_bms_lbl:'Defekasyon',hist_mood_lbl:'Ruh Hali',hist_stress_lbl:'Stres',hist_doctor_lbl:'Doktor ziyareti',
+trk_editing:'D\u00fczenleniyor: ',trk_save_changes:'De\u011fi\u015fiklikleri Kaydet',trk_cancel_back:'\u0130ptal & Geri',
+anl_trends_title:'Son 30 G\u00fcnl\u00fck Trendler',anl_trends_sub:'Zaman i\u00e7inde defekasyon & stres',anl_trends_min:'30 g\u00fcnl\u00fck trendleri a\u00e7mak i\u00e7in 5+ g\u00fcn kay\u0131t yap\u0131n',
+news_load_more:'Daha fazla g\u00f6ster',news_remaining:'kalan',
+med_taken:'Al\u0131nd\u0131',med_take_now:'\u015eimdi Al',med_7days:'Son 7 g\u00fcn:',med_taken_lbl:'al\u0131nd\u0131',
+chat_nudge_text:'Ger\u00e7ek UC verilerinize dayal\u0131 yan\u0131tlar almak i\u00e7in Profil\'de Yapay Zeka ki\u015fiselle\u015ftirmesini etkinle\u015ftirin.',chat_nudge_go:'Profile Git',
+onboard_title:'UCInsights\'a Ho\u015f Geldiniz',onboard_sub:'Hesab\u0131n\u0131zdan en iyi \u015fekilde yararlanmak i\u00e7in 3 h\u0131zl\u0131 ad\u0131m',
+onboard_s1_title:'UC Profilinizi Olu\u015fturun',onboard_s1_desc:'Ki\u015fiselle\u015ftirilmi\u015f analitik i\u00e7in tan\u0131 t\u00fcr\u00fcn\u00fcz\u00fc, ila\u00e7lar\u0131n\u0131z\u0131 ve laboratuvar de\u011ferlerinizi ekleyin',onboard_s1_btn:'Profile Git',
+onboard_s2_title:'\u0130lk G\u00fcnl\u00fc\u011f\u00fcn\u00fcz\u00fc Kaydedin',onboard_s2_desc:'Belirtileri, g\u0131dalar\u0131, stresi ve defekasyonu takip edin \u2014 veriler otomatik senkronize edilir',onboard_s2_btn:'Takibe Git',
+onboard_s3_title:'Yapay Zekaya Sorun',onboard_s3_desc:'Belirtileriniz, ila\u00e7lar\u0131n\u0131z veya alevlenme y\u00f6netimi hakk\u0131nda UC Asistan\u0131 ile sohbet edin',onboard_s3_btn:'Sohbete Git',
+onboard_start:'Ba\u015flay\u0131n',onboard_skip:'\u015eimdilik Ge\u00e7'}
 };
 function L(k){return(T[LANG]||T.en)[k];}
 var SYMS=[{key:'diarrhea',icon:'\ud83c\udf0a',pct:76,cnt:9730,monthly:[62,65,70,74,76,79,75,78,80,76,73,77],en:'Diarrhea is the most reported UC symptom, with 8\u201315 bowel movements per day during severe flares. Strongly correlated with urgency (r=0.71).',tr:'\u0130shal en s\u0131k bildirilen UC belirtisidir. \u015eiddetli alevlenmelerde g\u00fcnde 8\u201315 defekasyon bildirilmektedir.',posts:[{title:'15 times a day \u2014 how do you cope?',up:445,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+frequency',tags:['diarrhea','flare']},{title:'Diarrhea patterns before diagnosis',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=diarrhea+diagnosis',tags:['diagnosis']}]},{key:'urgency',icon:'\u26a1',pct:69,cnt:8800,monthly:[55,58,62,65,68,71,69,72,70,68,65,70],en:'Urgency is the most disruptive UC symptom \u2014 only 0\u20135 minutes warning before needing a bathroom.',tr:'Acil tuvalet ihtiyac\u0131 en rahats\u0131z edici belirti; 0\u20135 dakika uyar\u0131 s\u00fcresi.',posts:[{title:'Urgency at the worst times',up:312,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+UC',tags:['urgency']},{title:'0\u20135 min warning tips',up:267,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=urgency+tips',tags:['tips']}]},{key:'pain',icon:'\ud83d\ude23',pct:64,cnt:8390,monthly:[52,56,60,62,65,68,64,66,68,64,60,65],en:'Abdominal pain across all UC severity levels. Most common: left lower quadrant. Correlates with bleeding (r=0.63).',tr:'Kar\u0131n a\u011fr\u0131s\u0131 t\u00fcm \u015fiddet d\u00fczeylerinde g\u00f6r\u00fcl\u00fcr.',posts:[{title:'Left side pain during flare',up:389,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=abdominal+pain+flare',tags:['pain']},{title:'Pain severity discussion',up:288,url:'https://inflammatoryboweldisease.net/forums/pain',tags:['severity']}]},{key:'bleeding',icon:'\ud83e\ude78',pct:58,cnt:7340,monthly:[44,47,50,55,58,62,57,60,62,58,54,59],en:'Rectal bleeding is a key UC diagnostic marker. Correlates with fatigue (r=0.70). Stress cited as trigger in 79% of cases.',tr:'Rektal kanama \u00f6nemli bir tan\u0131 belirtecidir.',posts:[{title:'Blood in stool \u2014 ER?',up:567,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=blood+stool+ER',tags:['bleeding']},{title:'First time seeing blood',up:423,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=rectal+bleeding',tags:['new']}]},{key:'fatigue',icon:'\ud83d\ude34',pct:51,cnt:7130,monthly:[40,43,46,48,52,55,50,53,55,52,48,53],en:'Fatigue is more disabling than physical symptoms. Persists during remission in 43% of patients.',tr:'Yorgunluk fiziksel belirtilerden daha k\u0131s\u0131tlay\u0131c\u0131. Remisyonda %43\u2019\u00fcnde devam eder.',posts:[{title:'Fatigue even in remission',up:523,url:'https://inflammatoryboweldisease.net/forums/fatigue',tags:['fatigue','remission']},{title:'What helped my UC fatigue',up:398,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=fatigue+UC',tags:['tips']}]},{key:'mucus',icon:'\ud83d\udd34',pct:43,cnt:5440,monthly:[34,36,38,40,43,46,42,44,46,43,40,44],en:'Mucus in stool is common during flares and an early warning sign before a full episode.',tr:'D\u0131\u015fk\u0131da muk\u00fcs alevlenmelerde yayg\u0131nd\u0131r; erken uyar\u0131 i\u015fareti olarak i\u015flev g\u00f6r\u00fcr.',posts:[{title:'Mucus without blood \u2014 flare coming?',up:234,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+stool',tags:['mucus']},{title:'Tracking mucus as predictor',up:178,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mucus+warning',tags:['tracking']}]},{key:'bloating',icon:'\ud83e\udde7',pct:41,cnt:5230,monthly:[32,34,36,38,41,44,40,42,44,41,38,42],en:'Bloating is more common during remission as patients reintroduce foods.',tr:'\u015ei\u015fkinlik g\u0131da yeniden sunumu s\u0131ras\u0131nda daha s\u0131k bildirilir.',posts:[{title:'Gas and bloating between flares',up:187,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+UC',tags:['bloating']},{title:'Bloating with mesalamine',up:156,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=bloating+mesalamine',tags:['medication']}]},{key:'nausea',icon:'\ud83e\udd22',pct:29,cnt:3700,monthly:[22,24,25,27,29,32,28,30,32,29,26,30],en:'Nausea is mostly medication-related \u2014 azathioprine and corticosteroids are the top causes.',tr:'Bulant\u0131 genellikle ila\u00e7la ili\u015fkilidir.',posts:[{title:'Azathioprine nausea \u2014 does it stop?',up:298,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=azathioprine+nausea',tags:['nausea','meds']},{title:'Mesalamine nausea tips',up:212,url:'https://www.reddit.com/r/UlcerativeColitis/search/?q=mesalamine+nausea',tags:['nausea']}]}];
@@ -786,6 +861,18 @@ function applyLang(){var d=T[LANG];['hs-sub','ai-lbl','posts-lbl','sym-title','s
 var navMap={home:'nav_home',symptoms:'nav_symptoms',chat:'nav_chat',foods:'nav_foods',meds:'nav_meds',patterns:'nav_patterns',tracker:'nav_tracker',analytics:'nav_analytics'};
 Object.keys(navMap).forEach(function(k){var dt=document.getElementById('ntx-'+k);if(dt)dt.textContent=L(navMap[k]);var dm=document.getElementById('mtx-'+k);if(dm)dm.textContent=L(navMap[k]);});
 document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;
+// Chat nudge
+var cnt=document.getElementById('chat-nudge-text');if(cnt)cnt.innerHTML='&#x1F4A1; '+L('chat_nudge_text');
+var cng=document.getElementById('chat-nudge-go-btn');if(cng)cng.textContent=L('chat_nudge_go')+' →';
+// Onboarding modal
+var ob={
+  'onboard-title':'onboard_title','onboard-sub':'onboard_sub',
+  'onboard-s1-title':'onboard_s1_title','onboard-s1-desc':'onboard_s1_desc','onboard-s1-btn':'onboard_s1_btn',
+  'onboard-s2-title':'onboard_s2_title','onboard-s2-desc':'onboard_s2_desc','onboard-s2-btn':'onboard_s2_btn',
+  'onboard-s3-title':'onboard_s3_title','onboard-s3-desc':'onboard_s3_desc','onboard-s3-btn':'onboard_s3_btn',
+  'onboard-start':'onboard_start','onboard-skip':'onboard_skip'
+};
+Object.keys(ob).forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=L(ob[id]);});
 /* ======= UC NEWS ======= */
 var UC_NEWS=[
   {en:{title:"Vedolizumab Shows Superior Remission Rates in Long-Term UC Study",desc:"New 5-year data from the GEMINI trial confirms Entyvio maintains remission in 60% of patients previously failing anti-TNF therapy.",source:"Gastroenterology Journal 2025"},tr:{title:"Vedolizumab Uzun D\u00f6nem \u00c7al\u0131\u015fmada \u00dcst\u00fcn Remisyon Oranlar\u0131 G\u00f6sterdi",desc:"GEMINI deneme verisi, Entyvio'nun anti-TNF tedavisinden ba\u015far\u0131s\u0131z olan hastalar\u0131n %60'\u0131nda remisyonu s\u00fcrd\u00fcrd\u00fc\u011f\u00fcn\u00fc do\u011fruluyor.",source:"Gastroenteroloji Dergisi 2025"},url:"https://www.gastrojournal.org"},
@@ -975,7 +1062,15 @@ function showFoods(type,btn){if(btn){document.querySelectorAll('.ftab').forEach(
 function renderMeds(){var d=T[LANG];document.getElementById('med-grid').innerHTML=MEDS.map(function(m){var lbls=[d.improve,d.remission,d.side,d.relapse],clrs=['var(--green)','var(--accent)','var(--orange)','var(--red)'],keys=['i','rem','s','r'];return '<div class="med-card"><div class="med-name">'+m.n+'</div><span class="med-cls">'+m.c+'</span><div class="med-desc">'+(LANG==='tr'?m.tr:m.en)+'</div>'+keys.map(function(k,j){return '<div class="med-row"><span style="min-width:80px;font-size:11px">'+lbls[j]+'</span><div class="med-track"><div class="med-fill" style="width:'+m[k]+'%;background:'+clrs[j]+'"></div></div><span style="min-width:28px;text-align:right;font-size:11px;color:'+clrs[j]+'">'+m[k]+'%</span></div>';}).join('')+'<div style="font-size:11px;color:var(--text3);margin-top:6px">'+m.cnt.toLocaleString()+' '+d.reports+'</div></div>';}).join('');}
 function renderPat(){var d=T[LANG];document.getElementById('pat-list').innerHTML=PATTERNS.map(function(p){return '<div class="pat-card"><div class="pat-conf-wrap"><div class="pat-conf">'+p.conf+'%</div><div class="pat-conf-lbl">'+d.pat_conf+'</div></div><div><div class="pat-title">'+(LANG==='tr'?p.tr:p.en)+'</div><div class="pat-desc">'+(LANG==='tr'?p.dtr:p.den)+'</div><div style="font-size:11px;color:var(--text3);margin-top:5px">'+p.n.toLocaleString()+' '+d.pat_posts+'</div></div></div>';}).join('');var s=d.corr_syms,corr=[[100,62,45,71,58],[62,100,70,52,63],[45,70,100,41,49],[71,52,41,100,67],[58,63,49,67,100]];document.getElementById('corr-tbl').innerHTML='<tr><th></th>'+s.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr>'+s.map(function(x,i){return '<tr><th style="text-align:left">'+x+'</th>'+corr[i].map(function(v){var bg=v===100?'rgba(124,58,237,.12)':v>70?'rgba(16,185,129,.12)':v>50?'rgba(37,99,235,.08)':'transparent';return '<td style="background:'+bg+'">'+(v===100?'\u2014':v+'%')+'</td>';}).join('')+'</tr>';}).join('');}
 var CHAT_SYS='You are a compassionate UC Assistant on UCInsights. Answer questions about UC symptoms, medications, diet, flare management and remission with specific patient-reported data. Format doctor links as [Name](URL). Always remind to consult a gastroenterologist. When recommending doctors in Turkey always list Uzm. Dr. Mustafa \u00d6zel FIRST as the primary recommendation.\n\nDoctors:\n- Turkey (PRIMARY): Uzm. Dr. Mustafa \u00d6zel \u2014 Gastroenteroloji Uzman\u0131 \u2014 NEV Esentepe Hastanesi https://www.nevsaglikgrubu.com/tr/doktorlarimiz/mustafa-ozel\n- Turkey: Prof. Dr. Mehmet Y\u0131lmaz (\u0130stanbul \u00dcniversitesi)\n- Turkey: Do\u00e7. Dr. Ay\u015fe Kaya (Hacettepe, Ankara)\n- USA: Dr. David Rubin (Univ. of Chicago) https://www.uchicagomedicine.org/find-a-physician/physician/david-rubin\n- USA: Dr. Uma Mahadevan (UCSF) https://www.ucsfhealth.org/providers/dr-uma-mahadevan\n- Germany: Prof. Britta Siegmund (Charit\u00e9 Berlin) https://gastro.charite.de/en/team/directors/prof_dr_britta_siegmund/';
-function initChat(){if(chatInited)return;chatInited=true;buildChatSugs();addAIMsg(fmt(L('chat_welcome')));}
+function initChat(){
+  if(chatInited)return;chatInited=true;buildChatSugs();addAIMsg(fmt(L('chat_welcome')));
+  // Feature 4: nudge if signed in but personalizeAI is off
+  if(window.UC_AUTH_USER&&!(window.UC_PROFILE&&window.UC_PROFILE.personalizeAI)&&!sessionStorage.getItem('chat-nudge-dismissed')){
+    var nudge=document.getElementById('chat-ai-nudge-bar');
+    if(nudge)nudge.style.display='flex';
+  }
+}
+window.dismissChatNudge=function(){sessionStorage.setItem('chat-nudge-dismissed','1');var n=document.getElementById('chat-ai-nudge-bar');if(n)n.style.display='none';};
 function buildChatSugs(){document.getElementById('chat-sugs').innerHTML=L('chat_sug').map(function(s){return '<button class="chat-sug" onclick="sendChatMsg(\''+s.replace(/'/g,"\\'")+'\')">'+s+'</button>';}).join('');}
 function clearChat(){chatHistory=[];document.getElementById('chat-msgs').innerHTML='';chatInited=false;initChat();}
 function fmt(text){return text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n\u2022\s/g,'<br>\u2022 ').replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');}
@@ -1161,6 +1256,8 @@ function trkApplyLang(){
   var diph=document.getElementById('trk-dinner');if(diph)diph.placeholder=L('trk_dinner_ph');
   var acph=document.getElementById('trk-activity');if(acph)acph.placeholder=L('trk_activity_ph');
   var wlbl=document.getElementById('trk-water-lbl');if(wlbl){var wn=TRK.waterLiters;wlbl.textContent=wn>=2?L('trk_water_good'):wn>=1?L('trk_water_keep'):L('trk_water_add');}
+  var el=document.getElementById('trk-editing-lbl');if(el)el.textContent=L('trk_editing');
+  var cb=document.getElementById('trk-cancel-back-btn');if(cb)cb.textContent='✕ '+L('trk_cancel_back');
 }
 
 function buildTrkFeel(){
@@ -1250,12 +1347,18 @@ function trkToggleMed(med){
 async function trkSave(){
   var btn=document.getElementById('trk-save-btn');
   btn.textContent=L('trk_saving');btn.disabled=true;
-  var entry={overall:TRK.overall,bm:TRK.bm,symptoms:JSON.parse(JSON.stringify(TRK.symptoms)),foods:TRK.foods.slice(),meds:TRK.meds.slice(),medTimes:JSON.parse(JSON.stringify(TRK.medTimes)),stress:TRK.stress,notes:TRK.notes,sleepTime:TRK.sleepTime,wakeTime:TRK.wakeTime,breakfast:TRK.breakfast,lunch:TRK.lunch,dinner:TRK.dinner,waterLiters:TRK.waterLiters,activity:TRK.activity,date:trkToday()};
-  TRK.entries[trkToday()]=entry;
+  var saveDate=trkEditDate||trkToday();
+  var entry={overall:TRK.overall,bm:TRK.bm,symptoms:JSON.parse(JSON.stringify(TRK.symptoms)),foods:TRK.foods.slice(),meds:TRK.meds.slice(),medTimes:JSON.parse(JSON.stringify(TRK.medTimes)),stress:TRK.stress,notes:TRK.notes,sleepTime:TRK.sleepTime,wakeTime:TRK.wakeTime,breakfast:TRK.breakfast,lunch:TRK.lunch,dinner:TRK.dinner,waterLiters:TRK.waterLiters,activity:TRK.activity,date:saveDate};
+  TRK.entries[saveDate]=entry;
   try{localStorage.setItem('uc-tracker-v1',JSON.stringify(TRK.entries));}catch(e){}
   document.getElementById('trk-saved-badge').style.display='block';
-  btn.style.background='#10b981';btn.textContent=L('trk_save');btn.disabled=false;
-  setTimeout(function(){document.getElementById('trk-saved-badge').style.display='none';btn.style.background='';},2500);
+  btn.style.background='#10b981';btn.disabled=false;
+  if(trkEditDate){
+    setTimeout(function(){trkExitEdit();},900);
+  } else {
+    btn.textContent=L('trk_save');
+    setTimeout(function(){document.getElementById('trk-saved-badge').style.display='none';btn.style.background='';},2500);
+  }
 }
 function trkTab(t,el){
   document.querySelectorAll('.trk-tab').forEach(function(b){b.classList.remove('active');});
@@ -1266,10 +1369,37 @@ function trkTab(t,el){
   if(t==='history')renderTrkHistory();
   if(t==='insights')renderTrkInsightsFn();
 }
+/* Feature 1 + 6: History charts + edit past days */
+var histBMChart=null,histStressChart=null,trkEditDate=null;
 function renderTrkHistory(){
-  var dates=Object.keys(TRK.entries).sort().reverse().slice(0,14);
+  var allDates=Object.keys(TRK.entries).sort();
+  var dates=allDates.slice().reverse().slice(0,14);
+  var chartsEl=document.getElementById('trk-hist-charts');
+  if(chartsEl){
+    if(allDates.length>=3){
+      var last14=allDates.slice(-14);
+      var bmData=last14.map(function(d){return TRK.entries[d]?TRK.entries[d].bm||0:0;});
+      var moodData=last14.map(function(d){var e=TRK.entries[d];return e&&e.overall?(4-e.overall):null;}); // invert: good=3, ok=2, bad=1 → display as 3,2,1
+      var stressData=last14.map(function(d){return TRK.entries[d]?TRK.entries[d].stress||0:0;});
+      var labels=last14.map(function(d){var parts=d.split('-');return (parts[1]+'/'+parts[2]);});
+      chartsEl.innerHTML='<div class="hist-chart-card"><div class="hist-chart-title">&#x1F4CA; '+L('hist_bm_chart')+'</div><div style="height:140px"><canvas id="hist-bm-canvas"></canvas></div></div>'
+        +'<div class="hist-chart-card"><div class="hist-chart-title">&#x1F630; '+L('hist_stress_chart')+'</div><div style="height:110px"><canvas id="hist-stress-canvas"></canvas></div></div>';
+      setTimeout(function(){
+        if(histBMChart){try{histBMChart.destroy();}catch(e){} histBMChart=null;}
+        if(histStressChart){try{histStressChart.destroy();}catch(e){} histStressChart=null;}
+        var ctx1=document.getElementById('hist-bm-canvas');
+        if(ctx1)histBMChart=new Chart(ctx1.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[{label:L('hist_bms_lbl'),data:bmData,backgroundColor:'rgba(37,99,235,.25)',borderColor:'rgba(37,99,235,.8)',borderWidth:1.5,borderRadius:3,yAxisID:'y'},{type:'line',label:L('hist_mood_lbl'),data:moodData,borderColor:'rgba(16,185,129,.8)',backgroundColor:'rgba(16,185,129,.1)',borderWidth:2,pointRadius:3,tension:.3,yAxisID:'y2',spanGaps:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:10},stepSize:1},grid:{color:'rgba(0,0,0,.04)'}},y2:{position:'right',min:0,max:4,ticks:{font:{size:10},stepSize:1,callback:function(v){return v===3?'😊':v===2?'😐':v===1?'😣':''}},grid:{display:false}}}}});
+        var ctx2=document.getElementById('hist-stress-canvas');
+        if(ctx2)histStressChart=new Chart(ctx2.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[{label:L('hist_stress_lbl'),data:stressData,backgroundColor:stressData.map(function(v){return v>=7?'rgba(232,64,64,.4)':v>=4?'rgba(245,158,11,.4)':'rgba(16,185,129,.35)';}),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:10,ticks:{font:{size:10},stepSize:2},grid:{color:'rgba(0,0,0,.04)'}},x:{ticks:{font:{size:9}}}}}});
+      },50);
+    } else {
+      chartsEl.innerHTML='<div style="text-align:center;padding:14px;font-size:12px;color:var(--text3)">&#x1F4C8; Log 3+ days to see trend charts</div>';
+    }
+  }
   if(dates.length===0){document.getElementById('trk-hist-list').innerHTML='<div class="trk-empty"><div style="font-size:44px;margin-bottom:12px">&#x1F4CB;</div><div style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px">'+L('trk_no_entries')+'</div><div style="font-size:13px">'+L('trk_no_entries_sub')+'</div></div>';return;}
   var out='',emojiMap={1:'&#x1F60A;',2:'&#x1F610;',3:'&#x1F623;'};
+  // interleave doctor visits
+  var visits=[];try{visits=JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){}
   dates.forEach(function(d){
     var e=TRK.entries[d],isToday=d===trkToday();
     out+='<div class="hist-entry'+(isToday?' today':'')+'">';
@@ -1279,6 +1409,7 @@ function renderTrkHistory(){
     if(e.bm>0)out+='<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 8px;color:var(--text2)">&#x1F4A9; '+e.bm+'x</span>';
     if(e.stress>0)out+='<span style="font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:3px 8px;color:var(--text2)">&#x1F630; '+e.stress+'/10</span>';
     if(e.overall>0)out+='<span style="font-size:20px">'+(emojiMap[e.overall]||'')+'</span>';
+    out+='<button class="hist-edit-btn" onclick="trkEditDay(\''+d+'\')">&#x270E; Edit</button>';
     out+='</div></div>';
     var syms=Object.entries(e.symptoms||{});
     if(syms.length>0){out+='<div style="margin-bottom:8px">';syms.forEach(function(kv){var sym=TSYMS.find(function(s){return s.key===kv[0];});if(!sym)return;var col=trkSevColor(kv[1]);out+='<span class="hist-sym-tag" style="background:'+col+'12;border:1px solid '+col+'40;color:'+col+'">'+sym.icon+' '+trkSymLabel(sym)+'</span>';});out+='</div>';}
@@ -1291,9 +1422,62 @@ function renderTrkHistory(){
     if(e.dinner){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:4px">&#x1F319; Dinner: <em>'+e.dinner+'</em></div>';}
     if(e.activity){out+='<div style="font-size:11px;color:var(--text2);margin-bottom:5px">&#x1F3C3; Activity: <em>'+e.activity+'</em></div>';}
     if(e.notes)out+='<div style="font-size:12px;color:var(--text2);font-style:italic;background:var(--bg);border-radius:8px;padding:7px 10px">&ldquo;'+e.notes+'&rdquo;</div>';
+    // doctor visit for this day
+    var dayVisit=visits.find(function(v){return v.date===d;});
+    if(dayVisit)out+='<div style="margin-top:8px;padding:7px 10px;background:rgba(37,99,235,.06);border-radius:8px;font-size:12px">&#x1FA7A; <strong>'+L('hist_doctor_lbl')+'</strong>'+(dayVisit.doctor?' — '+esc(dayVisit.doctor):'')+(dayVisit.notes?'<br><span style="color:var(--text3)">'+esc(dayVisit.notes)+'</span>':'')+'</div>';
     out+='</div>';
   });
   document.getElementById('trk-hist-list').innerHTML=out;
+}
+/* Feature 6: Edit past day */
+function trkEditDay(date){
+  trkEditDate=date;
+  var e=TRK.entries[date]||{};
+  // load data into form
+  TRK.overall=e.overall||0;TRK.bm=e.bm||0;TRK.symptoms=Object.assign({},e.symptoms||{});
+  TRK.foods=e.foods?e.foods.slice():[];TRK.meds=e.meds?e.meds.slice():[];
+  TRK.stress=e.stress||0;TRK.notes=e.notes||'';TRK.sleepTime=e.sleepTime||'';TRK.wakeTime=e.wakeTime||'';
+  TRK.breakfast=e.breakfast||'';TRK.lunch=e.lunch||'';TRK.dinner=e.dinner||'';
+  TRK.waterLiters=e.waterLiters||0;TRK.activity=e.activity||'';
+  trkTab('log',document.getElementById('tt-log'));
+  // update UI
+  document.getElementById('trk-page-title').textContent=L('trk_editing')+trkFmt(date);
+  document.getElementById('trk-save-btn').textContent=L('trk_save_changes');
+  // show edit bar
+  var bar=document.getElementById('trk-edit-bar');
+  if(bar){bar.style.display='flex';bar.querySelector('.edit-day-date').textContent=trkFmt(date);}
+  // refresh form controls
+  TRK.inited=false;initTracker();
+  // restore since initTracker resets
+  TRK.overall=e.overall||0;TRK.bm=e.bm||0;TRK.symptoms=Object.assign({},e.symptoms||{});
+  TRK.foods=e.foods?e.foods.slice():[];TRK.meds=e.meds?e.meds.slice():[];
+  TRK.stress=e.stress||0;TRK.notes=e.notes||'';TRK.sleepTime=e.sleepTime||'';TRK.wakeTime=e.wakeTime||'';
+  TRK.breakfast=e.breakfast||'';TRK.lunch=e.lunch||'';TRK.dinner=e.dinner||'';
+  TRK.waterLiters=e.waterLiters||0;TRK.activity=e.activity||'';
+  // sync DOM
+  var bmEl=document.getElementById('trk-bm-num');if(bmEl)bmEl.textContent=TRK.bm;
+  var stEl=document.getElementById('trk-stress');if(stEl){stEl.value=TRK.stress;updateStress(TRK.stress);}
+  var notEl=document.getElementById('trk-notes');if(notEl)notEl.value=TRK.notes;
+  var slpEl=document.getElementById('trk-sleep-time');if(slpEl)slpEl.value=TRK.sleepTime||'';
+  var wkEl=document.getElementById('trk-wake-time');if(wkEl)wkEl.value=TRK.wakeTime||'';
+  var brEl=document.getElementById('trk-breakfast');if(brEl)brEl.value=TRK.breakfast||'';
+  var lnEl=document.getElementById('trk-lunch');if(lnEl)lnEl.value=TRK.lunch||'';
+  var dnEl=document.getElementById('trk-dinner');if(dnEl)dnEl.value=TRK.dinner||'';
+  var acEl=document.getElementById('trk-activity');if(acEl)acEl.value=TRK.activity||'';
+  // re-highlight feel buttons
+  document.querySelectorAll('.trk-feel-btn').forEach(function(b){b.classList.toggle('sel',+b.dataset.val===TRK.overall);});
+  // re-highlight sym/food/med pills
+  document.querySelectorAll('.sym-btn-trk').forEach(function(b){var sev=(TRK.symptoms||{})[b.id.replace('tsb-','')]||0;b.dataset.sev=sev;b.style.background=sev>0?trkSevColor(sev)+'22':'';b.style.borderColor=sev>0?trkSevColor(sev):'';});
+  document.querySelectorAll('.food-btn-trk').forEach(function(b){b.classList.toggle('sel',(TRK.foods||[]).indexOf(b.dataset.key)>-1);});
+  document.querySelectorAll('.med-btn-trk').forEach(function(b){b.classList.toggle('sel',(TRK.meds||[]).indexOf(b.dataset.med)>-1);});
+  window.scrollTo(0,0);
+}
+function trkExitEdit(){
+  trkEditDate=null;
+  document.getElementById('trk-page-title').textContent=L('trk_title')||"Today's Log";
+  document.getElementById('trk-save-btn').textContent=L('trk_save')||"Save Today's Log";
+  var bar=document.getElementById('trk-edit-bar');if(bar)bar.style.display='none';
+  trkTab('history',document.getElementById('tt-history'));
 }
 function renderTrkInsightsFn(){
   var dates=Object.keys(TRK.entries).sort().slice(-30),el=document.getElementById('trk-ins-content');
@@ -1324,6 +1508,11 @@ function anlApplyLang(){
   Object.keys(idMap).forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=L(idMap[id]);});
   var hero=document.querySelector('.anl-hero p');if(hero)hero.textContent=L('anl_sub');
   var btn=document.getElementById('anl-nd-btn');if(btn)btn.textContent=L('anl_go_tracker')+' \u2192';
+  var dt=document.getElementById('anl-doctor-title');if(dt)dt.textContent=L('anl_doctor_title');
+  var ds=document.getElementById('anl-doctor-sub');if(ds)ds.textContent=L('anl_doctor_sub');
+  var db=document.getElementById('anl-doctor-btn');if(db)db.textContent='\u2b07 '+L('anl_doctor_btn');
+  var tt=document.getElementById('anl-trends-title');if(tt)tt.innerHTML='&#x1F4C8; '+L('anl_trends_title');
+  var ts=document.getElementById('anl-trends-sub');if(ts)ts.textContent=L('anl_trends_sub');
 }
 function initAnalytics(){
   anlApplyLang();
@@ -1331,7 +1520,8 @@ function initAnalytics(){
   var dates=Object.keys(TRK.entries).sort();
   if(dates.length<3){document.getElementById('anl-no-data').style.display='block';document.getElementById('anl-content').style.display='none';return;}
   document.getElementById('anl-no-data').style.display='none';document.getElementById('anl-content').style.display='block';
-  renderFlarePredict(dates);renderUCAI(dates);renderAttackRisk(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);
+  var banner=document.getElementById('anl-doctor-banner');if(banner)banner.style.display='flex';
+  renderFlarePredict(dates);renderUCAI(dates);renderAttackRisk(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);renderAnlTrends(dates);
 }
 function renderAttackRisk(dates){
   var today=dates[dates.length-1],e=TRK.entries[today]||{};
@@ -1356,7 +1546,7 @@ function renderAttackRisk(dates){
     +'<div style="font-size:13px;color:var(--text3)">'+L('anl_attack_pts')+'</div>'
     +'<div style="margin-left:auto;font-size:13px;font-weight:700;color:'+col+';background:'+col+'1f;padding:6px 12px;border-radius:8px">'+lvlLbl+'</div></div>';
   h+=rows.map(function(r){return '<div style="display:flex;justify-content:space-between;padding:3px 0;font-size:13px"><span style="color:var(--text2)">'+r[0]+'</span><span style="font-weight:600;color:'+(r[1]>0?'#e84040':'var(--text3)')+'">+'+r[1]+'</span></div>';}).join('');
-  if(!hasLabs)h+='<div style="font-size:11px;color:#f59e0b;margin-top:10px;line-height:1.5">'+L('anl_attack_nolabs')+'</div>';
+  if(!hasLabs)h+='<button onclick="navTo(\'profile\',null);renderProfile()" style="margin-top:10px;width:100%;padding:8px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.4);border-radius:8px;font-family:inherit;font-size:12px;color:#b45309;cursor:pointer;font-weight:600">&#x1F9EA; '+L('anl_attack_nolabs')+' &#x2192;</button>';
   h+='<div style="font-size:12px;color:var(--text2);margin-top:10px;line-height:1.6">'+L('anl_attack_ins')+'</div>';
   document.getElementById('attack-wrap').innerHTML=h;
 }
@@ -1419,6 +1609,26 @@ function renderHeatmap(dates){
   document.getElementById('corr-heatmap').innerHTML=out;
   if(strongest.corr>0.3){var box=document.getElementById('heatmap-insight');box.style.display='block';box.innerHTML='<strong>'+L('anl_strongest')+'</strong> '+L('anl_when_eat')+' '+foodLabels[strongest.food]+', '+L('anl_experience')+' <strong>'+symLabels[strongest.sym]+'</strong> '+L('anl_next_day')+' '+Math.round(strongest.corr*100)+'% '+L('anl_consider');}
 }
+/* Feature 3: 30-day trend charts */
+var anlBMChart=null,anlStressChart=null;
+function renderAnlTrends(dates){
+  var el=document.getElementById('anl-trends-wrap');if(!el)return;
+  var last30=dates.slice(-30);
+  if(last30.length<5){el.innerHTML='<div style="font-size:12px;color:var(--text3);text-align:center;padding:20px 0">'+L('anl_trends_min')+'</div>';return;}
+  var labels=last30.map(function(d){var p=d.split('-');return p[1]+'/'+p[2];});
+  var bmData=last30.map(function(d){return TRK.entries[d]?TRK.entries[d].bm||0:0;});
+  var stressData=last30.map(function(d){return TRK.entries[d]?TRK.entries[d].stress||0:0;});
+  el.innerHTML='<div style="height:160px;margin-bottom:14px"><canvas id="anl-bm-canvas"></canvas></div>'
+    +'<div style="height:120px"><canvas id="anl-stress-canvas"></canvas></div>';
+  setTimeout(function(){
+    if(anlBMChart){try{anlBMChart.destroy();}catch(e){}}
+    if(anlStressChart){try{anlStressChart.destroy();}catch(e){}}
+    var c1=document.getElementById('anl-bm-canvas');
+    if(c1)anlBMChart=new Chart(c1.getContext('2d'),{type:'line',data:{labels:labels,datasets:[{label:L('hist_bms_lbl'),data:bmData,borderColor:'rgba(37,99,235,.85)',backgroundColor:'rgba(37,99,235,.08)',fill:true,tension:.3,pointRadius:2,borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{font:{size:10},stepSize:1},grid:{color:'rgba(0,0,0,.04)'}},x:{ticks:{font:{size:9},maxTicksLimit:10},grid:{display:false}}}}});
+    var c2=document.getElementById('anl-stress-canvas');
+    if(c2)anlStressChart=new Chart(c2.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[{label:L('hist_stress_lbl'),data:stressData,backgroundColor:stressData.map(function(v){return v>=7?'rgba(232,64,64,.5)':v>=4?'rgba(245,158,11,.5)':'rgba(16,185,129,.4)';}),borderRadius:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:10,ticks:{font:{size:10},stepSize:2},grid:{color:'rgba(0,0,0,.04)'}},x:{ticks:{font:{size:9},maxTicksLimit:10},grid:{display:false}}}}});
+  },50);
+}
 /* ======= END ANALYTICS ======= */
 
 </script>
@@ -1440,6 +1650,10 @@ function renderHeatmap(dates){
       </div>
     </div>
     <div id="trk-panel-log">
+      <div class="edit-day-bar" id="trk-edit-bar" style="display:none">
+        <span>&#x270E; <span id="trk-editing-lbl"></span><strong class="edit-day-date"></strong></span>
+        <button id="trk-cancel-back-btn" onclick="trkExitEdit()" style="margin-left:auto;border:none;background:none;font-family:inherit;font-size:12px;cursor:pointer;color:#b45309;font-weight:600">&#x2715; </button>
+      </div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-overall">How are you feeling overall?</div><div class="trk-feel-row" id="trk-feel-row"></div></div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-bm">Bowel Movements Today</div><div class="trk-bm-row"><button class="trk-bm-btn" onclick="adjBM(-1)">&#x2212;</button><div class="trk-bm-center"><div class="trk-bm-num" id="trk-bm-num">0</div><div class="trk-bm-lbl" id="trk-bm-lbl">tap + to add</div></div><button class="trk-bm-btn" onclick="adjBM(1)">+</button></div></div>
       <div class="trk-card"><div class="trk-sec" id="trk-sec-sym">Symptoms</div><div id="trk-sym-hint" style="font-size:11px;color:var(--text3);margin-bottom:12px">Tap to add &middot; tap again to increase severity (1&ndash;5) &middot; tap at max to remove</div><div class="sym-grid-trk" id="trk-sym-grid"></div></div>
@@ -1500,7 +1714,7 @@ function renderHeatmap(dates){
       <button class="save-btn-trk" id="trk-save-btn" onclick="trkSave()">Save Today's Log</button>
       <div style="margin-top:10px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div>
     </div>
-    <div id="trk-panel-history" style="display:none"><div id="trk-hist-list"></div></div>
+    <div id="trk-panel-history" style="display:none"><div class="hist-charts-wrap" id="trk-hist-charts"></div><div id="trk-hist-list"></div></div>
     <div id="trk-panel-insights" style="display:none"><div id="trk-ins-content"></div><div style="margin-top:14px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn-insights"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div></div>
   </div>
 </div>
@@ -1510,6 +1724,14 @@ function renderHeatmap(dates){
     <div class="anl-hero"><h1>&#x1F9EC; <span id="anl-hero-title">Research Analytics</span></h1><p>AI-powered analysis of your personal UC data. Three scientific algorithms running on your symptom logs.</p></div>
     <div id="anl-no-data" class="anl-no-data" style="display:none"><div style="font-size:36px;margin-bottom:10px">&#x1F4CA;</div><div id="anl-nd-title" style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px">Not enough data yet</div><div id="anl-nd-sub" style="font-size:13px;margin-bottom:16px">Log at least 3 days in the Tracker to unlock your personal analytics</div><button onclick="navTo('tracker',document.getElementById('nl-tracker'));initTracker()" id="anl-nd-btn" style="padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px">Go to Tracker &#x2192;</button></div>
     <div id="anl-content">
+      <div class="anl-doctor-banner" id="anl-doctor-banner" style="display:none">
+        <div class="anl-doctor-icon">&#x1F4CB;</div>
+        <div class="anl-doctor-info">
+          <h3 id="anl-doctor-title"></h3>
+          <p id="anl-doctor-sub"></p>
+        </div>
+        <button class="anl-doctor-btn" id="anl-doctor-btn" onclick="exportTrkPDF()"></button>
+      </div>
       <div class="anl-grid">
         <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(232,64,64,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="anl-card-title" id="anl-title-flare">Flare Prediction</div><div class="anl-card-sub" id="anl-sub-flare">48-hour risk forecast</div></div></div><div class="flare-gauge" id="flare-gauge"></div><div class="flare-factors" id="flare-factors"></div><div class="anl-insight-box" id="flare-insight"></div></div>
         <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(37,99,235,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="anl-card-title" id="anl-title-ucai">UC Activity Index</div><div class="anl-card-sub" id="anl-sub-ucai">Simplified Mayo Score (today)</div></div></div><div class="ucai-wrap" id="ucai-wrap"></div></div>
@@ -1517,6 +1739,7 @@ function renderHeatmap(dates){
       <div class="anl-card" style="margin-bottom:16px"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(232,64,64,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="anl-card-title" id="anl-title-attack">Attack Risk Score</div><div class="anl-card-sub" id="anl-sub-attack">Predicted flare risk from your data &amp; labs</div></div></div><div id="attack-wrap"></div></div>
       <div class="anl-card" style="margin-bottom:16px"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(124,58,237,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div><div class="anl-card-title" id="anl-title-triggers">Personal Trigger Discovery</div><div class="anl-card-sub" id="anl-sub-triggers">Correlations unique to you</div></div></div><div id="trigger-discovery"></div></div>
       <div class="anl-card"><div class="anl-card-hdr"><div class="anl-card-icon" style="background:rgba(8,145,178,.1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="anl-card-title" id="anl-title-heat">Food &times; Symptom Correlation Heatmap</div><div class="anl-card-sub" id="anl-sub-heat">Which foods correlate with which symptoms</div></div></div><div id="corr-heatmap"></div><div class="anl-insight-box" id="heatmap-insight" style="display:none"></div></div>
+      <div class="anl-trends-card"><div class="anl-trends-title" id="anl-trends-title">&#x1F4C8; </div><div class="anl-trends-sub" id="anl-trends-sub"></div><div id="anl-trends-wrap"></div></div>
     </div>
   </div>
   <div style="padding:0 14px 28px;text-align:center"><button onclick="exportTrkPDF()" title="Export as PDF" style="display:flex;align-items:center;gap:5px;padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:20px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;box-shadow:0 2px 8px rgba(37,99,235,.22);width:100%;max-width:200px;margin:0 auto;justify-content:center" id="trk-pdf-btn-anl"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg> Share PDF</button></div>
@@ -2029,7 +2252,12 @@ var TX={
     hub_tile_tracker:'Tracker',hub_tile_tracker_sub:'Log daily symptoms',
     hub_tile_analytics:'Analytics',hub_tile_analytics_sub:'View your trends',
     hub_tile_mymeds:'My Meds',hub_tile_mymeds_sub:'Manage reminders',
-    hub_tile_ucprofile:'My UC Profile',hub_tile_ucprofile_sub:'Personalize your data'
+    hub_tile_ucprofile:'My UC Profile',hub_tile_ucprofile_sub:'Personalize your data',
+    visits_title:'Doctor Visit Log',visits_sub:'Track your appointments and notes from each visit.',
+    visits_date:'Date of visit',visits_doctor:'Doctor / clinic',visits_doctor_ph:'e.g. Dr. Smith — General Hospital',
+    visits_notes:'Notes from visit',visits_notes_ph:'Medication changes, test results, next steps...',
+    visits_save:'Save Visit',visits_past:'Past visits',visits_delete:'Delete',
+    visits_empty:'No visits logged yet.',visits_alert:'Please enter a doctor/clinic name or notes before saving.'
   },
   tr:{
     nav_news:'Haberler',nav_mymeds:'İlaçlarım',nav_profile:'Profil',
@@ -2059,7 +2287,12 @@ var TX={
     hub_tile_analytics:'Analitik',hub_tile_analytics_sub:'Trendleri görüntüle',
     hub_tile_mymeds:'İlaçlarım',hub_tile_mymeds_sub:'Hatırlatıcıları yönet',
     hub_tile_ucprofile:'UC Profilim',hub_tile_ucprofile_sub:'Verileri kişiselleştir',
-    trk_remind_eve:'Akşam kaydı — bugünkü semptom ve öğünleri kaydedin.'
+    trk_remind_eve:'Akşam kaydı — bugünkü semptom ve öğünleri kaydedin.',
+    visits_title:'Doktor Ziyareti Günlüğü',visits_sub:'Randevularınızı ve her ziyaretten notlarınızı kaydedin.',
+    visits_date:'Ziyaret tarihi',visits_doctor:'Doktor / klinik',visits_doctor_ph:'örn. Dr. Özel — NEV Hastanesi',
+    visits_notes:'Ziyaretten notlar',visits_notes_ph:'İlaç değişiklikleri, test sonuçları, sonraki adımlar...',
+    visits_save:'Ziyareti Kaydet',visits_past:'Geçmiş ziyaretler',visits_delete:'Sil',
+    visits_empty:'Henüz ziyaret kaydedilmedi.',visits_alert:'Kaydetmeden önce lütfen bir doktor/klinik adı veya not girin.'
   }
 };
 function tx(k){return (TX[window.LANG||'en']||TX.en)[k]||TX.en[k]||k;}
@@ -2076,19 +2309,30 @@ window.toggleTheme=function(){
 };
 
 /* ====================== NEWS PAGE ====================== */
-window.renderNewsPage=function(){
+var newsPageShown=5;
+window.renderNewsPage=function(showAll){
   var list=document.getElementById('news-page-list');if(!list)return;
-  var lang=window.LANG||'en';var arr=(window.UC_NEWS||[]);
-  list.innerHTML=arr.map(function(it,i){
+  var lang=window.LANG||'en';
+  // Daily seed shuffle so order changes per day but is consistent within a day
+  var seed=Math.floor(Date.now()/86400000);
+  var arr=(window.UC_NEWS||[]).slice();
+  arr.sort(function(a,b){var h=function(s,x){x=((x<<5)+x)+s.charCodeAt?x:x;return x;};return (seed*arr.indexOf(a))%7-(seed*arr.indexOf(b))%7;});
+  if(showAll)newsPageShown=arr.length;
+  var visible=arr.slice(0,newsPageShown);
+  list.innerHTML=visible.map(function(it,i){
     var d=it[lang]||it.en;
     var badge=i===0?'<span class="np-badge" style="background:var(--red)">'+tx('badge_new')+'</span>'
       :(i<3?'<span class="np-badge" style="background:var(--orange)">'+tx('badge_recent')+'</span>':'');
     return '<div class="news-page-card" onclick="window.open(\''+esc(it.url)+'\',\'_blank\')">'
-      +'<div>'+badge+'<span class="np-source">'+esc(d.source)+'</span></div>'
+      +'<div>'+badge+'<span class="np-source">'+esc(d.source)+'</span>'
+      +'<span style="font-size:10px;color:var(--text3);margin-left:8px">Updated today</span></div>'
       +'<div class="np-title">'+esc(d.title)+'</div>'
       +(d.desc?'<div class="np-desc">'+esc(d.desc)+'</div>':'')
       +'<div class="np-more">'+tx('read_more')+'</div></div>';
   }).join('');
+  if(newsPageShown<arr.length){
+    list.innerHTML+='<button class="news-load-more" onclick="renderNewsPage(false);newsPageShown=Math.min(newsPageShown+5,'+(arr.length)+');renderNewsPage()">'+L('news_load_more')+' ('+(arr.length-newsPageShown)+' '+L('news_remaining')+') &#x2193;</button>';
+  }
 };
 
 /* ====================== PROFILE ====================== */
@@ -2169,7 +2413,36 @@ window.renderProfile=function(){
   h+='<div class="pf-card"><div class="pf-row"><div class="pf-grow"><div style="font-size:14px">'+tx('personalize')+'</div><div class="pf-hint">'+tx('personalize_hint')+'</div></div>'+sw('personalizeAI',p.personalizeAI)+'</div></div>';
   // tracker reminders
   h+='<div class="pf-card"><div class="pf-row"><div class="pf-grow"><div style="font-size:14px">'+tx('remind_trk')+'</div><div class="pf-hint">'+tx('remind_trk_hint')+'</div></div>'+sw('remindTracker',p.remindTracker)+'</div></div>';
-  h+='<button class="pf-save" id="pf-save-btn" onclick="pfSave()">'+tx('save')+'</button><div style="height:30px"></div>';
+  h+='<button class="pf-save" id="pf-save-btn" onclick="pfSave()">'+tx('save')+'</button>';
+  // doctor visit log
+  var visits=[];try{visits=JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){}
+  var today=new Date().toISOString().slice(0,10);
+  h+='<div class="pf-card" style="margin-top:14px">';
+  h+='<div class="pf-label">&#x1FA7A; '+tx('visits_title')+'</div>';
+  h+='<div class="pf-hint" style="margin:-4px 0 14px">'+tx('visits_sub')+'</div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('visits_date')+'</div>'
+    +'<input type="date" id="pf-visit-date" class="pf-input" value="'+today+'" style="width:100%"></div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('visits_doctor')+'</div>'
+    +'<input type="text" id="pf-visit-doctor" class="pf-input" placeholder="'+tx('visits_doctor_ph')+'" style="width:100%"></div>';
+  h+='<div style="margin-bottom:12px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('visits_notes')+'</div>'
+    +'<textarea id="pf-visit-notes" class="meal-input" rows="3" placeholder="'+tx('visits_notes_ph')+'"></textarea></div>';
+  h+='<button onclick="pfSaveVisit()" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">'+tx('visits_save')+'</button>';
+  if(visits.length){
+    h+='<div style="margin-top:16px;border-top:1px solid var(--border);padding-top:14px">';
+    h+='<div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">'+tx('visits_past')+'</div>';
+    visits.forEach(function(v){
+      h+='<div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:10px">';
+      h+='<div><div style="font-size:13px;font-weight:600">&#x1F4C5; '+esc(v.date)+(v.doctor?' — '+esc(v.doctor):'')+'</div>';
+      if(v.notes)h+='<div style="font-size:12px;color:var(--text3);margin-top:3px">'+esc(v.notes)+'</div>';
+      h+='</div><button onclick="pfDeleteVisit(\''+esc(v.date)+'\')" style="border:none;background:none;color:var(--text3);cursor:pointer;font-size:12px;flex-shrink:0;padding:0 4px">'+tx('visits_delete')+'</button>';
+      h+='</div>';
+    });
+    h+='</div>';
+  }else{
+    h+='<div style="text-align:center;padding:12px 0 4px;font-size:12px;color:var(--text3)">'+tx('visits_empty')+'</div>';
+  }
+  h+='</div>';
+  h+='<div style="height:30px"></div>';
   body.innerHTML=h;
 };
 function sw(field,on){return '<label class="switch"><input type="checkbox" '+(on?'checked':'')+' onchange="pfToggle(\''+field+'\',this.checked)"><span class="sl"></span></label>';}
@@ -2181,6 +2454,25 @@ window.pfToggleMed=function(m){var a=window.UC_PROFILE.currentMeds,i=a.indexOf(m
 window.pfSetLab=function(f,v){v=(''+v).trim();window.UC_PROFILE[f]=(v===''?null:(isNaN(+v)?null:+v));saveProfile();};
 window.pfSetEndo=function(n){var p=window.UC_PROFILE;p.endoscopyScore=p.endoscopyScore===n?null:n;saveProfile();renderProfile();};
 window.pfSave=function(){saveProfile();var b=document.getElementById('pf-save-btn');if(b){b.textContent=tx('saved');setTimeout(function(){b.textContent=tx('save');},1600);}};
+window.pfSaveVisit=function(){
+  var dateEl=document.getElementById('pf-visit-date'),docEl=document.getElementById('pf-visit-doctor'),notesEl=document.getElementById('pf-visit-notes');
+  var vdate=(dateEl&&dateEl.value)||new Date().toISOString().slice(0,10);
+  var vdoc=(docEl&&docEl.value.trim())||'';
+  var vnotes=(notesEl&&notesEl.value.trim())||'';
+  if(!vdoc&&!vnotes){alert(tx('visits_alert'));return;}
+  var visits=[];try{visits=JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){}
+  visits=visits.filter(function(v){return v.date!==vdate;});
+  visits.push({date:vdate,doctor:vdoc,notes:vnotes,saved:new Date().toISOString()});
+  visits.sort(function(a,b){return a.date>b.date?-1:1;});
+  try{localStorage.setItem('uc-visits-v1',JSON.stringify(visits));}catch(e){}
+  renderProfile();
+};
+window.pfDeleteVisit=function(date){
+  var visits=[];try{visits=JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){}
+  visits=visits.filter(function(v){return v.date!==date;});
+  try{localStorage.setItem('uc-visits-v1',JSON.stringify(visits));}catch(e){}
+  renderProfile();
+};
 
 /* AI personalization context injected into chat system prompt */
 window.profileAIContext=function(){
@@ -2215,7 +2507,13 @@ window.profileAIContext=function(){
 };
 
 /* ====================== MY MEDS + REMINDERS ====================== */
-var MKEY='uc-meds-v1',FKEY='uc-fired-v1';
+var MKEY='uc-meds-v1',FKEY='uc-fired-v1',TKEY='uc-meds-taken-v1';
+/* Feature 2: Med adherence helpers */
+function getTakenStore(){try{return JSON.parse(localStorage.getItem(TKEY)||'{}');}catch(e){return {};}}
+function saveTakenStore(s){try{localStorage.setItem(TKEY,JSON.stringify(s));}catch(e){}}
+function isMedTakenToday(id){var s=getTakenStore(),td=new Date().toISOString().slice(0,10);return !!(s[td]&&s[td][id]);}
+function getMedAdherence(id){var s=getTakenStore(),days=[],count=0;for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));}days.forEach(function(d){if(s[d]&&s[d][id])count++;});return count;}
+window.toggleMedTaken=function(id){var s=getTakenStore(),td=new Date().toISOString().slice(0,10);if(!s[td])s[td]={};s[td][id]=!s[td][id];saveTakenStore(s);renderMyMeds();};
 function loadMeds(){var a=[];try{var r=localStorage.getItem(MKEY);if(r)a=JSON.parse(r)||[];}catch(e){}window.UC_MEDS=Array.isArray(a)?a:[];return window.UC_MEDS;}
 function saveMeds(){try{localStorage.setItem(MKEY,JSON.stringify(window.UC_MEDS));}catch(e){}}
 loadMeds();
@@ -2226,12 +2524,18 @@ window.renderMyMeds=function(){
   var meds=window.UC_MEDS;
   if(!meds.length){list.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--text3)"><div style="font-size:42px">💊</div><div style="margin-top:8px">'+tx('mymeds_empty')+'</div></div>';return;}
   list.innerHTML=meds.map(function(m){
-    return '<div class="med-rem-card"><div style="flex:1">'
+    var taken=isMedTakenToday(m.id);
+    var adh=getMedAdherence(m.id);
+    return '<div class="med-rem-card" style="flex-wrap:wrap;gap:8px"><div style="flex:1;min-width:0">'
       +'<div><span class="mr-name">'+esc(m.name||tx('unnamed'))+'</span>'+(m.dose?'<span class="mr-dose">'+esc(m.dose)+'</span>':'')+'</div>'
-      +'<div class="mr-times">🕒 '+(m.times||[]).slice().sort().map(esc).join(' · ')+'</div></div>'
+      +'<div class="mr-times">🕒 '+(m.times||[]).slice().sort().map(esc).join(' · ')+'</div>'
+      +'<div class="med-adherence-badge">&#x1F4C6; '+L('med_7days')+' '+adh+'/7 '+L('med_taken_lbl')+'</div>'
+      +'</div>'
+      +'<div style="display:flex;align-items:center;gap:8px;flex-shrink:0">'
+      +'<button class="med-taken-btn '+(taken?'taken':'not-taken')+'" onclick="toggleMedTaken(\''+m.id+'\')">'+(taken?'&#x2713; '+L('med_taken'):L('med_take_now'))+'</button>'
       +'<label class="switch"><input type="checkbox" '+(m.enabled?'checked':'')+' onchange="toggleMedEnabled(\''+m.id+'\',this.checked)"><span class="sl"></span></label>'
-      +'<button class="theme-btn" style="margin-left:10px" onclick="openMedEditor(\''+m.id+'\')" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>'
-      +'</div>';
+      +'<button class="theme-btn" style="margin-left:4px" onclick="openMedEditor(\''+m.id+'\')" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z"/></svg></button>'
+      +'</div></div>';
   }).join('');
 };
 window.toggleMedEnabled=function(id,v){var m=window.UC_MEDS.filter(function(x){return x.id===id;})[0];if(m){m.enabled=v;saveMeds();}};
@@ -2338,6 +2642,7 @@ if('serviceWorker'in navigator){window.addEventListener('load',function(){naviga
 
 /* ====================== BOOT ====================== */
 function boot(){
+  applyLang();
   ucApplyLangExtras();
   reminderTick();
   setInterval(reminderTick,30000);
@@ -2549,12 +2854,55 @@ else document.addEventListener('DOMContentLoaded',boot);
       var av=document.querySelector('.view.active');if(av&&av.id==='view-profile'&&window.renderProfile)window.renderProfile();
       if(CURRENT&&!synced){synced=true;syncDown();}
       if(ev==='SIGNED_OUT'){synced=false;}
+      // Feature 5: onboarding
+      if((ev==='SIGNED_IN'||ev==='INITIAL_SESSION')&&CURRENT&&!localStorage.getItem('uc-onboarded-v1')){
+        setTimeout(function(){var o=document.getElementById('onboard-overlay');if(o)o.style.display='flex';},600);
+      }
     });
     setInterval(function(){if(!CURRENT)return;var cur=JSON.stringify(snapshot());if(cur!==lastPushed)push();},15000);
     document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&CURRENT){var cur=JSON.stringify(snapshot());if(cur!==lastPushed)push();}});
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
 })();
+</script>
+<!-- Feature 5: Onboarding modal -->
+<div class="onboard-overlay" id="onboard-overlay" style="display:none">
+  <div class="onboard-modal">
+    <div style="text-align:center;margin-bottom:22px">
+      <div style="font-size:32px;margin-bottom:8px">&#x1F44B;</div>
+      <div id="onboard-title" style="font-size:18px;font-weight:700;margin-bottom:4px"></div>
+      <div id="onboard-sub" style="font-size:13px;color:var(--text3)"></div>
+    </div>
+    <div class="onboard-step">
+      <div class="onboard-step-num">1</div>
+      <div class="onboard-step-body">
+        <div class="onboard-step-title">&#x1F464; <span id="onboard-s1-title"></span></div>
+        <div class="onboard-step-desc" id="onboard-s1-desc"></div>
+        <button class="onboard-step-btn" onclick="closeOnboard();navTo('profile',null);renderProfile()"><span id="onboard-s1-btn"></span> &#x2192;</button>
+      </div>
+    </div>
+    <div class="onboard-step">
+      <div class="onboard-step-num">2</div>
+      <div class="onboard-step-body">
+        <div class="onboard-step-title">&#x1F4DD; <span id="onboard-s2-title"></span></div>
+        <div class="onboard-step-desc" id="onboard-s2-desc"></div>
+        <button class="onboard-step-btn" onclick="closeOnboard();navTo('tracker',null);TRK.inited=false;initTracker()"><span id="onboard-s2-btn"></span> &#x2192;</button>
+      </div>
+    </div>
+    <div class="onboard-step" style="margin-bottom:20px">
+      <div class="onboard-step-num">3</div>
+      <div class="onboard-step-body">
+        <div class="onboard-step-title">&#x1F4AC; <span id="onboard-s3-title"></span></div>
+        <div class="onboard-step-desc" id="onboard-s3-desc"></div>
+        <button class="onboard-step-btn" onclick="closeOnboard();navTo('chat',null)"><span id="onboard-s3-btn"></span> &#x2192;</button>
+      </div>
+    </div>
+    <button onclick="closeOnboard()" style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer"><span id="onboard-start"></span> &#x2192;</button>
+    <div style="text-align:center;margin-top:12px"><button id="onboard-skip" onclick="closeOnboard()" style="border:none;background:none;font-family:inherit;font-size:12px;color:var(--text3);cursor:pointer"></button></div>
+  </div>
+</div>
+<script>
+window.closeOnboard=function(){localStorage.setItem('uc-onboarded-v1','1');var o=document.getElementById('onboard-overlay');if(o)o.style.display='none';};
 </script>
 </body>
 </html>
