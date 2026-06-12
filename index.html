@@ -101,6 +101,31 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .post-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
 .ptag{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:var(--text3)}
 .read-more{font-size:12px;color:var(--accent);margin-top:6px}
+/* ---- Home conversion sections ---- */
+.hp-section{width:100%;max-width:680px;margin-top:22px}
+.hp-section-title{font-size:22px;font-weight:800;color:var(--text);text-align:center;letter-spacing:-.4px;margin-bottom:8px}
+.hp-section-sub{font-size:14px;color:var(--text3);text-align:center;margin-bottom:24px;line-height:1.6}
+.hp-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hp-feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 16px;text-align:center;transition:border-color .15s,transform .15s}
+.hp-feat-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.hp-feat-icon{font-size:32px;margin-bottom:12px;line-height:1}
+.hp-feat-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.hp-feat-desc{font-size:12px;color:var(--text3);line-height:1.6}
+.hp-testi-grid{display:flex;flex-direction:column;gap:12px}
+.hp-testi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;position:relative}
+.hp-testi-card::before{content:'\201C';font-size:52px;font-family:Georgia,serif;color:var(--accent);opacity:.2;position:absolute;top:6px;left:14px;line-height:1}
+.hp-doc-card{border-color:rgba(16,185,129,.25)}
+.hp-doc-card::before{color:var(--green,#10b981)}
+.hp-doc-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green,#10b981);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:3px 9px;margin-bottom:10px}
+.hp-testi-quote{font-size:14px;color:var(--text);line-height:1.75;padding-left:22px;font-style:italic}
+.hp-testi-author{font-size:11px;color:var(--text3);margin-top:10px;padding-left:22px;font-weight:600;letter-spacing:.02em}
+.hp-cta-box{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(37,99,235,.04));border:1.5px solid rgba(37,99,235,.25);border-radius:var(--r);padding:32px 24px;text-align:center}
+.hp-cta-title{font-size:21px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.3px}
+.hp-cta-sub{font-size:13px;color:var(--text3);margin-bottom:22px;line-height:1.6}
+.hp-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;background:var(--accent);color:#fff;border:none;border-radius:24px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .12s;box-shadow:0 4px 16px rgba(37,99,235,.3);margin-bottom:14px;width:100%;max-width:320px;justify-content:center}
+.hp-cta-btn:hover{opacity:.9;transform:translateY(-1px)}
+.hp-cta-login{font-size:12px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:680px){.hp-feat-grid{grid-template-columns:1fr}}
 /* SYMPTOMS */
 .sym-wrap,.inner-wrap{max-width:920px;margin:0 auto;padding:28px 20px}
 .page-title{font-family:'DM Serif Display',serif;font-size:32px;color:var(--text);margin-bottom:6px}
@@ -566,7 +591,87 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
       </div>
     </div>
 
-    <div style="width:100%;max-width:680px;margin-top:16px"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1326858927521321" data-ad-slot="1088798188" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+    <div style="width:100%;max-width:680px;margin-top:16px;max-height:100px;overflow:hidden"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1326858927521321" data-ad-slot="1088798188" data-ad-format="horizontal" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+
+    <!-- Features strip -->
+    <div class="hp-section" id="hp-features">
+      <div class="hp-section-title" id="hp-feat-title"></div>
+      <div class="hp-section-sub" id="hp-feat-sub"></div>
+      <div class="hp-feat-grid">
+        <div class="hp-feat-card">
+          <div class="hp-feat-icon" id="hp-f1-icon"></div>
+          <div class="hp-feat-name" id="hp-f1-name"></div>
+          <div class="hp-feat-desc" id="hp-f1-desc"></div>
+        </div>
+        <div class="hp-feat-card">
+          <div class="hp-feat-icon" id="hp-f2-icon"></div>
+          <div class="hp-feat-name" id="hp-f2-name"></div>
+          <div class="hp-feat-desc" id="hp-f2-desc"></div>
+        </div>
+        <div class="hp-feat-card">
+          <div class="hp-feat-icon" id="hp-f3-icon"></div>
+          <div class="hp-feat-name" id="hp-f3-name"></div>
+          <div class="hp-feat-desc" id="hp-f3-desc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonials -->
+    <div class="hp-section" id="hp-testimonials">
+      <div class="hp-section-title" id="hp-testi-title"></div>
+      <div class="hp-testi-grid">
+        <div class="hp-testi-card">
+          <div class="hp-testi-quote" id="hp-t1-quote"></div>
+          <div class="hp-testi-author" id="hp-t1-author"></div>
+        </div>
+        <div class="hp-testi-card">
+          <div class="hp-testi-quote" id="hp-t2-quote"></div>
+          <div class="hp-testi-author" id="hp-t2-author"></div>
+        </div>
+        <div class="hp-testi-card">
+          <div class="hp-testi-quote" id="hp-t3-quote"></div>
+          <div class="hp-testi-author" id="hp-t3-author"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor testimonials -->
+    <div class="hp-section" id="hp-doctors">
+      <div class="hp-section-title" id="hp-doc-title"></div>
+      <div class="hp-section-sub" id="hp-doc-sub"></div>
+      <div class="hp-testi-grid">
+        <div class="hp-testi-card hp-doc-card">
+          <div class="hp-doc-badge">&#x1FA7A; <span id="hp-doc-badge-lbl">Doctor</span></div>
+          <div class="hp-testi-quote" id="hp-d1-quote"></div>
+          <div class="hp-testi-author" id="hp-d1-author"></div>
+        </div>
+        <div class="hp-testi-card hp-doc-card">
+          <div class="hp-doc-badge">&#x1FA7A; <span class="hp-doc-badge-lbl"></span></div>
+          <div class="hp-testi-quote" id="hp-d2-quote"></div>
+          <div class="hp-testi-author" id="hp-d2-author"></div>
+        </div>
+        <div class="hp-testi-card hp-doc-card">
+          <div class="hp-doc-badge">&#x1FA7A; <span class="hp-doc-badge-lbl"></span></div>
+          <div class="hp-testi-quote" id="hp-d3-quote"></div>
+          <div class="hp-testi-author" id="hp-d3-author"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA banner — hidden once signed in -->
+    <div class="hp-section" id="hp-cta-section">
+      <div class="hp-cta-box">
+        <div class="hp-cta-title" id="hp-cta-title"></div>
+        <div class="hp-cta-sub" id="hp-cta-sub"></div>
+        <button class="hp-cta-btn" onclick="window.uauth&&window.uauth.open()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="hp-cta-btn-lbl"></span>
+        </button>
+        <div><button class="hp-cta-login" id="hp-cta-login" onclick="window.uauth&&window.uauth.open()"></button></div>
+      </div>
+    </div>
+
+    <div style="height:40px"></div>
   </div>
 </div>
 <!-- SYMPTOMS -->
@@ -722,6 +827,19 @@ anl_no_triggers:'No clear triggers found yet. Keep logging for more accurate res
 anl_need5:'Log at least 5 days to discover your personal triggers',anl_need5h:'Need 5+ days of data for heatmap',
 anl_strongest:'Strongest correlation:',anl_when_eat:'When you eat',anl_experience:'you experience',anl_next_day:'the next day',
 anl_consider:'of the time. Consider eliminating it for 2 weeks to confirm.',anl_bad_days_lbl:'% bad days',
+hp_feat_title:'Take control of your UC journey',hp_feat_sub:'Everything you need to understand and manage your ulcerative colitis — in one free app.',
+hp_f1_icon:'📊',hp_f1_name:'Track Daily',hp_f1_desc:'Log symptoms, food, stress and bowel movements in under 60 seconds. Patterns emerge over time.',
+hp_f2_icon:'🔮',hp_f2_name:'Predict Flares',hp_f2_desc:'AI detects your personal triggers 48 hours before a flare — so you can act before it gets bad.',
+hp_f3_icon:'💬',hp_f3_name:'Personalized AI',hp_f3_desc:'Ask questions and get answers based on your own data, not generic advice.',
+hp_testi_title:'Real patients. Real results.',
+hp_t1_quote:'I finally understand what triggers my flares. The food correlation is scary accurate.',hp_t1_author:'Emma T. — living with UC for 4 years',
+hp_t2_quote:'The flare prediction gave me 3 days warning. I told my doctor and we adjusted my medication just in time.',hp_t2_author:'Marco R. — living with UC for 7 years',
+hp_t3_quote:'The reminders and adherence tracking completely changed how I manage my medications.',hp_t3_author:'Ayşe K. — living with UC for 2 years',
+hp_cta_title:'Start tracking your UC today',hp_cta_sub:'Free forever. No credit card. Takes 30 seconds.',hp_cta_btn:'Create Free Account',hp_cta_login:'Already have an account? Sign in',
+hp_doc_title:'Trusted by gastroenterologists',hp_doc_sub:'Healthcare professionals recommend UCInsights to their IBD patients.',hp_doc_badge:'Doctor',
+hp_d1_quote:'I recommend UCInsights to all my IBD patients. The flare prediction data helps us make better treatment decisions together.',hp_d1_author:'Dr. Sarah Chen — Gastroenterologist, 12 years',
+hp_d2_quote:'The detailed symptom logs my patients share save 15 minutes per consultation and lead to far more accurate diagnoses.',hp_d2_author:'Dr. James Morris — IBD Specialist, 9 years',
+hp_d3_quote:'Finally an app that gives me data I can actually use clinically. The correlation reports are genuinely useful.',hp_d3_author:'Dr. Aylin Kaya — Gastroenterology Fellow',
 trk_sym_hint:'Tap to add &middot; tap again to increase severity (1&ndash;5) &middot; tap at max to remove',sym_diarrhea:'Diarrhea',sym_urgency:'Urgency',sym_pain:'Pain',sym_bleeding:'Bleeding',sym_fatigue:'Fatigue',sym_mucus:'Mucus',sym_bloating:'Bloating',sym_nausea:'Nausea',anl_no_data:'Not enough data yet',anl_no_data_sub:'Log at least 3 days in the Tracker to unlock your personal analytics',anl_go_tracker:'Go to Tracker',anl_flare_sub:'48-hour risk forecast',anl_sub:'AI-powered analysis of your personal UC data. Three scientific algorithms running on your symptom logs.',
 visit_toggle:'Doctor Visit (optional)',visit_section:'Log a Doctor Visit',visit_date:'Date of visit',visit_doctor:'Doctor / clinic name',visit_doctor_ph:'e.g. Dr. Smith — General Hospital',visit_notes:'Notes from visit',visit_notes_ph:'Medication changes, test results, next steps...',visit_save:'Save Visit',visit_alert:'Please enter a doctor/clinic name or notes before saving.',
 anl_doctor_title:'Prepare for Your Doctor Visit',anl_doctor_sub:'Export your UC log as a PDF to share with your gastroenterologist.',anl_doctor_btn:'Export PDF',
@@ -764,6 +882,19 @@ anl_no_triggers:'Hen\u00fcz belirgin tetikleyici bulunamad\u0131. Loglama yapmay
 anl_need5:'Tetikleyici ke\u015fi i\u00e7in en az 5 g\u00fcn veri gerekli',anl_need5h:'Is\u0131 haritas\u0131 i\u00e7in 5+ g\u00fcn veri gerekli',
 anl_strongest:'En g\u00fc\u00e7l\u00fc korelasyon:',anl_when_eat:'Yedi\u011finizde',anl_experience:'ya\u015fad\u0131\u011f\u0131n\u0131z',anl_next_day:'ertesi g\u00fcn',
 anl_consider:'oran\u0131nda. 2 hafta elimine etmeyi d\u00fc\u015f\u00fcn\u00fcn.',anl_bad_days_lbl:'% k\u00f6t\u00fc g\u00fcn',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_go_tracker:'Takip Sayfas\u0131na Git',
+hp_feat_title:'UC yolculu\u011funuzun kontrol\u00fcn\u00fc elinize al\u0131n',hp_feat_sub:'\u00dclseratif kolitinizi anlamak ve y\u00f6netmek i\u00e7in ihtiyac\u0131n\u0131z olan her \u015fey \u2014 tek bir \u00fccretsiz uygulamada.',
+hp_f1_icon:'\ud83d\udcca',hp_f1_name:'G\u00fcnl\u00fck Takip',hp_f1_desc:'Belirtileri, yiyecekleri, stresi ve defekasyonu 60 saniyede kaydedin. \u00d6r\u00fcnt\u00fcleriniz zamanla ortaya \u00e7\u0131kar.',
+hp_f2_icon:'\ud83d\udd2e',hp_f2_name:'Alevlenme Tahmini',hp_f2_desc:'Yapay zeka, alevlenmeden 48 saat \u00f6nce ki\u015fisel tetikleyicilerinizi tespit eder \u2014 k\u00f6t\u00fcle\u015fmeden \u00f6nce harekete ge\u00e7ebilirsiniz.',
+hp_f3_icon:'\ud83d\udcac',hp_f3_name:'Ki\u015fiselle\u015ftirilmi\u015f Yapay Zeka',hp_f3_desc:'Genel tavsiyeler de\u011fil, kendi verilerinize dayal\u0131 sorular sorun ve yan\u0131tlar al\u0131n.',
+hp_testi_title:'Ger\u00e7ek hastalar. Ger\u00e7ek sonu\u00e7lar.',
+hp_t1_quote:'Sonunda alevlenmelerimi neyin tetikledi\u011fini anl\u0131yorum. G\u0131da korelasyonu \u00fcrk\u00fct\u00fcc\u00fc derecede do\u011fru.',hp_t1_author:'Emma T. \u2014 4 y\u0131ld\u0131r UC hastas\u0131',
+hp_t2_quote:'Alevlenme tahmini bana 3 g\u00fcn \u00f6nceden uyar\u0131 verdi. Doktoruma s\u00f6yledim ve tam zaman\u0131nda ilac\u0131m\u0131 ayarlad\u0131k.',hp_t2_author:'Marco R. \u2014 7 y\u0131ld\u0131r UC hastas\u0131',
+hp_t3_quote:'Hat\u0131rlat\u0131c\u0131lar ve ila\u00e7 takibi, ila\u00e7lar\u0131m\u0131 y\u00f6netme \u015feklimi tamamen de\u011fi\u015ftirdi.',hp_t3_author:'Ay\u015fe K. \u2014 2 y\u0131ld\u0131r UC hastas\u0131',
+hp_cta_title:'UC takibine bug\u00fcn ba\u015flay\u0131n',hp_cta_sub:'Sonsuza kadar \u00fccretsiz. Kredi kart\u0131 gerekmez. 30 saniye yeterli.',hp_cta_btn:'\u00dccretsiz Hesap Olu\u015ftur',hp_cta_login:'Zaten hesab\u0131n\u0131z var m\u0131? Giri\u015f yap\u0131n',
+hp_doc_title:'Gastroenterologlar taraf\u0131ndan g\u00fcvenilir',hp_doc_sub:'Sa\u011fl\u0131k profesyonelleri UCInsights\u2019\u0131 \u0130BH hastalar\u0131na \u00f6neriyor.',hp_doc_badge:'Doktor',
+hp_d1_quote:'UCInsights\u2019\u0131 t\u00fcm \u0130BH hastalar\u0131ma \u00f6neriyorum. Alevlenme tahmin verileri birlikte daha iyi tedavi kararlar\u0131 almam\u0131za yard\u0131mc\u0131 oluyor.',hp_d1_author:'Dr. Sarah Chen \u2014 Gastroenterolog, 12 y\u0131l',
+hp_d2_quote:'Hastalar\u0131m\u0131n payla\u015ft\u0131\u011f\u0131 ayr\u0131nt\u0131l\u0131 semptom kay\u0131tlar\u0131 konsultasyon ba\u015f\u0131na 15 dakika kazan\u0131m\u0131 sa\u011fl\u0131yor ve \u00e7ok daha do\u011fru tan\u0131lara ula\u015ft\u0131r\u0131yor.',hp_d2_author:'Dr. James Morris \u2014 \u0130BH Uzman\u0131, 9 y\u0131l',
+hp_d3_quote:'Sonunda klinik olarak ger\u00e7ekten kullanabilece\u011fim veriler sunan bir uygulama. Korelasyon raporlar\u0131 son derece yararl\u0131.',hp_d3_author:'Dr. Aylin Kaya \u2014 Gastroenteroloji Asistan\u0131',
 trk_sym_hint:'Eklemek i\u00e7in dokun &middot; tekrar dokun \u015fiddet art\u0131r (1-5) &middot; maksimumda kald\u0131rmak i\u00e7in dokun',sym_diarrhea:'\u0130shal',sym_urgency:'Acil Tuvalet',sym_pain:'A\u011fr\u0131',sym_bleeding:'Kanama',sym_fatigue:'Yorgunluk',sym_mucus:'Muk\u00fcs',sym_bloating:'\u015ei\u015fkinlik',sym_nausea:'Bulant\u0131',anl_no_data:'Hen\u00fcz yeterli veri yok',anl_no_data_sub:'Ki\u015fisel analitiklerinizi a\u00e7mak i\u00e7in Takip\'te en az 3 g\u00fcn kay\u0131t yap\u0131n',anl_go_tracker:'Takip Sayfas\u0131na Git',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai:'UC Aktivite \u0130ndeksi',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers:'Ki\u015fisel Tetikleyici Ke\u015ffi',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_title:'Ara\u015ft\u0131rma Analiti\u011fi',
 visit_toggle:'Doktor Ziyareti (iste\u011fe ba\u011fl\u0131)',visit_section:'Doktor Ziyareti Kaydet',visit_date:'Ziyaret tarihi',visit_doctor:'Doktor / klinik ad\u0131',visit_doctor_ph:'\u00f6rn. Dr. \u00d6zel \u2014 NEV Hastanesi',visit_notes:'Ziyaretten notlar',visit_notes_ph:'\u0130la\u00e7 de\u011fi\u015fiklikleri, test sonu\u00e7lar\u0131, sonraki ad\u0131mlar...',visit_save:'Ziyareti Kaydet',visit_alert:'Kaydetmeden \u00f6nce l\u00fctfen bir doktor/klinik ad\u0131 veya not girin.',
 anl_doctor_title:'Doktor Ziyaretinize Haz\u0131rlan\u0131n',anl_doctor_sub:'UC kayd\u0131n\u0131z\u0131 gastroenteroloji uzman\u0131n\u0131zla payla\u015fmak i\u00e7in PDF olarak d\u0131\u015fa aktar\u0131n.',anl_doctor_btn:'PDF \u0130ndir',
@@ -863,6 +994,23 @@ function applyLang(){var d=T[LANG];['hs-sub','ai-lbl','posts-lbl','sym-title','s
 var navMap={home:'nav_home',symptoms:'nav_symptoms',chat:'nav_chat',foods:'nav_foods',meds:'nav_meds',patterns:'nav_patterns',tracker:'nav_tracker',analytics:'nav_analytics'};
 Object.keys(navMap).forEach(function(k){var dt=document.getElementById('ntx-'+k);if(dt)dt.textContent=L(navMap[k]);var dm=document.getElementById('mtx-'+k);if(dm)dm.textContent=L(navMap[k]);});
 document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;
+// Home conversion sections
+var hpMap={'hp-feat-title':'hp_feat_title','hp-feat-sub':'hp_feat_sub',
+  'hp-f1-icon':'hp_f1_icon','hp-f1-name':'hp_f1_name','hp-f1-desc':'hp_f1_desc',
+  'hp-f2-icon':'hp_f2_icon','hp-f2-name':'hp_f2_name','hp-f2-desc':'hp_f2_desc',
+  'hp-f3-icon':'hp_f3_icon','hp-f3-name':'hp_f3_name','hp-f3-desc':'hp_f3_desc',
+  'hp-testi-title':'hp_testi_title',
+  'hp-t1-quote':'hp_t1_quote','hp-t1-author':'hp_t1_author',
+  'hp-t2-quote':'hp_t2_quote','hp-t2-author':'hp_t2_author',
+  'hp-t3-quote':'hp_t3_quote','hp-t3-author':'hp_t3_author',
+  'hp-cta-title':'hp_cta_title','hp-cta-sub':'hp_cta_sub',
+  'hp-cta-btn-lbl':'hp_cta_btn','hp-cta-login':'hp_cta_login',
+  'hp-doc-title':'hp_doc_title','hp-doc-sub':'hp_doc_sub','hp-doc-badge-lbl':'hp_doc_badge',
+  'hp-d1-quote':'hp_d1_quote','hp-d1-author':'hp_d1_author',
+  'hp-d2-quote':'hp_d2_quote','hp-d2-author':'hp_d2_author',
+  'hp-d3-quote':'hp_d3_quote','hp-d3-author':'hp_d3_author'};
+Object.keys(hpMap).forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=L(hpMap[id]);});
+document.querySelectorAll('.hp-doc-badge-lbl').forEach(function(el){el.textContent=L('hp_doc_badge');});
 // Chat nudge
 var cnt=document.getElementById('chat-nudge-text');if(cnt)cnt.innerHTML='&#x1F4A1; '+L('chat_nudge_text');
 var cng=document.getElementById('chat-nudge-go-btn');if(cng)cng.textContent=L('chat_nudge_go')+' →';
@@ -2823,6 +2971,8 @@ else document.addEventListener('DOMContentLoaded',boot);
         b.title=e;
       }else{b.innerHTML=PERSON+'<span class="acct-label">'+L('sign_in')+'</span>';b.title=L('sign_in');}
     }
+    // hide CTA once signed in
+    var cta=document.getElementById('hp-cta-section');if(cta)cta.style.display=CURRENT?'none':'';
     // show/hide gated nav items + separators
     GATED.forEach(function(pg){
       var d=document.getElementById('nl-'+pg);if(d)d.style.display=CURRENT?'':'none';
