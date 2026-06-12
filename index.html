@@ -57,7 +57,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .view{display:none;min-height:calc(100vh - 58px)}
 .view.active{display:block}
 /* HOME */
-.home-wrap{display:flex;flex-direction:column;align-items:center;padding:56px 20px 40px}
+.home-wrap{display:flex;flex-direction:column;align-items:center;padding:48px 20px 60px;background:linear-gradient(180deg,rgba(37,99,235,.07) 0%,transparent 340px)}
 .home-logo-img{height:90px;width:auto;margin-bottom:10px;animation:fadeUp .6s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .home-tagline{color:var(--text2);font-size:15px;margin-bottom:34px;text-align:center;animation:fadeUp .7s ease .1s both}
@@ -102,30 +102,41 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .ptag{font-size:10px;padding:2px 8px;border-radius:8px;background:var(--bg);border:1px solid var(--border);color:var(--text3)}
 .read-more{font-size:12px;color:var(--accent);margin-top:6px}
 /* ---- Home conversion sections ---- */
-.hp-section{width:100%;max-width:680px;margin-top:22px}
-.hp-section-title{font-size:22px;font-weight:800;color:var(--text);text-align:center;letter-spacing:-.4px;margin-bottom:8px}
+.hp-section{width:100%;max-width:680px;margin-top:32px}
+.hp-section-title{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--text);text-align:center;letter-spacing:-.3px;margin-bottom:8px}
 .hp-section-sub{font-size:14px;color:var(--text3);text-align:center;margin-bottom:24px;line-height:1.6}
-.hp-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.hp-feat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 16px;text-align:center;transition:border-color .15s,transform .15s}
-.hp-feat-card:hover{border-color:var(--accent);transform:translateY(-3px)}
-.hp-feat-icon{font-size:32px;margin-bottom:12px;line-height:1}
+.hp-label-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.18);border-radius:20px;padding:4px 13px;margin-bottom:12px}
+.hp-label-pill-purple{color:var(--purple);background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2)}
+.hp-label-pill-green{color:var(--green);background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.2)}
+.hp-hero-badge{margin-bottom:14px;animation:fadeUp .65s ease .05s both}
+.hp-hero-badge .hp-label-pill{font-size:11px;padding:5px 16px}
+.hp-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hp-feat-card{background:var(--card);border:1px solid var(--border);border-top-width:3px;border-radius:var(--r);padding:24px 16px 20px;text-align:center;transition:border-color .2s,transform .2s,box-shadow .2s}
+.hp-feat-grid>.hp-feat-card:nth-child(1){border-top-color:var(--accent)}
+.hp-feat-grid>.hp-feat-card:nth-child(2){border-top-color:var(--purple)}
+.hp-feat-grid>.hp-feat-card:nth-child(3){border-top-color:var(--green)}
+.hp-feat-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 28px rgba(37,99,235,.1)}
+.hp-feat-icon{width:56px;height:56px;font-size:26px;border-radius:50%;background:rgba(37,99,235,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;transition:background .2s}
+.hp-feat-card:hover .hp-feat-icon{background:rgba(37,99,235,.15)}
 .hp-feat-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
-.hp-feat-desc{font-size:12px;color:var(--text3);line-height:1.6}
-.hp-testi-grid{display:flex;flex-direction:column;gap:12px}
-.hp-testi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;position:relative}
-.hp-testi-card::before{content:'\201C';font-size:52px;font-family:Georgia,serif;color:var(--accent);opacity:.2;position:absolute;top:6px;left:14px;line-height:1}
+.hp-feat-desc{font-size:12px;color:var(--text3);line-height:1.65}
+.hp-testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.hp-testi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px 18px;position:relative;display:flex;flex-direction:column}
+.hp-testi-card::before{content:'\201C';font-size:48px;font-family:Georgia,serif;color:var(--accent);opacity:.18;position:absolute;top:8px;left:14px;line-height:1}
 .hp-doc-card{border-color:rgba(16,185,129,.25)}
-.hp-doc-card::before{color:var(--green,#10b981)}
-.hp-doc-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green,#10b981);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:3px 9px;margin-bottom:10px}
-.hp-testi-quote{font-size:14px;color:var(--text);line-height:1.75;padding-left:22px;font-style:italic}
-.hp-testi-author{font-size:11px;color:var(--text3);margin-top:10px;padding-left:22px;font-weight:600;letter-spacing:.02em}
-.hp-cta-box{background:linear-gradient(135deg,rgba(37,99,235,.1),rgba(37,99,235,.04));border:1.5px solid rgba(37,99,235,.25);border-radius:var(--r);padding:32px 24px;text-align:center}
+.hp-doc-card::before{color:var(--green)}
+.hp-doc-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:20px;padding:3px 9px;margin-bottom:10px}
+.hp-testi-quote{font-size:13px;color:var(--text);line-height:1.75;padding-left:22px;font-style:italic;flex:1}
+.hp-testi-author{font-size:11px;color:var(--text3);margin-top:12px;padding-left:22px;font-weight:600;letter-spacing:.02em}
+.hp-cta-box{background:linear-gradient(135deg,#1d4ed8 0%,#2563eb 55%,#7c3aed 100%);border:none;border-radius:var(--r);padding:44px 28px;text-align:center;box-shadow:0 16px 48px rgba(37,99,235,.28)}
 .hp-cta-title{font-size:21px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-.3px}
 .hp-cta-sub{font-size:13px;color:var(--text3);margin-bottom:22px;line-height:1.6}
-.hp-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;background:var(--accent);color:#fff;border:none;border-radius:24px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .12s;box-shadow:0 4px 16px rgba(37,99,235,.3);margin-bottom:14px;width:100%;max-width:320px;justify-content:center}
-.hp-cta-btn:hover{opacity:.9;transform:translateY(-1px)}
-.hp-cta-login{font-size:12px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline;text-underline-offset:2px}
-@media(max-width:680px){.hp-feat-grid{grid-template-columns:1fr}}
+.hp-cta-box .hp-cta-title{font-family:'DM Serif Display',serif;font-size:30px;font-weight:400;color:#fff;margin-bottom:10px}
+.hp-cta-box .hp-cta-sub{color:rgba(255,255,255,.78);margin-bottom:28px}
+.hp-cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#fff;color:#1d4ed8;border:none;border-radius:24px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .12s;box-shadow:0 4px 20px rgba(0,0,0,.18);margin-bottom:14px;width:100%;max-width:320px;justify-content:center}
+.hp-cta-btn:hover{opacity:.95;transform:translateY(-2px)}
+.hp-cta-login{font-size:12px;color:rgba(255,255,255,.65);cursor:pointer;background:none;border:none;font-family:inherit;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:680px){.hp-feat-grid,.hp-testi-grid{grid-template-columns:1fr}}
 /* SYMPTOMS */
 .sym-wrap,.inner-wrap{max-width:920px;margin:0 auto;padding:28px 20px}
 .page-title{font-family:'DM Serif Display',serif;font-size:32px;color:var(--text);margin-bottom:6px}
@@ -549,7 +560,8 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 <div class="view active" id="view-home">
   <div class="home-wrap">
     <img class="home-logo-img" id="home-logo-img" src="" alt="UCInsights">
-    <p class="home-tagline" id="hs-sub">AI-powered search across 15,600 UC patient experiences</p>
+    <div class="hp-hero-badge"><span class="hp-label-pill" id="hp-hero-badge"></span></div>
+    <p class="home-tagline" id="hs-sub">AI-powered search across 15,600 Ulcerative Colitis patient experiences</p>
     <div class="search-bar">
       <input class="search-input" id="srch-in" onkeydown="if(event.key==='Enter')doSearch()" placeholder="Search symptoms, foods, medications...">
       <button class="search-btn" id="srch-btn" onclick="doSearch()">
@@ -595,6 +607,7 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 
     <!-- Features strip -->
     <div class="hp-section" id="hp-features">
+      <div style="text-align:center"><span class="hp-label-pill" id="hp-feat-pill"></span></div>
       <div class="hp-section-title" id="hp-feat-title"></div>
       <div class="hp-section-sub" id="hp-feat-sub"></div>
       <div class="hp-feat-grid">
@@ -618,6 +631,7 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 
     <!-- Testimonials -->
     <div class="hp-section" id="hp-testimonials">
+      <div style="text-align:center"><span class="hp-label-pill hp-label-pill-purple" id="hp-testi-pill"></span></div>
       <div class="hp-section-title" id="hp-testi-title"></div>
       <div class="hp-testi-grid">
         <div class="hp-testi-card">
@@ -637,6 +651,7 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 
     <!-- Doctor testimonials -->
     <div class="hp-section" id="hp-doctors">
+      <div style="text-align:center"><span class="hp-label-pill hp-label-pill-green" id="hp-doc-pill"></span></div>
       <div class="hp-section-title" id="hp-doc-title"></div>
       <div class="hp-section-sub" id="hp-doc-sub"></div>
       <div class="hp-testi-grid">
@@ -799,7 +814,7 @@ async function callAPI(body){
   return d;
 }
 var T={
-en:{hs_sub:'AI-powered search across 15,600 UC patient experiences',ai_lbl:'AI Insight',posts_lbl:'RELATED DISCUSSIONS',spin:'Searching...',sym_title:'Symptom Explorer',sym_sub:'Click any symptom card to explore trends, statistics and patient discussions',sd_disc_lbl:'RELATED DISCUSSIONS',f_title:'Food Sentiment',f_sub:'Scored from 15,600 UC patient reports',m_title:'Medications',m_sub:'Patient-reported outcomes',p_title:'Pattern Discovery',p_sub:'AI-detected co-occurrence patterns from 15,600 posts',t_corr:'Correlation Matrix',chat_name:'UC Assistant',chat_st:'Ready',chat_clr:'Clear',chat_disc:'For informational purposes only. Always consult your gastroenterologist.',srch_ph:'Search symptoms, foods, medications...',chat_ph:'Ask about UC symptoms, medications, diet...',pills:['coffee','mesalamine','Entyvio','stress flare','remission','bleeding','fatigue','probiotics','urgency'],tab_avoid:'Avoid',tab_safe:'Safe',tab_drinks:'Drinks',improve:'Improvement',remission:'Remission',side:'Side effects',relapse:'Relapse',reports:'reports',pat_conf:'confidence',pat_posts:'posts',read_more:'Read discussion \u2192',corr_syms:['Diarrhea','Bleeding','Fatigue','Urgency','Pain'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],overall:'Overall',posts_count:'Posts',chat_welcome:"Hello! I'm your UC Assistant. Ask me anything about:\n\n\u2022 **Symptoms** \u2014 diarrhea, urgency, bleeding, fatigue\n\u2022 **Medications** \u2014 Entyvio, Humira, Mesalamine\n\u2022 **Diet** \u2014 safe foods, foods to avoid\n\u2022 **Flares & Remission** \u2014 management strategies\n\u2022 **Doctors** \u2014 specialists near you\n\nWhat would you like to know?",chat_sug:["I'm having a flare \u2014 what should I eat?","Entyvio side effects?","Urgency at work tips?","Is stress a trigger?","How long do flares last?"],stats:[{lbl:'Posts Analyzed',val:'15,600',color:'var(--accent)'},{lbl:'Top Trigger',val:'Stress',color:'var(--red)'},{lbl:'Best Med',val:'Entyvio',color:'var(--green)'},{lbl:'Safe Food',val:'Banana',color:'var(--orange)'}],
+en:{hs_sub:'AI-powered search across 15,600 Ulcerative Colitis patient experiences',ai_lbl:'AI Insight',posts_lbl:'RELATED DISCUSSIONS',spin:'Searching...',sym_title:'Symptom Explorer',sym_sub:'Click any symptom card to explore trends, statistics and patient discussions',sd_disc_lbl:'RELATED DISCUSSIONS',f_title:'Food Sentiment',f_sub:'Scored from 15,600 UC patient reports',m_title:'Medications',m_sub:'Patient-reported outcomes',p_title:'Pattern Discovery',p_sub:'AI-detected co-occurrence patterns from 15,600 posts',t_corr:'Correlation Matrix',chat_name:'UC Assistant',chat_st:'Ready',chat_clr:'Clear',chat_disc:'For informational purposes only. Always consult your gastroenterologist.',srch_ph:'Search symptoms, foods, medications...',chat_ph:'Ask about UC symptoms, medications, diet...',pills:['coffee','mesalamine','Entyvio','stress flare','remission','bleeding','fatigue','probiotics','urgency'],tab_avoid:'Avoid',tab_safe:'Safe',tab_drinks:'Drinks',improve:'Improvement',remission:'Remission',side:'Side effects',relapse:'Relapse',reports:'reports',pat_conf:'confidence',pat_posts:'posts',read_more:'Read discussion \u2192',corr_syms:['Diarrhea','Bleeding','Fatigue','Urgency','Pain'],months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],overall:'Overall',posts_count:'Posts',chat_welcome:"Hello! I'm your UC Assistant. Ask me anything about:\n\n\u2022 **Symptoms** \u2014 diarrhea, urgency, bleeding, fatigue\n\u2022 **Medications** \u2014 Entyvio, Humira, Mesalamine\n\u2022 **Diet** \u2014 safe foods, foods to avoid\n\u2022 **Flares & Remission** \u2014 management strategies\n\u2022 **Doctors** \u2014 specialists near you\n\nWhat would you like to know?",chat_sug:["I'm having a flare \u2014 what should I eat?","Entyvio side effects?","Urgency at work tips?","Is stress a trigger?","How long do flares last?"],stats:[{lbl:'Posts Analyzed',val:'15,600',color:'var(--accent)'},{lbl:'Top Trigger',val:'Stress',color:'var(--red)'},{lbl:'Best Med',val:'Entyvio',color:'var(--green)'},{lbl:'Safe Food',val:'Banana',color:'var(--orange)'}],
 nav_home:'Home',nav_symptoms:'Symptoms',nav_chat:'Chat',nav_foods:'Foods',nav_meds:'Medications',nav_patterns:'Patterns',nav_tracker:'Tracker',nav_analytics:'Analytics',
 trk_log:'Log',trk_history:'History',trk_insights:'Insights',trk_title:"Today's Log",trk_overall:'How are you feeling overall?',trk_good:'Good',trk_okay:'Okay',trk_bad:'Bad',
 trk_bm:'Bowel Movements Today',trk_bm_add:'tap + to add',trk_bm_normal:'Normal range',trk_bm_above:'Above normal',trk_bm_severe:'Severe \u2014 consider contacting your doctor',
@@ -827,7 +842,9 @@ anl_no_triggers:'No clear triggers found yet. Keep logging for more accurate res
 anl_need5:'Log at least 5 days to discover your personal triggers',anl_need5h:'Need 5+ days of data for heatmap',
 anl_strongest:'Strongest correlation:',anl_when_eat:'When you eat',anl_experience:'you experience',anl_next_day:'the next day',
 anl_consider:'of the time. Consider eliminating it for 2 weeks to confirm.',anl_bad_days_lbl:'% bad days',
-hp_feat_title:'Take control of your UC journey',hp_feat_sub:'Everything you need to understand and manage your ulcerative colitis — in one free app.',
+hp_hero_badge:'✦ Trusted by 15,600+ patients',
+hp_feat_pill:'✦ Why UCInsights',hp_testi_pill:'💬 Patient Stories',hp_doc_pill:'🩺 Doctor Voices',
+hp_feat_title:'Take control of your Ulcerative Colitis journey',hp_feat_sub:'Everything you need to understand and manage your ulcerative colitis — in one free app.',
 hp_f1_icon:'📊',hp_f1_name:'Track Daily',hp_f1_desc:'Log symptoms, food, stress and bowel movements in under 60 seconds. Patterns emerge over time.',
 hp_f2_icon:'🔮',hp_f2_name:'Predict Flares',hp_f2_desc:'AI detects your personal triggers 48 hours before a flare — so you can act before it gets bad.',
 hp_f3_icon:'💬',hp_f3_name:'Personalized AI',hp_f3_desc:'Ask questions and get answers based on your own data, not generic advice.',
@@ -835,7 +852,7 @@ hp_testi_title:'Real patients. Real results.',
 hp_t1_quote:'I finally understand what triggers my flares. The food correlation is scary accurate.',hp_t1_author:'Emma T. — living with UC for 4 years',
 hp_t2_quote:'The flare prediction gave me 3 days warning. I told my doctor and we adjusted my medication just in time.',hp_t2_author:'Marco R. — living with UC for 7 years',
 hp_t3_quote:'The reminders and adherence tracking completely changed how I manage my medications.',hp_t3_author:'Ayşe K. — living with UC for 2 years',
-hp_cta_title:'Start tracking your UC today',hp_cta_sub:'Free forever. No credit card. Takes 30 seconds.',hp_cta_btn:'Create Free Account',hp_cta_login:'Already have an account? Sign in',
+hp_cta_title:'Start tracking your Ulcerative Colitis today',hp_cta_sub:'Free forever. No credit card. Takes 30 seconds.',hp_cta_btn:'Create Free Account',hp_cta_login:'Already have an account? Sign in',
 hp_doc_title:'Trusted by gastroenterologists',hp_doc_sub:'Healthcare professionals recommend UCInsights to their IBD patients.',hp_doc_badge:'Doctor',
 hp_d1_quote:'I recommend UCInsights to all my IBD patients. The flare prediction data helps us make better treatment decisions together.',hp_d1_author:'Dr. Sarah Chen — Gastroenterologist, 12 years',
 hp_d2_quote:'The detailed symptom logs my patients share save 15 minutes per consultation and lead to far more accurate diagnoses.',hp_d2_author:'Dr. James Morris — IBD Specialist, 9 years',
@@ -854,7 +871,7 @@ onboard_s1_title:'Set up your UC Profile',onboard_s1_desc:'Add your diagnosis ty
 onboard_s2_title:'Log your first day',onboard_s2_desc:'Track symptoms, food, stress and BMs — data is synced to your account automatically',onboard_s2_btn:'Go to Tracker',
 onboard_s3_title:'Ask the AI',onboard_s3_desc:'Chat with UC Assistant about your symptoms, medications, or flare management',onboard_s3_btn:'Go to Chat',
 onboard_start:'Get Started',onboard_skip:'Skip for now'},
-tr:{hs_sub:'15.600 UC hasta deneyiminde yapay zeka destekli arama',ai_lbl:'Yapay Zeka \u00d6ng\u00f6r\u00fcs\u00fc',posts_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',spin:'Aran\u0131yor...',sym_title:'Belirti Gezgini',sym_sub:'Trend ve tart\u0131\u015fmalar\u0131 g\u00f6rmek i\u00e7in bir belirtiye t\u0131klay\u0131n',sd_disc_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',f_title:'G\u0131da Duygu Analizi',f_sub:'15.600 UC hasta raporuna g\u00f6re',m_title:'\u0130la\u00e7lar',m_sub:'Hasta bildirimleri',p_title:'\u00d6r\u00fcnt\u00fc Ke\u015ffi',p_sub:'15.600 g\u00f6nderiden yapay zeka tespiti',t_corr:'Korelasyon Matrisi',chat_name:'UC Asistan\u0131',chat_st:'Haz\u0131r',chat_clr:'Temizle',chat_disc:'Yaln\u0131zca bilgi ama\u00e7l\u0131d\u0131r. Her zaman gastroenteroloji uzman\u0131n\u0131za dan\u0131\u015f\u0131n.',srch_ph:'Belirti, g\u0131da, ila\u00e7 aray\u0131n...',chat_ph:'UC belirtileri, ila\u00e7lar, diyet hakk\u0131nda sorun...',pills:['kahve','mesalamin','Entyvio','stres alevlenme','remisyon','kanama','yorgunluk','probiyotik','acil tuvalet'],tab_avoid:'Ka\u00e7\u0131n\u0131n',tab_safe:'G\u00fcvenli',tab_drinks:'\u0130\u00e7ecekler',improve:'\u0130yile\u015fme',remission:'Remisyon',side:'Yan etkiler',relapse:'N\u00fcks',reports:'rapor',pat_conf:'g\u00fcven',pat_posts:'g\u00f6nderi',read_more:'Tart\u0131\u015fmay\u0131 oku \u2192',corr_syms:['\u0130shal','Kanama','Yorgunluk','Acil','A\u011fr\u0131'],months:['Oca','\u015eub','Mar','Nis','May','Haz','Tem','A\u011fu','Eyl','Eki','Kas','Ara'],overall:'Genel',posts_count:'G\u00f6nderi',chat_welcome:'Merhaba! UC Asistan\u0131n\u0131z\u0131m.\n\n\u2022 **Belirtiler** \u2014 ishal, acil tuvalet, kanama\n\u2022 **\u0130la\u00e7lar** \u2014 Entyvio, Humira, Mesalamin\n\u2022 **Diyet** \u2014 g\u00fcvenli g\u0131dalar, ka\u00e7\u0131n\u0131lacaklar\n\u2022 **Alevlenmeler** \u2014 y\u00f6netim stratejileri\n\nNe \u00f6\u011frenmek istersiniz?',chat_sug:['Alevlenmedeyim \u2014 ne yemeliyim?','Entyvio yan etkileri?','Stres tetikleyici mi?','Alevlenme ne kadar s\u00fcrer?'],stats:[{lbl:'Analiz Edilen',val:'15.600',color:'var(--accent)'},{lbl:'En S\u0131k Tetikleyici',val:'Stres',color:'var(--red)'},{lbl:'En \u0130yi \u0130la\u00e7',val:'Entyvio',color:'var(--green)'},{lbl:'G\u00fcvenli G\u0131da',val:'Muz',color:'var(--orange)'}],
+tr:{hs_sub:'15.600 Ülseratif Kolit hasta deneyiminde yapay zeka destekli arama',ai_lbl:'Yapay Zeka \u00d6ng\u00f6r\u00fcs\u00fc',posts_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',spin:'Aran\u0131yor...',sym_title:'Belirti Gezgini',sym_sub:'Trend ve tart\u0131\u015fmalar\u0131 g\u00f6rmek i\u00e7in bir belirtiye t\u0131klay\u0131n',sd_disc_lbl:'\u0130LG\u0130L\u0130 TARTI\u015eMALAR',f_title:'G\u0131da Duygu Analizi',f_sub:'15.600 UC hasta raporuna g\u00f6re',m_title:'\u0130la\u00e7lar',m_sub:'Hasta bildirimleri',p_title:'\u00d6r\u00fcnt\u00fc Ke\u015ffi',p_sub:'15.600 g\u00f6nderiden yapay zeka tespiti',t_corr:'Korelasyon Matrisi',chat_name:'UC Asistan\u0131',chat_st:'Haz\u0131r',chat_clr:'Temizle',chat_disc:'Yaln\u0131zca bilgi ama\u00e7l\u0131d\u0131r. Her zaman gastroenteroloji uzman\u0131n\u0131za dan\u0131\u015f\u0131n.',srch_ph:'Belirti, g\u0131da, ila\u00e7 aray\u0131n...',chat_ph:'UC belirtileri, ila\u00e7lar, diyet hakk\u0131nda sorun...',pills:['kahve','mesalamin','Entyvio','stres alevlenme','remisyon','kanama','yorgunluk','probiyotik','acil tuvalet'],tab_avoid:'Ka\u00e7\u0131n\u0131n',tab_safe:'G\u00fcvenli',tab_drinks:'\u0130\u00e7ecekler',improve:'\u0130yile\u015fme',remission:'Remisyon',side:'Yan etkiler',relapse:'N\u00fcks',reports:'rapor',pat_conf:'g\u00fcven',pat_posts:'g\u00f6nderi',read_more:'Tart\u0131\u015fmay\u0131 oku \u2192',corr_syms:['\u0130shal','Kanama','Yorgunluk','Acil','A\u011fr\u0131'],months:['Oca','\u015eub','Mar','Nis','May','Haz','Tem','A\u011fu','Eyl','Eki','Kas','Ara'],overall:'Genel',posts_count:'G\u00f6nderi',chat_welcome:'Merhaba! UC Asistan\u0131n\u0131z\u0131m.\n\n\u2022 **Belirtiler** \u2014 ishal, acil tuvalet, kanama\n\u2022 **\u0130la\u00e7lar** \u2014 Entyvio, Humira, Mesalamin\n\u2022 **Diyet** \u2014 g\u00fcvenli g\u0131dalar, ka\u00e7\u0131n\u0131lacaklar\n\u2022 **Alevlenmeler** \u2014 y\u00f6netim stratejileri\n\nNe \u00f6\u011frenmek istersiniz?',chat_sug:['Alevlenmedeyim \u2014 ne yemeliyim?','Entyvio yan etkileri?','Stres tetikleyici mi?','Alevlenme ne kadar s\u00fcrer?'],stats:[{lbl:'Analiz Edilen',val:'15.600',color:'var(--accent)'},{lbl:'En S\u0131k Tetikleyici',val:'Stres',color:'var(--red)'},{lbl:'En \u0130yi \u0130la\u00e7',val:'Entyvio',color:'var(--green)'},{lbl:'G\u00fcvenli G\u0131da',val:'Muz',color:'var(--orange)'}],
 nav_home:'Ana Sayfa',nav_symptoms:'Belirtiler',nav_chat:'Sohbet',nav_foods:'G\u0131dalar',nav_meds:'\u0130la\u00e7lar',nav_patterns:'\u00d6r\u00fcnt\u00fcler',nav_tracker:'Takip',nav_analytics:'Analitik',
 trk_log:'Kay\u0131t',trk_history:'Ge\u00e7mi\u015f',trk_insights:'G\u00f6r\u00fc\u015fler',trk_title:'Bug\u00fcnk\u00fc Kay\u0131t',trk_overall:'Genel olarak nas\u0131l hissediyorsunuz?',trk_good:'\u0130yi',trk_okay:'Orta',trk_bad:'K\u00f6t\u00fc',
 trk_bm:'Bug\u00fcnk\u00fc Defekasyon Say\u0131s\u0131',trk_bm_add:'eklemek i\u00e7in + ye dokunun',trk_bm_normal:'Normal aral\u0131k',trk_bm_above:'Normalin \u00fczerinde',trk_bm_severe:'Ciddi \u2014 doktorunuzla ileti\u015fime ge\u00e7in',
@@ -882,7 +899,9 @@ anl_no_triggers:'Hen\u00fcz belirgin tetikleyici bulunamad\u0131. Loglama yapmay
 anl_need5:'Tetikleyici ke\u015fi i\u00e7in en az 5 g\u00fcn veri gerekli',anl_need5h:'Is\u0131 haritas\u0131 i\u00e7in 5+ g\u00fcn veri gerekli',
 anl_strongest:'En g\u00fc\u00e7l\u00fc korelasyon:',anl_when_eat:'Yedi\u011finizde',anl_experience:'ya\u015fad\u0131\u011f\u0131n\u0131z',anl_next_day:'ertesi g\u00fcn',
 anl_consider:'oran\u0131nda. 2 hafta elimine etmeyi d\u00fc\u015f\u00fcn\u00fcn.',anl_bad_days_lbl:'% k\u00f6t\u00fc g\u00fcn',anl_flare_sub:'48 saatlik risk tahmini',anl_ucai_sub:'Basitle\u015ftirilmi\u015f Mayo Skoru (bug\u00fcn)',anl_triggers_sub:'Size \u00f6zg\u00fc korelasyonlar',anl_heatmap:'G\u0131da x Belirti Korelasyon Haritas\u0131',anl_heatmap_sub:'Verilerinizde g\u0131da-belirti ili\u015fkileri',anl_sub:'Ki\u015fisel UC verilerinizin yapay zeka analizi. \u00dc\u00e7 bilimsel algoritma belirtilerinizden anlaml\u0131 \u00e7\u0131kar\u0131mlar yapar.',anl_go_tracker:'Takip Sayfas\u0131na Git',
-hp_feat_title:'UC yolculu\u011funuzun kontrol\u00fcn\u00fc elinize al\u0131n',hp_feat_sub:'\u00dclseratif kolitinizi anlamak ve y\u00f6netmek i\u00e7in ihtiyac\u0131n\u0131z olan her \u015fey \u2014 tek bir \u00fccretsiz uygulamada.',
+hp_hero_badge:'\u2726 15.600+ hastan\u0131n g\u00fcvendi\u011fi uygulama',
+hp_feat_pill:'\u2726 Neden UCInsights',hp_testi_pill:'\ud83d\udcac Hasta Hikayeleri',hp_doc_pill:'\ud83e\ude7a Doktor G\u00f6r\u00fc\u015fleri',
+hp_feat_title:'\u00dclseratif Kolit yolculu\u011funuzun kontrol\u00fcn\u00fc elinize al\u0131n',hp_feat_sub:'\u00dclseratif kolitinizi anlamak ve y\u00f6netmek i\u00e7in ihtiyac\u0131n\u0131z olan her \u015fey \u2014 tek bir \u00fccretsiz uygulamada.',
 hp_f1_icon:'\ud83d\udcca',hp_f1_name:'G\u00fcnl\u00fck Takip',hp_f1_desc:'Belirtileri, yiyecekleri, stresi ve defekasyonu 60 saniyede kaydedin. \u00d6r\u00fcnt\u00fcleriniz zamanla ortaya \u00e7\u0131kar.',
 hp_f2_icon:'\ud83d\udd2e',hp_f2_name:'Alevlenme Tahmini',hp_f2_desc:'Yapay zeka, alevlenmeden 48 saat \u00f6nce ki\u015fisel tetikleyicilerinizi tespit eder \u2014 k\u00f6t\u00fcle\u015fmeden \u00f6nce harekete ge\u00e7ebilirsiniz.',
 hp_f3_icon:'\ud83d\udcac',hp_f3_name:'Ki\u015fiselle\u015ftirilmi\u015f Yapay Zeka',hp_f3_desc:'Genel tavsiyeler de\u011fil, kendi verilerinize dayal\u0131 sorular sorun ve yan\u0131tlar al\u0131n.',
@@ -890,7 +909,7 @@ hp_testi_title:'Ger\u00e7ek hastalar. Ger\u00e7ek sonu\u00e7lar.',
 hp_t1_quote:'Sonunda alevlenmelerimi neyin tetikledi\u011fini anl\u0131yorum. G\u0131da korelasyonu \u00fcrk\u00fct\u00fcc\u00fc derecede do\u011fru.',hp_t1_author:'Emma T. \u2014 4 y\u0131ld\u0131r UC hastas\u0131',
 hp_t2_quote:'Alevlenme tahmini bana 3 g\u00fcn \u00f6nceden uyar\u0131 verdi. Doktoruma s\u00f6yledim ve tam zaman\u0131nda ilac\u0131m\u0131 ayarlad\u0131k.',hp_t2_author:'Marco R. \u2014 7 y\u0131ld\u0131r UC hastas\u0131',
 hp_t3_quote:'Hat\u0131rlat\u0131c\u0131lar ve ila\u00e7 takibi, ila\u00e7lar\u0131m\u0131 y\u00f6netme \u015feklimi tamamen de\u011fi\u015ftirdi.',hp_t3_author:'Ay\u015fe K. \u2014 2 y\u0131ld\u0131r UC hastas\u0131',
-hp_cta_title:'UC takibine bug\u00fcn ba\u015flay\u0131n',hp_cta_sub:'Sonsuza kadar \u00fccretsiz. Kredi kart\u0131 gerekmez. 30 saniye yeterli.',hp_cta_btn:'\u00dccretsiz Hesap Olu\u015ftur',hp_cta_login:'Zaten hesab\u0131n\u0131z var m\u0131? Giri\u015f yap\u0131n',
+hp_cta_title:'\u00dclseratif Kolit takibine bug\u00fcn ba\u015flay\u0131n',hp_cta_sub:'Sonsuza kadar \u00fccretsiz. Kredi kart\u0131 gerekmez. 30 saniye yeterli.',hp_cta_btn:'\u00dccretsiz Hesap Olu\u015ftur',hp_cta_login:'Zaten hesab\u0131n\u0131z var m\u0131? Giri\u015f yap\u0131n',
 hp_doc_title:'Gastroenterologlar taraf\u0131ndan g\u00fcvenilir',hp_doc_sub:'Sa\u011fl\u0131k profesyonelleri UCInsights\u2019\u0131 \u0130BH hastalar\u0131na \u00f6neriyor.',hp_doc_badge:'Doktor',
 hp_d1_quote:'UCInsights\u2019\u0131 t\u00fcm \u0130BH hastalar\u0131ma \u00f6neriyorum. Alevlenme tahmin verileri birlikte daha iyi tedavi kararlar\u0131 almam\u0131za yard\u0131mc\u0131 oluyor.',hp_d1_author:'Dr. Sarah Chen \u2014 Gastroenterolog, 12 y\u0131l',
 hp_d2_quote:'Hastalar\u0131m\u0131n payla\u015ft\u0131\u011f\u0131 ayr\u0131nt\u0131l\u0131 semptom kay\u0131tlar\u0131 konsultasyon ba\u015f\u0131na 15 dakika kazan\u0131m\u0131 sa\u011fl\u0131yor ve \u00e7ok daha do\u011fru tan\u0131lara ula\u015ft\u0131r\u0131yor.',hp_d2_author:'Dr. James Morris \u2014 \u0130BH Uzman\u0131, 9 y\u0131l',
@@ -995,7 +1014,9 @@ var navMap={home:'nav_home',symptoms:'nav_symptoms',chat:'nav_chat',foods:'nav_f
 Object.keys(navMap).forEach(function(k){var dt=document.getElementById('ntx-'+k);if(dt)dt.textContent=L(navMap[k]);var dm=document.getElementById('mtx-'+k);if(dm)dm.textContent=L(navMap[k]);});
 document.getElementById('srch-in').placeholder=d.srch_ph;document.getElementById('chat-in').placeholder=d.chat_ph;
 // Home conversion sections
-var hpMap={'hp-feat-title':'hp_feat_title','hp-feat-sub':'hp_feat_sub',
+var hpMap={'hp-hero-badge':'hp_hero_badge',
+  'hp-feat-pill':'hp_feat_pill','hp-testi-pill':'hp_testi_pill','hp-doc-pill':'hp_doc_pill',
+  'hp-feat-title':'hp_feat_title','hp-feat-sub':'hp_feat_sub',
   'hp-f1-icon':'hp_f1_icon','hp-f1-name':'hp_f1_name','hp-f1-desc':'hp_f1_desc',
   'hp-f2-icon':'hp_f2_icon','hp-f2-name':'hp_f2_name','hp-f2-desc':'hp_f2_desc',
   'hp-f3-icon':'hp_f3_icon','hp-f3-name':'hp_f3_name','hp-f3-desc':'hp_f3_desc',
