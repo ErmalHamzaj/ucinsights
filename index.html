@@ -401,6 +401,23 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 .btn-ghost{padding:11px 16px;background:none;border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;color:var(--text2)}
 .notif-banner{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.18);border-radius:12px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
 .notif-banner button{margin-left:auto;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 13px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;flex-shrink:0}
+/* ---- Profile Hub ---- */
+.pf-hub-hero{display:flex;align-items:center;gap:14px;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:18px}
+.pf-hub-avatar{width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0}
+.pf-hub-info{flex:1;min-width:0}
+.pf-hub-email{font-size:15px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pf-hub-badge{font-size:11px;color:var(--text3);margin-top:3px;display:flex;align-items:center;gap:5px}
+.pf-hub-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0}
+.pf-hub-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.pf-hub-tile{display:flex;flex-direction:column;align-items:center;gap:7px;padding:20px 12px 16px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:border-color .15s,transform .12s;text-align:center;user-select:none}
+.pf-hub-tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.pf-hub-tile:active{transform:translateY(0)}
+.pf-hub-tile-icon{font-size:30px;line-height:1}
+.pf-hub-tile-label{font-size:13px;font-weight:600;color:var(--text)}
+.pf-hub-tile-sub{font-size:11px;color:var(--text3);line-height:1.4}
+.pf-hub-divider{display:flex;align-items:center;gap:10px;margin:4px 0 16px;color:var(--text3);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.pf-hub-divider::before,.pf-hub-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.pf-hub-signin{background:var(--card);border:1px dashed var(--border);border-radius:var(--r);padding:24px 20px;text-align:center;margin-bottom:18px}
 </style>
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1326858927521321"
@@ -587,8 +604,7 @@ html[data-theme="dark"] .theme-btn .ico-sun{display:block}
 <!-- PROFILE -->
 <div class="view" id="view-profile">
   <div class="inner-wrap" style="max-width:640px">
-    <h1 class="page-title" id="profile-title">My UC Profile</h1>
-    <p class="page-sub" id="profile-sub">Helps tailor your activity score, insights and AI answers. Stays on your device.</p>
+    <div id="profile-hub"></div>
     <div id="profile-body"></div>
   </div>
 </div>
@@ -1996,9 +2012,15 @@ var TX={
     med:'Medication',name:'Name',name_ph:'e.g. Mesalamine',dose:'Dose (optional)',dose_ph:'e.g. 800 mg',
     quickpick:'Quick pick',remtimes:'Reminder times',addtime:'Add time',cancel:'Cancel',delete:'Delete',unnamed:'Unnamed',
     med_take:'Time for your medication',trk_remind_title:'UCInsights tracker',
-    trk_remind_morning:'Good morning! Log how you slept and feel today.',
-    trk_remind_mid:'Afternoon check-in — update your tracker.',
-    trk_remind_eve:'Evening log — record today’s symptoms & meals.'
+    trk_remind_morning:’Good morning! Log how you slept and feel today.’,
+    trk_remind_mid:’Afternoon check-in — update your tracker.’,
+    trk_remind_eve:’Evening log — record today\’s symptoms & meals.’,
+    hub_greeting:’My Profile’,hub_sync_on:’Cloud sync on’,hub_signed_as:’Account’,
+    hub_sign_in_cta:’Sign in to back up your data and sync across all your devices.’,hub_sign_in:’Sign In’,
+    hub_tile_tracker:’Tracker’,hub_tile_tracker_sub:’Log daily symptoms’,
+    hub_tile_analytics:’Analytics’,hub_tile_analytics_sub:’View your trends’,
+    hub_tile_mymeds:’My Meds’,hub_tile_mymeds_sub:’Manage reminders’,
+    hub_tile_ucprofile:’My UC Profile’,hub_tile_ucprofile_sub:’Personalize your data’
   },
   tr:{
     nav_news:'Haberler',nav_mymeds:'İlaçlarım',nav_profile:'Profil',
@@ -2022,6 +2044,12 @@ var TX={
     med_take:'İlaç zamanınız',trk_remind_title:'UCInsights takip',
     trk_remind_morning:'Günaydın! Bugün nasıl uyuduğunuzu ve hissettiğinizi kaydedin.',
     trk_remind_mid:'Öğleden sonra kontrolü — takibinizi güncelleyin.',
+    hub_greeting:'Profilim',hub_sync_on:'Bulut eşitleme açık',hub_signed_as:'Hesap',
+    hub_sign_in_cta:'Verilerinizi yedeklemek ve tüm cihazlarınızda eşitlemek için giriş yapın.',hub_sign_in:'Giriş Yap',
+    hub_tile_tracker:'Takip',hub_tile_tracker_sub:'Günlük semptom kaydı',
+    hub_tile_analytics:'Analitik',hub_tile_analytics_sub:'Trendleri görüntüle',
+    hub_tile_mymeds:'İlaçlarım',hub_tile_mymeds_sub:'Hatırlatıcıları yönet',
+    hub_tile_ucprofile:'UC Profilim',hub_tile_ucprofile_sub:'Verileri kişiselleştir',
     trk_remind_eve:'Akşam kaydı — bugünkü semptom ve öğünleri kaydedin.'
   }
 };
@@ -2066,6 +2094,54 @@ function saveProfile(){try{localStorage.setItem(PKEY,JSON.stringify(window.UC_PR
 window.UC_PROFILE=loadProfile();
 
 window.renderProfile=function(){
+  /* --- hub: hero + tiles --- */
+  var hub=document.getElementById('profile-hub');
+  if(hub){
+    var u=window.UC_AUTH_USER,hh='';
+    if(u){
+      var init=esc((u.email||'?').charAt(0).toUpperCase());
+      hh+='<div class="pf-hub-hero">'
+        +'<div class="pf-hub-avatar">'+init+'</div>'
+        +'<div class="pf-hub-info">'
+        +'<div class="pf-hub-email">'+esc(u.email||'')+'</div>'
+        +'<div class="pf-hub-badge"><span class="pf-hub-dot"></span>'+tx('hub_sync_on')+'</div>'
+        +'</div>'
+        +'<button class="btn-ghost" style="padding:7px 13px;font-size:12px;flex-shrink:0" onclick="window.uauth&&window.uauth.open()">'+tx('hub_signed_as')+'</button>'
+        +'</div>';
+    }else{
+      hh+='<div class="pf-hub-signin">'
+        +'<div style="font-size:38px;margin-bottom:10px">👤</div>'
+        +'<div style="font-size:15px;font-weight:600;margin-bottom:6px">'+tx('hub_greeting')+'</div>'
+        +'<div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.55">'+tx('hub_sign_in_cta')+'</div>'
+        +'<button class="pf-save" style="max-width:200px;margin:0 auto;display:block" onclick="window.uauth&&window.uauth.open()">'+tx('hub_sign_in')+'</button>'
+        +'</div>';
+    }
+    hh+='<div class="pf-hub-tiles">'
+      +'<div class="pf-hub-tile" onclick="navTo(\'tracker\',null);initTracker()">'
+        +'<div class="pf-hub-tile-icon">📅</div>'
+        +'<div class="pf-hub-tile-label">'+tx('hub_tile_tracker')+'</div>'
+        +'<div class="pf-hub-tile-sub">'+tx('hub_tile_tracker_sub')+'</div>'
+        +'</div>'
+      +'<div class="pf-hub-tile" onclick="navTo(\'analytics\',null);initAnalytics()">'
+        +'<div class="pf-hub-tile-icon">📊</div>'
+        +'<div class="pf-hub-tile-label">'+tx('hub_tile_analytics')+'</div>'
+        +'<div class="pf-hub-tile-sub">'+tx('hub_tile_analytics_sub')+'</div>'
+        +'</div>'
+      +'<div class="pf-hub-tile" onclick="navTo(\'mymeds\',null);renderMyMeds()">'
+        +'<div class="pf-hub-tile-icon">💊</div>'
+        +'<div class="pf-hub-tile-label">'+tx('hub_tile_mymeds')+'</div>'
+        +'<div class="pf-hub-tile-sub">'+tx('hub_tile_mymeds_sub')+'</div>'
+        +'</div>'
+      +'<div class="pf-hub-tile" onclick="document.getElementById(\'profile-body\').scrollIntoView({behavior:\'smooth\',block:\'start\'})">'
+        +'<div class="pf-hub-tile-icon">🩺</div>'
+        +'<div class="pf-hub-tile-label">'+tx('hub_tile_ucprofile')+'</div>'
+        +'<div class="pf-hub-tile-sub">'+tx('hub_tile_ucprofile_sub')+'</div>'
+        +'</div>'
+      +'</div>';
+    hh+='<div class="pf-hub-divider">'+tx('hub_tile_ucprofile')+'</div>';
+    hub.innerHTML=hh;
+  }
+  /* --- existing profile form --- */
   var p=window.UC_PROFILE,body=document.getElementById('profile-body');if(!body)return;
   var yr=new Date().getFullYear();
   var types=['proctitis','leftSided','extensive','unsure'];
@@ -2462,10 +2538,11 @@ else document.addEventListener('DOMContentLoaded',boot);
   function start(){
     ensureBtn();
     if(typeof window.setL==='function'){var _sl=window.setL;window.setL=function(l){_sl(l);try{updateBtn();}catch(e){}};}
-    supa.auth.getSession().then(function(r){CURRENT=(r&&r.data&&r.data.session)?r.data.session.user:null;updateBtn();});
+    supa.auth.getSession().then(function(r){CURRENT=(r&&r.data&&r.data.session)?r.data.session.user:null;window.UC_AUTH_USER=CURRENT;updateBtn();});
     supa.auth.onAuthStateChange(function(ev,session){
-      CURRENT=session&&session.user?session.user:null;updateBtn();
+      CURRENT=session&&session.user?session.user:null;window.UC_AUTH_USER=CURRENT;updateBtn();
       if(document.getElementById('auth-overlay').style.display==='flex')render();
+      var av=document.querySelector('.view.active');if(av&&av.id==='view-profile'&&window.renderProfile)window.renderProfile();
       if(CURRENT&&!synced){synced=true;syncDown();}
       if(ev==='SIGNED_OUT'){synced=false;}
     });
