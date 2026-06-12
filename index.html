@@ -203,6 +203,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 @media(max-width:1024px){
   .nav-links{display:none}
   .hamburger{display:flex}
+  #acct-btn{display:none!important}
 }
 @media(max-width:680px){
   .sym-grid{grid-template-columns:repeat(2,1fr)}
@@ -2696,8 +2697,8 @@ else document.addEventListener('DOMContentLoaded',boot);
 
   /* ---- local snapshot <-> app state ---- */
   function getLS(k,f){try{var r=localStorage.getItem(k);return r?JSON.parse(r):f;}catch(e){return f;}}
-  function snapshot(){return {profile:getLS('uc-profile-v1',{}),tracker:getLS('uc-tracker-v1',{}),meds:getLS('uc-meds-v1',[])};}
-  function writeLocal(m){try{localStorage.setItem('uc-profile-v1',JSON.stringify(m.profile||{}));localStorage.setItem('uc-tracker-v1',JSON.stringify(m.tracker||{}));localStorage.setItem('uc-meds-v1',JSON.stringify(m.meds||[]));}catch(e){}}
+  function snapshot(){return {profile:getLS('uc-profile-v1',{}),tracker:getLS('uc-tracker-v1',{}),meds:getLS('uc-meds-v1',[]),visits:getLS('uc-visits-v1',[]),meds_taken:getLS('uc-meds-taken-v1',{})};}
+  function writeLocal(m){try{localStorage.setItem('uc-profile-v1',JSON.stringify(m.profile||{}));localStorage.setItem('uc-tracker-v1',JSON.stringify(m.tracker||{}));localStorage.setItem('uc-meds-v1',JSON.stringify(m.meds||[]));localStorage.setItem('uc-visits-v1',JSON.stringify(m.visits||[]));localStorage.setItem('uc-meds-taken-v1',JSON.stringify(m.meds_taken||{}));}catch(e){}}
   function applyToApp(m){
     try{if(m.profile){window.UC_PROFILE=m.profile;if(!Array.isArray(window.UC_PROFILE.currentMeds))window.UC_PROFILE.currentMeds=[];}}catch(e){}
     try{if(window.TRK)window.TRK.entries=m.tracker||{};}catch(e){}
@@ -2716,7 +2717,7 @@ else document.addEventListener('DOMContentLoaded',boot);
   function push(s){
     if(!CURRENT)return Promise.resolve();
     s=s||snapshot();
-    return supa.from('user_state').upsert({user_id:CURRENT.id,profile:s.profile,tracker:s.tracker,meds:s.meds,updated_at:new Date().toISOString()},{onConflict:'user_id'})
+    return supa.from('user_state').upsert({user_id:CURRENT.id,profile:s.profile,tracker:s.tracker,meds:s.meds,visits:s.visits,meds_taken:s.meds_taken,updated_at:new Date().toISOString()},{onConflict:'user_id'})
       .then(function(r){if(r.error)console.warn('UC push:',r.error.message);else lastPushed=JSON.stringify(s);});
   }
   function setStatus(t){var e=document.getElementById('auth-status');if(e)e.textContent=t;}
@@ -2729,7 +2730,9 @@ else document.addEventListener('DOMContentLoaded',boot);
       else{merged={
         tracker:Object.assign({},local.tracker,data.tracker||{}),
         profile:(data.profile&&Object.keys(data.profile).length)?data.profile:local.profile,
-        meds:(Array.isArray(data.meds)&&data.meds.length)?data.meds:local.meds
+        meds:(Array.isArray(data.meds)&&data.meds.length)?data.meds:local.meds,
+        visits:(Array.isArray(data.visits)&&data.visits.length)?data.visits:local.visits,
+        meds_taken:(data.meds_taken&&Object.keys(data.meds_taken).length)?Object.assign({},local.meds_taken,data.meds_taken):local.meds_taken
       };}
       writeLocal(merged); applyToApp(merged);
       return push(merged);
@@ -2809,10 +2812,11 @@ else document.addEventListener('DOMContentLoaded',boot);
     }
     var mm=document.getElementById('mob-menu');
     if(mm&&!document.getElementById('acct-mob')){
-      var m=document.createElement('button');m.id='acct-mob';m.className='mob-link';m.type='button';
+      var m=document.createElement('button');m.id='acct-mob';m.type='button';
+      m.style.cssText='width:100%;padding:10px 14px;border-radius:10px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:8px';
       m.innerHTML=PERSON+' <span id="acct-mob-tx">'+L('sign_in')+'</span>';
       m.onclick=function(){window.uauth.open();if(window.closeMob)window.closeMob();};
-      mm.appendChild(m);
+      mm.insertBefore(m,mm.firstChild);
     }
     updateBtn();
   }
