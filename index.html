@@ -1544,7 +1544,7 @@ function renderTrkStress(){
   document.getElementById('trk-stress').style.accentColor=trkStressColor(TRK.stress);
 }
 function buildTrkSymGrid(){
-  document.getElementById('trk-sym-grid').innerHTML=TSYMS.map(function(s){
+  document.getElementById('trk-sym-grid').innerHTML=TSYMS.map(function(s,i){
     return '<button class="sym-btn-trk" id="tsb-'+s.key+'" onclick="trkToggleSym(\''+s.key+'\')">'
       +'<div style="font-size:22px;margin-bottom:3px">'+SYM_ICONS[i]+'</div>'
       +'<div style="font-size:10px;font-weight:600;color:var(--text2);line-height:1.2" id="tsbl-'+s.key+'">'+trkSymLabel(s)+'</div>'
