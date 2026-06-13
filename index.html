@@ -1782,8 +1782,78 @@ function renderTrkInsightsFn(){
   if(topSym.length>0){out+='<div class="trk-card"><div class="trk-sec">'+L('trk_top_sym')+'</div>';topSym.forEach(function(s){var sym=TSYMS.find(function(x){return x.key===s.key;});if(!sym)return;var col=trkSevColor(+s.avg);out+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:20px">'+sym.icon+'</span><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:13px;font-weight:500">'+trkSymLabel(sym)+'</span><span style="font-size:11px;color:var(--text3)">'+s.freq+'%</span></div><div class="ins-bar"><div class="ins-bar-fill" style="width:'+s.freq+'%;background:'+col+'"></div></div></div><div style="font-size:13px;font-weight:700;color:'+col+';min-width:28px;text-align:right">'+s.avg+'</div></div>';});out+='</div>';}
   if(riskFoods.length>0){out+='<div class="ins-risk-card"><div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">&#x26A0;&#xFE0F; '+L('trk_risk_foods')+'</div><div style="font-size:12px;color:var(--text2);margin-bottom:12px">'+L('trk_risk_foods_sub')+'</div>';riskFoods.forEach(function(f){var food=TFOODS.find(function(x){return x.key===f.key;});if(!food)return;out+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span style="font-size:20px">'+food.icon+'</span><div style="flex:1;font-size:13px;font-weight:500">'+trkFoodLabel(food)+'</div><div style="background:rgba(232,64,64,.1);color:var(--red);font-size:12px;font-weight:700;padding:3px 10px;border-radius:8px">'+f.pct+L('anl_bad_days_lbl')+'</div></div>';});out+='</div>';}
   out+='<div class="ins-tip"><div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px">&#x1F4A1; '+L('trk_tip_title')+'</div><div style="font-size:13px;color:var(--text2);line-height:1.7">'+L('trk_tip')+'</div></div>';
+  // Food Safety Analyzer card
+  out+='<div class="trk-card" id="food-safe-card" style="margin-top:4px">'
+    +'<div class="trk-sec">&#x1F9EA; '+tx('food_safe_title')+'</div>'
+    +'<div style="font-size:12px;color:var(--text3);margin-bottom:12px">'+tx('food_safe_sub')+'</div>'
+    +'<input type="text" id="food-safe-inp" class="pf-input" placeholder="'+tx('food_safe_ph')+'" style="width:100%;margin-bottom:8px">'
+    +'<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">'
+    +'<label style="display:flex;align-items:center;gap:6px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text2);cursor:pointer;white-space:nowrap">'
+    +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> '
+    +tx('food_safe_img')
+    +'<input type="file" id="food-safe-img" accept="image/*" style="display:none" onchange="foodSafePreview(this)">'
+    +'</label>'
+    +'<span id="food-safe-img-name" style="font-size:11px;color:var(--text3);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>'
+    +'<button onclick="analyzeFoodSafety()" style="padding:8px 14px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">'+tx('food_safe_btn')+'</button>'
+    +'</div>'
+    +'<div id="food-safe-result" style="display:none"></div>'
+    +'</div>';
   el.innerHTML=out;
 }
+window.foodSafePreview=function(inp){
+  var name=inp.files&&inp.files[0]?inp.files[0].name:'';
+  var el=document.getElementById('food-safe-img-name');
+  if(el)el.textContent=name;
+};
+window.analyzeFoodSafety=async function(){
+  var inp=document.getElementById('food-safe-inp');
+  var imgInp=document.getElementById('food-safe-img');
+  var resultEl=document.getElementById('food-safe-result');
+  if(!inp||!resultEl)return;
+  var food=(inp.value||'').trim();
+  if(!food&&!(imgInp&&imgInp.files&&imgInp.files[0])){inp.focus();return;}
+  // gather user trigger context from tracker
+  var triggers=[];
+  try{
+    var entries=TRK.entries||{};
+    var foodFlare={};
+    Object.keys(entries).forEach(function(d){var e=entries[d];if(!e)return;var bad=e.overall===3||Object.values(e.symptoms||{}).some(function(v){return v>=3;});(e.foods||[]).forEach(function(f){if(!foodFlare[f])foodFlare[f]={bad:0,t:0};foodFlare[f].t++;if(bad)foodFlare[f].bad++;});});
+    triggers=Object.entries(foodFlare).filter(function(kv){return kv[1].t>=2&&kv[1].bad/kv[1].t>0.4;}).map(function(kv){var fo=TFOODS.find(function(x){return x.key===kv[0];});return fo?trkFoodLabel(fo):kv[0];});
+  }catch(e){}
+  var isTR=window.LANG==='tr';
+  var langNote=isTR?'Respond entirely in Turkish.':'Respond in English.';
+  var triggerNote=triggers.length?('The user\'s known trigger foods (from their personal tracker data) are: '+triggers.join(', ')+'. '):'';
+  var sysPrompt='You are a UC (Ulcerative Colitis) dietary safety expert. '+triggerNote+'Analyze the given food or dish for UC safety. Respond ONLY with valid JSON (no markdown) in this exact format: {"safety":"safe"|"caution"|"avoid","summary":"one sentence","warnings":["w1","w2"]}. '+langNote;
+  // build message content
+  var content=[];
+  if(imgInp&&imgInp.files&&imgInp.files[0]){
+    try{
+      var b64=await new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(imgInp.files[0]);});
+      var mime=imgInp.files[0].type||'image/jpeg';
+      content.push({type:'image',source:{type:'base64',media_type:mime,data:b64}});
+    }catch(e){}
+  }
+  var textPart=food?'Analyze this food/dish for UC safety: '+food:'Analyze this food image for UC safety.';
+  content.push({type:'text',text:textPart});
+  resultEl.style.display='block';
+  resultEl.innerHTML='<div style="text-align:center;padding:14px;color:var(--text3);font-size:13px">&#x23F3; '+tx('food_safe_analyzing')+'</div>';
+  try{
+    var data=await callAPI({model:'claude-sonnet-4-6',max_tokens:400,system:sysPrompt,messages:[{role:'user',content:content}]});
+    var raw=(data.content[0]&&data.content[0].text)||'';
+    var json=null;
+    try{var m=raw.match(/\{[\s\S]*\}/);json=m?JSON.parse(m[0]):null;}catch(e){}
+    if(!json){resultEl.innerHTML='<div style="color:var(--text3);font-size:13px">'+tx('food_safe_err')+'</div>';return;}
+    var col=json.safety==='safe'?'#10b981':json.safety==='caution'?'#f59e0b':'#e84040';
+    var lbl=json.safety==='safe'?tx('food_safe_safe'):json.safety==='caution'?tx('food_safe_caution'):tx('food_safe_avoid');
+    var icon=json.safety==='safe'?'✅':json.safety==='caution'?'⚠️':'🚫';
+    var h='<div style="background:'+col+'18;border:1px solid '+col+'44;border-radius:10px;padding:12px 14px">';
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-size:20px">'+icon+'</span><span style="font-size:15px;font-weight:700;color:'+col+'">'+lbl+'</span></div>';
+    h+='<div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:8px">'+esc(json.summary||'')+'</div>';
+    if(json.warnings&&json.warnings.length){h+='<ul style="margin:0;padding-left:18px;font-size:12px;color:var(--text2);line-height:1.8">';json.warnings.forEach(function(w){h+='<li>'+esc(w)+'</li>';});h+='</ul>';}
+    h+='</div>';
+    resultEl.innerHTML=h;
+  }catch(e){resultEl.innerHTML='<div style="color:var(--text3);font-size:13px">'+tx('food_safe_err')+'</div>';}
+};
 /* ======= END TRACKER ======= */
 /* ======= ANALYTICS ======= */
 function anlApplyLang(){
@@ -1805,6 +1875,73 @@ function anlApplyLang(){
   var tt=document.getElementById('anl-trends-title');if(tt)tt.innerHTML='&#x1F4C8; '+L('anl_trends_title');
   var ts=document.getElementById('anl-trends-sub');if(ts)ts.textContent=L('anl_trends_sub');
 }
+function renderYourWeek(dates){
+  var el=document.getElementById('anl-your-week');if(!el)return;
+  var isTR=window.LANG==='tr';
+  var dayLabels=isTR?['P','S','Ç','P','C','Ct','P']:['S','M','T','W','T','F','S'];
+  // build last 7 calendar days
+  var today=new Date();
+  var days=[];
+  for(var i=6;i>=0;i--){var d=new Date(today);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));}
+  var goodCount=0,bmTotal=0,bmDays=0,stressTotal=0,stressDays=0,loggedCount=0;
+  var boxes='';
+  days.forEach(function(dateStr,idx){
+    var e=TRK.entries[dateStr];
+    var dow=new Date(dateStr).getDay(); // 0=Sun
+    var dayLbl=dayLabels[dow];
+    if(!e){
+      boxes+='<div style="display:flex;flex-direction:column;align-items:center;gap:4px">'
+        +'<div style="width:36px;height:36px;border-radius:8px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3)">—</div>'
+        +'<div style="font-size:10px;color:var(--text3)">'+dayLbl+'</div>'
+        +'</div>';
+      return;
+    }
+    loggedCount++;
+    var overall=e.overall||0;
+    var col=overall===1?'#10b981':overall===2?'#f59e0b':overall===3?'#e84040':'var(--border)';
+    var textCol=overall?'#fff':'var(--text3)';
+    if(overall===1)goodCount++;
+    if(e.bm!=null){bmTotal+=e.bm;bmDays++;}
+    if(e.stress!=null&&e.stress>0){stressTotal+=e.stress;stressDays++;}
+    boxes+='<div style="display:flex;flex-direction:column;align-items:center;gap:4px">'
+      +'<div style="width:36px;height:36px;border-radius:8px;background:'+col+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:'+textCol+'">'+(e.bm!=null?e.bm:'')+'</div>'
+      +'<div style="font-size:10px;color:var(--text3)">'+dayLbl+'</div>'
+      +'</div>';
+  });
+  var avgBM=bmDays?( bmTotal/bmDays).toFixed(1):'—';
+  var avgStress=stressDays?(stressTotal/stressDays).toFixed(1):'—';
+  // personal tip
+  var tip=tx('week_tip_log');
+  if(loggedCount>=5){
+    var stressNum=stressDays?(stressTotal/stressDays):0;
+    if(stressNum>=6)tip=tx('week_tip_stress');
+    else if(goodCount>=5)tip=tx('week_tip_great');
+    else if(bmDays<3)tip=tx('week_tip_water');
+  }
+  var h='<div class="anl-trends-card" style="margin-bottom:16px">'
+    +'<div class="anl-trends-title">📅 '+tx('week_title')+'</div>'
+    +'<div class="anl-trends-sub">'+tx('week_sub')+'</div>'
+    // legend
+    +'<div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">'
+    +'<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:#10b981;display:inline-block"></span>'+tx('week_good')+'</span>'
+    +'<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:#f59e0b;display:inline-block"></span>'+tx('week_okay')+'</span>'
+    +'<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:#e84040;display:inline-block"></span>'+tx('week_bad')+'</span>'
+    +'<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:3px;background:var(--border);display:inline-block"></span>'+tx('week_na')+'</span>'
+    +'</div>'
+    // day boxes
+    +'<div style="display:flex;gap:6px;justify-content:space-between;margin-bottom:14px">'+boxes+'</div>'
+    // stats row
+    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px">'
+    +'<div style="text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:18px;font-weight:700;color:#10b981">'+goodCount+'</div><div style="font-size:10px;color:var(--text3)">'+tx('week_good_days')+'</div></div>'
+    +'<div style="text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:18px;font-weight:700;color:var(--accent)">'+avgBM+'</div><div style="font-size:10px;color:var(--text3)">'+tx('week_avg_bm')+'</div></div>'
+    +'<div style="text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:18px;font-weight:700;color:var(--text)">'+avgStress+'</div><div style="font-size:10px;color:var(--text3)">'+tx('week_avg_stress')+'</div></div>'
+    +'<div style="text-align:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 4px"><div style="font-size:18px;font-weight:700;color:var(--text)">'+loggedCount+'/7</div><div style="font-size:10px;color:var(--text3)">'+tx('week_logged')+'</div></div>'
+    +'</div>'
+    // tip
+    +'<div style="background:rgba(8,145,178,.08);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--text2);line-height:1.6">💡 '+tip+'</div>'
+    +'</div>';
+  el.innerHTML=h;
+}
 function initAnalytics(){
   anlApplyLang();
   try{var r=localStorage.getItem('uc-tracker-v1');if(r)TRK.entries=JSON.parse(r)||{};}catch(e){}
@@ -1812,7 +1949,7 @@ function initAnalytics(){
   if(dates.length<3){document.getElementById('anl-no-data').style.display='block';document.getElementById('anl-content').style.display='none';return;}
   document.getElementById('anl-no-data').style.display='none';document.getElementById('anl-content').style.display='block';
   var banner=document.getElementById('anl-doctor-banner');if(banner)banner.style.display='flex';
-  renderFlarePredict(dates);renderUCAI(dates);renderAttackRisk(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);renderAnlTrends(dates);
+  renderYourWeek(dates);renderFlarePredict(dates);renderUCAI(dates);renderAttackRisk(dates);renderTriggerDiscovery(dates);renderHeatmap(dates);renderAnlTrends(dates);
 }
 function renderAttackRisk(dates){
   var today=dates[dates.length-1],e=TRK.entries[today]||{};
@@ -2015,6 +2152,7 @@ function renderAnlTrends(dates){
     <div class="anl-hero"><h1>&#x1F9EC; <span id="anl-hero-title">Research Analytics</span></h1><p>AI-powered analysis of your personal UC data. Three scientific algorithms running on your symptom logs.</p></div>
     <div id="anl-no-data" class="anl-no-data" style="display:none"><div style="font-size:36px;margin-bottom:10px">&#x1F4CA;</div><div id="anl-nd-title" style="font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px">Not enough data yet</div><div id="anl-nd-sub" style="font-size:13px;margin-bottom:16px">Log at least 3 days in the Tracker to unlock your personal analytics</div><button onclick="navTo('tracker',document.getElementById('nl-tracker'));initTracker()" id="anl-nd-btn" style="padding:8px 20px;background:var(--accent);color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;font-size:13px">Go to Tracker &#x2192;</button></div>
     <div id="anl-content">
+      <div id="anl-your-week"></div>
       <div class="anl-doctor-banner" id="anl-doctor-banner" style="display:none">
         <div class="anl-doctor-icon">&#x1F4CB;</div>
         <div class="anl-doctor-info">
@@ -2087,14 +2225,68 @@ async function ensurePdfFont(doc){
     return true;
   }catch(e){ return false; }
 }
-async function exportTrkPDF(){
-  var allBtns=['trk-pdf-btn','trk-pdf-btn-insights','trk-pdf-btn-anl'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+/* ---- Date-range picker modal ---- */
+function showReportRangePicker(){
+  var isTR=(window.LANG==='tr');
+  var old=document.getElementById('report-range-modal');if(old)old.remove();
+  var overlay=document.createElement('div');
+  overlay.id='report-range-modal';
+  overlay.style.cssText='position:fixed;inset:0;z-index:20000;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px';
+  overlay.onclick=function(e){if(e.target===overlay)overlay.remove();};
+  var today=new Date();
+  function iso(d){return d.toISOString().split('T')[0];}
+  function daysAgo(n){var d=new Date(today);d.setDate(today.getDate()-n);return d;}
+  var todayStr=iso(today);
+  var selStart=iso(daysAgo(6)),selEnd=todayStr;
+  var presets=[
+    {label:isTR?'Son 7 gün':'Last 7 days',   days:6},
+    {label:isTR?'Son 14 gün':'Last 14 days',  days:13},
+    {label:isTR?'Son 30 gün':'Last 30 days',  days:29},
+    {label:isTR?'Son 3 ay':'Last 3 months',   days:89},
+    {label:isTR?'Tüm zamanlar':'All time',     days:null}
+  ];
+  var BSTYLE='padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:13px;cursor:pointer;white-space:nowrap';
+  var BSSEL='padding:8px 14px;border-radius:20px;border:1.5px solid var(--accent);background:var(--accent);color:#fff;font-family:inherit;font-size:13px;cursor:pointer;white-space:nowrap';
+  var INSTYLE='padding:8px 10px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-family:inherit;font-size:13px;width:100%;box-sizing:border-box';
+  function entryCount(){var e=TRK.entries||{};return Object.keys(e).filter(function(d){return(!selStart||d>=selStart)&&(!selEnd||d<=selEnd);}).length;}
+  function build(){
+    overlay.innerHTML='';
+    var c=document.createElement('div');
+    c.style.cssText='background:var(--bg);color:var(--text);border-radius:18px;border:1px solid var(--border);padding:24px;width:100%;max-width:380px;box-shadow:0 14px 44px rgba(0,0,0,.28)';
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><div style="font-size:16px;font-weight:700">'+(isTR?'Rapor Aralığı Seç':'Select Report Range')+'</div><button onclick="document.getElementById(\'report-range-modal\').remove()" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--text3);line-height:1">&times;</button></div>';
+    h+='<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">';
+    presets.forEach(function(p,i){
+      var isSel=(p.days===null&&!selStart)||(p.days!==null&&selStart===iso(daysAgo(p.days))&&selEnd===todayStr);
+      h+='<button onclick="window._rrPreset('+i+')" style="'+(isSel?BSSEL:BSTYLE)+'">'+p.label+'</button>';
+    });
+    h+='</div>';
+    h+='<div style="font-size:12px;color:var(--text2);margin-bottom:6px;font-weight:600">'+(isTR?'Özel Aralık':'Custom range')+'</div>';
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px">';
+    h+='<div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+(isTR?'Başlangıç':'From')+'</div><input id="rr-start" type="date" value="'+selStart+'" max="'+todayStr+'" oninput="window._rrCustom()" style="'+INSTYLE+'"></div>';
+    h+='<div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+(isTR?'Bitiş':'To')+'</div><input id="rr-end" type="date" value="'+selEnd+'" max="'+todayStr+'" oninput="window._rrCustom()" style="'+INSTYLE+'"></div>';
+    h+='</div>';
+    var cnt=entryCount();
+    h+='<div style="font-size:12px;color:var(--text2);margin-bottom:18px;text-align:center;min-height:18px">'+(cnt===0?(isTR?'Bu aralıkta giriş yok':'No entries in this range'):'<b>'+cnt+'</b> '+(isTR?'giriş bulundu':'entries found'))+'</div>';
+    h+='<button onclick="window._rrGo()" style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer'+(cnt===0?';opacity:.45;pointer-events:none':'')+'">'+(isTR?'PDF Oluştur ↓':'Generate PDF ↓')+'</button>';
+    c.innerHTML=h;overlay.appendChild(c);
+  }
+  window._rrPreset=function(i){var p=presets[i];selStart=p.days===null?'':iso(daysAgo(p.days));selEnd=todayStr;build();};
+  window._rrCustom=function(){var s=document.getElementById('rr-start'),e=document.getElementById('rr-end');if(s)selStart=s.value;if(e)selEnd=e.value;build();};
+  window._rrGo=function(){overlay.remove();_exportTrkPDFRange(selStart,selEnd);};
+  build();document.body.appendChild(overlay);
+}
+
+async function exportTrkPDF(){ showReportRangePicker(); }
+
+async function _exportTrkPDFRange(startDate,endDate){
+  var allBtns=['trk-pdf-btn','trk-pdf-btn-insights','trk-pdf-btn-anl','anl-doctor-btn'].map(function(id){return document.getElementById(id);}).filter(Boolean);
   allBtns.forEach(function(b){b.disabled=true;b.style.opacity='0.6';b.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Generating...';});
 
   try{
     await loadJsPDF();
-    var entries=TRK.entries||{};
-    var dates=Object.keys(entries).sort();
+    var allEntries=TRK.entries||{};
+    var dates=Object.keys(allEntries).filter(function(d){return(!startDate||d>=startDate)&&(!endDate||d<=endDate);}).sort();
+    var entries={};dates.forEach(function(d){entries[d]=allEntries[d];});
 
     var {jsPDF}=window.jspdf;
     var doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
@@ -2186,6 +2378,8 @@ async function exportTrkPDF(){
     doc.setFontSize(9);doc.setTextColor(180,195,255);
     var now=new Date();
     doc.text(tt('Generated ','Oluşturuldu ')+now.toLocaleDateString(DLOC,{day:'numeric',month:'long',year:'numeric'}),W/2,35,{align:'center'});
+    var rangeLabel=startDate&&endDate?startDate+' → '+endDate:startDate?(startDate+' → '+now.toISOString().split('T')[0]):(tt('All time','Tüm zamanlar'));
+    doc.text(tt('Period: ','Dönem: ')+rangeLabel+' · '+dates.length+tt(' entries',' giriş'),W/2,41,{align:'center'});
     y=58;
 
     if(dates.length===0){
@@ -2548,7 +2742,26 @@ var TX={
     visits_date:'Date of visit',visits_doctor:'Doctor / clinic',visits_doctor_ph:'e.g. Dr. Smith, General Hospital',
     visits_notes:'Notes from visit',visits_notes_ph:'Medication changes, test results, next steps...',
     visits_save:'Save Visit',visits_past:'Past visits',visits_delete:'Delete',
-    visits_empty:'No visits logged yet.',visits_alert:'Please enter a doctor/clinic name or notes before saving.'
+    visits_empty:'No visits logged yet.',visits_alert:'Please enter a doctor/clinic name or notes before saving.',
+    identity_title:'Personal Information',identity_sub:'Optional — used to personalise your profile.',
+    pf_first_name:'First name',pf_last_name:'Last name',pf_email:'Email',pf_gender:'Gender',pf_country:'Country',
+    pf_gender_male:'Male',pf_gender_female:'Female',pf_gender_other:'Other',pf_gender_ns:'Prefer not to say',
+    pf_phone:'Phone',pf_phone_ph:'+1 555 000 0000',pf_dob:'Date of birth',pf_identity_save:'Save',pf_identity_saved:'✓ Saved!',
+    food_safe_title:'Is this safe for me?',food_safe_sub:'AI food safety check for UC patients',
+    food_safe_ph:'Type a food or dish…',food_safe_img:'Upload photo',food_safe_btn:'Analyze',
+    food_safe_safe:'Safe',food_safe_caution:'Caution',food_safe_avoid:'Avoid',
+    food_safe_analyzing:'Analyzing…',food_safe_err:'Could not analyze. Please try again.',
+    week_title:'Your Week',week_sub:'Last 7 days at a glance',
+    week_good:'Good',week_okay:'Okay',week_bad:'Bad',week_na:'Not logged',
+    week_good_days:'Good days',week_avg_bm:'Avg BM/day',week_avg_stress:'Avg stress',week_logged:'Days logged',
+    week_tip_great:'Great week! Keep up your current routine.',
+    week_tip_stress:'High stress detected. Try relaxation techniques this week.',
+    week_tip_water:'Log your water intake to track hydration patterns.',
+    week_tip_log:'Log every day for better pattern insights.',
+    week_days_en:['S','M','T','W','T','F','S'],
+    data_title:'Data & Privacy',data_sub:'Export or permanently delete your UCInsights data.',
+    data_export:'Export my data',data_delete:'Delete all my data',
+    data_delete_confirm:'This will permanently delete all your data. This cannot be undone.'
   },
   tr:{
     nav_news:'Haberler',nav_mymeds:'İlaçlarım',nav_profile:'Profil',
@@ -2583,10 +2796,29 @@ var TX={
     visits_date:'Ziyaret tarihi',visits_doctor:'Doktor / klinik',visits_doctor_ph:'örn. Dr. Özel, NEV Hastanesi',
     visits_notes:'Ziyaretten notlar',visits_notes_ph:'İlaç değişiklikleri, test sonuçları, sonraki adımlar...',
     visits_save:'Ziyareti Kaydet',visits_past:'Geçmiş ziyaretler',visits_delete:'Sil',
-    visits_empty:'Henüz ziyaret kaydedilmedi.',visits_alert:'Kaydetmeden önce lütfen bir doktor/klinik adı veya not girin.'
+    visits_empty:'Henüz ziyaret kaydedilmedi.',visits_alert:'Kaydetmeden önce lütfen bir doktor/klinik adı veya not girin.',
+    identity_title:'Kişisel Bilgiler',identity_sub:'İsteğe bağlı — profilinizi kişiselleştirmek için kullanılır.',
+    pf_first_name:'Ad',pf_last_name:'Soyad',pf_email:'E-posta',pf_gender:'Cinsiyet',pf_country:'Ülke',
+    pf_gender_male:'Erkek',pf_gender_female:'Kadın',pf_gender_other:'Diğer',pf_gender_ns:'Belirtmek istemiyorum',
+    pf_phone:'Telefon',pf_phone_ph:'+90 555 000 0000',pf_dob:'Doğum tarihi',pf_identity_save:'Kaydet',pf_identity_saved:'✓ Kaydedildi!',
+    food_safe_title:'Bu benim için güvenli mi?',food_safe_sub:'UC hastaları için yapay zeka gıda güvenliği kontrolü',
+    food_safe_ph:'Yiyecek veya yemek yazın…',food_safe_img:'Fotoğraf yükle',food_safe_btn:'Analiz et',
+    food_safe_safe:'Güvenli',food_safe_caution:'Dikkatli ol',food_safe_avoid:'Kaçın',
+    food_safe_analyzing:'Analiz ediliyor…',food_safe_err:'Analiz edilemedi. Lütfen tekrar deneyin.',
+    week_title:'Bu Hafta',week_sub:'Son 7 güne genel bakış',
+    week_good:'İyi',week_okay:'Orta',week_bad:'Kötü',week_na:'Kayıt yok',
+    week_good_days:'İyi günler',week_avg_bm:'Ort. WC/gün',week_avg_stress:'Ort. stres',week_logged:'Kaydedilen gün',
+    week_tip_great:'Harika bir hafta! Mevcut rutininizi sürdürün.',
+    week_tip_stress:'Yüksek stres tespit edildi. Bu hafta rahatlama tekniklerini deneyin.',
+    week_tip_water:'Hidrasyon örüntülerini izlemek için su alımınızı kaydedin.',
+    week_tip_log:'Daha iyi örüntü içgörüleri için her gün kayıt yapın.',
+    week_days_tr:['P','S','Ç','P','C','C','P'],
+    data_title:'Veri ve Gizlilik',data_sub:'UCInsights verilerinizi dışa aktarın veya kalıcı olarak silin.',
+    data_export:'Verilerimi dışa aktar',data_delete:'Tüm verilerimi sil',
+    data_delete_confirm:'Bu işlem tüm verilerinizi kalıcı olarak silecektir. Bu işlem geri alınamaz.'
   }
 };
-function tx(k){return (TX[window.LANG||'en']||TX.en)[k]||TX.en[k]||k;}
+window.tx=function(k){return (TX[window.LANG||'en']||TX.en)[k]||TX.en[k]||k;};
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 
 /* ====================== DARK MODE ====================== */
@@ -2705,6 +2937,30 @@ window.renderProfile=function(){
   // tracker reminders
   h+='<div class="pf-card"><div class="pf-row"><div class="pf-grow"><div style="font-size:14px">'+tx('remind_trk')+'</div><div class="pf-hint">'+tx('remind_trk_hint')+'</div></div>'+sw('remindTracker',p.remindTracker)+'</div></div>';
   h+='<button class="pf-save" id="pf-save-btn" onclick="pfSave()">'+tx('save')+'</button>';
+  // personal identity (name, email, phone, DOB, gender, country)
+  var idn={}; try{idn=JSON.parse(localStorage.getItem('uc-identity')||'{}');}catch(e){}
+  var genders=[['male',tx('pf_gender_male')],['female',tx('pf_gender_female')],['other',tx('pf_gender_other')],['prefer_not',tx('pf_gender_ns')]];
+  h+='<div class="pf-card" style="margin-top:14px">';
+  h+='<div class="pf-label">&#x1F464; '+tx('identity_title')+'</div>';
+  h+='<div class="pf-hint" style="margin:-4px 0 14px">'+tx('identity_sub')+'</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">'
+    +'<div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_first_name')+'</div>'
+    +'<input type="text" id="pf-id-fname" class="pf-input" value="'+esc(idn.first_name||'')+'" style="width:100%"></div>'
+    +'<div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_last_name')+'</div>'
+    +'<input type="text" id="pf-id-lname" class="pf-input" value="'+esc(idn.last_name||'')+'" style="width:100%"></div>'
+    +'</div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_email')+'</div>'
+    +'<input type="email" id="pf-id-email" class="pf-input" value="'+esc(idn.email||'')+'" style="width:100%"></div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_phone')+'</div>'
+    +'<input type="tel" id="pf-id-phone" class="pf-input" placeholder="'+tx('pf_phone_ph')+'" value="'+esc(idn.phone||'')+'" style="width:100%"></div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_dob')+'</div>'
+    +'<input type="date" id="pf-id-dob" class="pf-input" value="'+esc(idn.date_of_birth||'')+'" style="width:100%"></div>';
+  h+='<div style="margin-bottom:10px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_gender')+'</div>'
+    +'<div class="chip-wrap">'+genders.map(function(g){var sel=idn.gender===g[0];return '<button class="pf-chip'+(sel?' sel':'')+'" onclick="pfSetIdentityGender(\''+g[0]+'\')">'+esc(g[1])+'</button>';}).join('')+'</div></div>';
+  h+='<div style="margin-bottom:12px"><div style="font-size:11px;color:var(--text3);margin-bottom:4px">'+tx('pf_country')+'</div>'
+    +'<input type="text" id="pf-id-country" class="pf-input" value="'+esc(idn.country||'')+'" style="width:100%"></div>';
+  h+='<button id="pf-id-save-btn" onclick="pfSaveIdentity()" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">'+tx('pf_identity_save')+'</button>';
+  h+='</div>';
   // doctor visit log
   var visits=[];try{visits=JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){}
   var today=new Date().toISOString().slice(0,10);
@@ -2733,6 +2989,13 @@ window.renderProfile=function(){
     h+='<div style="text-align:center;padding:12px 0 4px;font-size:12px;color:var(--text3)">'+tx('visits_empty')+'</div>';
   }
   h+='</div>';
+  // Data & Privacy
+  h+='<div class="pf-card" style="margin-top:14px">';
+  h+='<div class="pf-label">&#x1F512; '+tx('data_title')+'</div>';
+  h+='<div class="pf-hint" style="margin:-4px 0 14px">'+tx('data_sub')+'</div>';
+  h+='<button onclick="exportMyData()" style="width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:10px">&#x2B07; '+tx('data_export')+'</button>';
+  h+='<button onclick="deleteAllData()" style="width:100%;padding:9px;background:rgba(232,64,64,.1);color:#e84040;border:1px solid rgba(232,64,64,.35);border-radius:8px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">&#x1F5D1; '+tx('data_delete')+'</button>';
+  h+='</div>';
   h+='<div style="height:30px"></div>';
   body.innerHTML=h;
 };
@@ -2745,6 +3008,66 @@ window.pfToggleMed=function(m){var a=window.UC_PROFILE.currentMeds,i=a.indexOf(m
 window.pfSetLab=function(f,v){v=(''+v).trim();window.UC_PROFILE[f]=(v===''?null:(isNaN(+v)?null:+v));saveProfile();};
 window.pfSetEndo=function(n){var p=window.UC_PROFILE;p.endoscopyScore=p.endoscopyScore===n?null:n;saveProfile();renderProfile();};
 window.pfSave=function(){saveProfile();var b=document.getElementById('pf-save-btn');if(b){b.textContent=tx('saved');setTimeout(function(){b.textContent=tx('save');},1600);}};
+window.pfSetIdentityGender=function(g){
+  var idn={};try{idn=JSON.parse(localStorage.getItem('uc-identity')||'{}');}catch(e){}
+  idn.gender=(idn.gender===g?'':g);
+  try{localStorage.setItem('uc-identity',JSON.stringify(idn));}catch(e){}
+  renderProfile();
+};
+window.pfSaveIdentity=function(){
+  var fname=(document.getElementById('pf-id-fname')||{}).value||'';
+  var lname=(document.getElementById('pf-id-lname')||{}).value||'';
+  var email=(document.getElementById('pf-id-email')||{}).value||'';
+  var phone=(document.getElementById('pf-id-phone')||{}).value||'';
+  var dob=(document.getElementById('pf-id-dob')||{}).value||'';
+  var country=(document.getElementById('pf-id-country')||{}).value||'';
+  var idn={};try{idn=JSON.parse(localStorage.getItem('uc-identity')||'{}');}catch(e){}
+  idn.first_name=fname.trim();
+  idn.last_name=lname.trim();
+  idn.email=email.trim();
+  idn.phone=phone.trim();
+  idn.date_of_birth=dob;
+  idn.country=country.trim();
+  try{localStorage.setItem('uc-identity',JSON.stringify(idn));}catch(e){}
+  // push to Supabase user_profiles if signed in
+  if(window.UC_AUTH_USER&&window.supa){
+    window.supa.from('user_profiles').upsert({
+      user_id:window.UC_AUTH_USER.id,
+      first_name:idn.first_name||null,last_name:idn.last_name||null,
+      email:idn.email||null,phone:idn.phone||null,
+      date_of_birth:idn.date_of_birth||null,gender:idn.gender||null,
+      country:idn.country||null
+    },{onConflict:'user_id'})
+      .then(function(r){if(r.error)console.warn('identity push:',r.error.message);});
+  }
+  var b=document.getElementById('pf-id-save-btn');
+  if(b){b.textContent=tx('pf_identity_saved');setTimeout(function(){b.textContent=tx('pf_identity_save');},1600);}
+};
+window.exportMyData=function(){
+  var data={
+    exported_at:new Date().toISOString(),
+    identity:(function(){try{return JSON.parse(localStorage.getItem('uc-identity')||'{}');}catch(e){return {};}}()),
+    profile:(function(){try{return JSON.parse(localStorage.getItem('uc-profile-v1')||'{}');}catch(e){return {};}}()),
+    tracker:(function(){try{return JSON.parse(localStorage.getItem('uc-tracker-v1')||'{}');}catch(e){return {};}}()),
+    meds:(function(){try{return JSON.parse(localStorage.getItem('uc-meds-v1')||'[]');}catch(e){return [];}}()),
+    visits:(function(){try{return JSON.parse(localStorage.getItem('uc-visits-v1')||'[]');}catch(e){return [];}}()),
+    meds_taken:(function(){try{return JSON.parse(localStorage.getItem('uc-meds-taken-v1')||'{}');}catch(e){return {};}}())
+  };
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='UCInsights_data_'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(url);},1000);
+};
+window.deleteAllData=function(){
+  if(!confirm(tx('data_delete_confirm')))return;
+  ['uc-identity','uc-profile-v1','uc-tracker-v1','uc-meds-v1','uc-visits-v1','uc-meds-taken-v1','uc-fired-v1'].forEach(function(k){try{localStorage.removeItem(k);}catch(e){}});
+  if(window.supa&&window.supa.auth){
+    window.supa.auth.signOut().then(function(){location.reload();}).catch(function(){location.reload();});
+  }else{location.reload();}
+};
 window.pfSaveVisit=function(){
   var dateEl=document.getElementById('pf-visit-date'),docEl=document.getElementById('pf-visit-doctor'),notesEl=document.getElementById('pf-visit-notes');
   var vdate=(dateEl&&dateEl.value)||new Date().toISOString().slice(0,10);
@@ -3023,8 +3346,27 @@ else document.addEventListener('DOMContentLoaded',boot);
   function setStatus(t){var e=document.getElementById('auth-status');if(e)e.textContent=t;}
   function syncDown(){
     if(!CURRENT||syncing)return; syncing=true; setStatus(L('syncing'));
-    supa.from('user_state').select('profile,tracker,meds').eq('user_id',CURRENT.id).maybeSingle().then(function(res){
-      if(res&&res.error)console.warn('UC sync:',res.error.message);
+    // pull health state
+    var p1=supa.from('user_state').select('profile,tracker,meds,visits,meds_taken').eq('user_id',CURRENT.id).maybeSingle();
+    // pull personal identity
+    var p2=supa.from('user_profiles').select('first_name,last_name,email,phone,date_of_birth,gender,country').eq('user_id',CURRENT.id).maybeSingle();
+    Promise.all([p1,p2]).then(function(results){
+      var res=results[0],idRes=results[1];
+      if(res&&res.error)console.warn('UC sync state:',res.error.message);
+      if(idRes&&idRes.error)console.warn('UC sync identity:',idRes.error.message);
+      // merge identity into localStorage if remote has data
+      if(idRes&&idRes.data){
+        var remId=idRes.data;
+        var localId={};try{localId=JSON.parse(localStorage.getItem('uc-identity')||'{}');}catch(e){}
+        if(remId.first_name&&!localId.first_name)localId.first_name=remId.first_name;
+        if(remId.last_name&&!localId.last_name)localId.last_name=remId.last_name;
+        if(remId.email&&!localId.email)localId.email=remId.email;
+        if(remId.phone&&!localId.phone)localId.phone=remId.phone;
+        if(remId.date_of_birth&&!localId.date_of_birth)localId.date_of_birth=remId.date_of_birth;
+        if(remId.gender&&!localId.gender)localId.gender=remId.gender;
+        if(remId.country&&!localId.country)localId.country=remId.country;
+        try{localStorage.setItem('uc-identity',JSON.stringify(localId));}catch(e){}
+      }
       var local=snapshot(),data=res&&res.data,merged;
       if(!data){merged=local;}
       else{merged={
