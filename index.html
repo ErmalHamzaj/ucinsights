@@ -2937,6 +2937,7 @@ else document.addEventListener('DOMContentLoaded',boot);
       register_intro:'A few details help our AI give you better insights. Your age, gender, and country let us compare your patterns with similar patients, making your flare predictions and trigger analysis more accurate. 🔒 Private and never shared.',
       sign_in:'Sign in',register:'Register',email:'Email',password:'Password',or:'or',
       send_link:'Email me a magic link',google:'Continue with Google',
+      forgot_pw:'Forgot password?',reset_title:'Reset password',reset_btn:'Send reset link',reset_sent:'Check your email — we sent a password reset link.',back_signin:'Back to sign in',
       need_both:'Enter your email and password.',need_email:'Enter your email first.',
       need_name:'Enter your first and last name.',need_gender:'Select your gender.',
       working:'Working…',check_email:'Check your email to confirm your account.',
@@ -2950,6 +2951,7 @@ else document.addEventListener('DOMContentLoaded',boot);
       register_intro:'Birkaç bilgi, yapay zekanın size daha iyi içgörüler sunmasına yardımcı olur. Yaş, cinsiyet ve ülke bilgileriniz, benzer hastalarla karşılaştırma yaparak alevlenme tahminlerinizi ve tetikleyici analizinizi daha isabetli hale getirir. 🔒 Gizli tutulur, asla paylaşılmaz.',
       sign_in:'Giriş yap',register:'Kayıt ol',email:'E-posta',password:'Şifre',or:'veya',
       send_link:'Bana sihirli bağlantı gönder',google:'Google ile devam et',
+      forgot_pw:'Şifremi unuttum?',reset_title:'Şifre sıfırla',reset_btn:'Sıfırlama bağlantısı gönder',reset_sent:'E-postanızı kontrol edin — şifre sıfırlama bağlantısı gönderdik.',back_signin:'Girişe dön',
       need_both:'E-posta ve şifrenizi girin.',need_email:'Önce e-postanızı girin.',
       need_name:'Ad ve soyadınızı girin.',need_gender:'Cinsiyetinizi seçin.',
       working:'İşleniyor…',check_email:'Hesabınızı onaylamak için e-postanızı kontrol edin.',
@@ -3058,6 +3060,14 @@ else document.addEventListener('DOMContentLoaded',boot);
       supa.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.href}}).then(function(r){showMsg(r.error?r.error.message:L('check_email'),!!r.error);});
     },
     google:function(){supa.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href}});},
+    recover:function(){
+      var em=((document.getElementById('auth-email')||{}).value||'').trim();
+      if(!em){showMsg(L('need_email'),true);return;}
+      showMsg(L('working'));
+      supa.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname}).then(function(r){
+        if(r.error){showMsg(r.error.message,true);}else{showMsg(L('reset_sent'));}
+      });
+    },
     signout:function(){supa.auth.signOut().then(function(){window.uauth.close();});},
     deldata:function(){
       if(!CURRENT||!confirm(L('del_confirm')))return;
@@ -3090,6 +3100,14 @@ else document.addEventListener('DOMContentLoaded',boot);
       h+='<button class="btn-ghost" onclick="uauth.deldata()" style="width:100%;margin-top:10px;color:#c0392b">'+L('del_data')+'</button>';
     }else{
       h+=hdr(L('account'));
+      if(mode==='forgot'){
+        h+='<div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">'+L('reset_title')+'</div>';
+        h+=inp('auth-email','email',L('email'));
+        h+='<button class="pf-save" onclick="uauth.recover()">'+L('reset_btn')+'</button>';
+        h+='<div id="auth-msg" style="font-size:12px;margin-top:10px;min-height:15px;color:var(--text2)"></div>';
+        h+='<button type="button" onclick="uauth.setMode(\'signin\')" style="background:none;border:none;font-size:12px;color:var(--accent);cursor:pointer;padding:4px 0;margin-top:4px;display:block">'+L('back_signin')+'</button>';
+        c.innerHTML=h;return;
+      }
       h+='<div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">'+(mode==='register'?L('register_intro'):L('intro'))+'</div>';
       h+='<div style="display:flex;gap:8px;margin-bottom:14px">'+tab('signin',L('sign_in'))+tab('register',L('register'))+'</div>';
       var IS='width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-family:inherit;font-size:14px;margin-bottom:10px;box-sizing:border-box';
@@ -3101,6 +3119,9 @@ else document.addEventListener('DOMContentLoaded',boot);
         h+='</div>';
       }
       h+=inp('auth-email','email',L('email')+(mode==='register'?' *':''))+inp('auth-pw','password',L('password')+(mode==='register'?' *':''));
+      if(mode==='signin'){
+        h+='<div style="text-align:right;margin-top:-6px;margin-bottom:10px"><button type="button" onclick="uauth.setMode(\'forgot\')" style="background:none;border:none;font-size:12px;color:var(--accent);cursor:pointer;padding:0">'+L('forgot_pw')+'</button></div>';
+      }
       if(mode==='register'){
         var gbtn='padding:11px 6px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;flex:1;transition:all .15s';
         h+='<div style="display:flex;gap:8px;margin-bottom:10px">';
